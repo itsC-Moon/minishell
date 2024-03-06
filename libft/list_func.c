@@ -6,14 +6,16 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:14:13 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/06 15:07:11 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:19:09 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 t_Token *create_list()
 {
 	t_Token *token;
+
 	token = malloc(sizeof(t_Token));
 	if (!token)
 		return (error("malloc"), NULL);
@@ -39,32 +41,30 @@ t_list *lst(char *token, t_Token_Type token_type)
 
 void addfront(t_Token *token, t_list *list)
 {
-	if (token->size == 0)		
+	if (token->size == 0)
 	{
 		token->front = list;
 		token->back = list;
 		token->size = 1;
-		return ;
+		return;
 	}
 	list->next = token->front;
 	token->front->prev = list;
 	token->front = list;
-	token->size += 1;	
+	token->size += 1;
 }
-
 
 void addback(t_Token *token, t_list *list)
 {
-	if (token->size == 0)		
+	if (token->size == 0)
 	{
 		token->back = list;
 		token->front = list;
 		token->size = 1;
-		return ;
+		return;
 	}
 	list->prev = token->back;
 	token->back->next = list;
 	token->back = list;
-	token->size += 1;	
+	token->size += 1;
 }
-
