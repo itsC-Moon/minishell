@@ -6,7 +6,7 @@
 #    By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:29:19 by hibenouk          #+#    #+#              #
-#    Updated: 2024/03/06 15:51:40 by hibenouk         ###   ########.fr        #
+#    Updated: 2024/03/07 13:42:46 by hibenouk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -ggdb3 -Wall -Wextra -Werror -Wunreachable-code -fsanitize=address 
+CFLAGS = -ggdb3 -Wall -Wextra -Wunreachable-code -fsanitize=address 
 
 INC = include
 
