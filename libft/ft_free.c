@@ -1,39 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   alpha.c                                            :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/06 17:42:11 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/08 19:39:33 by hibenouk         ###   ########.fr       */
+/*   Created: 2024/03/08 18:32:33 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/03/08 18:43:05 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isdigit(char c)
+#include "libft.h"
+#include "minishell.h"
+
+void	free_list(t_list *list)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
+	free(list->token);
+	free(list);
 }
 
-int	ft_isspace(char c)
+void	free_tokens(t_Token *token)
 {
-	return (c == '\n' || c == '\t' || c == ' '
-		|| c == '\v' || c == '\f' || c == '\r');
-}
+	t_list	*ptr;
+	t_list	*tmp;
 
-int ft_iskey(char c)
-{
-	return (c == '|' || c == '<' || c == '>');
-}
-
-int is_quote(char c)
-{
-	return (c == '\'' || c == '"');
-}
-
-int is_sep(char c)
-{
-	return (ft_iskey(c) || ft_isspace(c));
+	ptr = token->front;
+	while (ptr)
+	{
+		tmp = ptr;
+		ptr = ptr->next;
+		free_list(tmp);
+	}
+	token->front = NULL;
+	token->back = NULL;
+	token->size = 0;
 }

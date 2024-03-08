@@ -6,7 +6,7 @@
 #    By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:29:19 by hibenouk          #+#    #+#              #
-#    Updated: 2024/03/07 13:42:46 by hibenouk         ###   ########.fr        #
+#    Updated: 2024/03/08 17:17:05 by hibenouk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ INC = include
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	$(CC)  $(CFLAGS) $(OBJ) -I$(INC) -o $(NAME)
+	$(CC)  $(CFLAGS) $(OBJ) -lreadline -I$(INC) -o $(NAME)
 
 %.o : %.c $(INCL)
 	$(CC) -c $(CFLAGS) -I$(INC) $< -o $@

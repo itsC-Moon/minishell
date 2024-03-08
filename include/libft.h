@@ -6,22 +6,28 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:16:47 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/07 15:41:29 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/08 18:38:28 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# include <unistd.h>
 # include <stdarg.h>
+# include <unistd.h>
 # define SKIP 2
 # define LEN 0
+/*debug*/
+# define STR(x) dprintf(2, "%s->%s\n",#x,x);
+# define INT(x) dprintf(2, "%s->%d\n",#x,x);
+# define CHAR(x) dprintf(2, "%s->%c\n",#x,x);
+# define INFO(x) dprintf(2, "%s->line=%d file%s\n",x,__LINE__, __FILE__)
+
 
 typedef enum e_Token_Type
 {
 	STRING_LTR,
 	PIPE,
-	INPUT_redirect,
+	INPUT_REDIRECT,
 	OUTPUT_REDIRECT,
 	APPEND_REDIRECT,
 	HEREDOC
@@ -29,8 +35,8 @@ typedef enum e_Token_Type
 
 typedef enum e_state
 {
-	PARSING_ERROR	= -1,
-	MALLOC_ERROR	= -2,
+	UNC_QUOTE	= -1,
+	UNE_EOF	= -1,
 	NO_ERROR		= -3
 }	t_state;
 
@@ -46,9 +52,12 @@ typedef struct s_Token
 {
 	t_list	*front;
 	t_list	*back;
+	t_state	state;
 	size_t	size;
 }	t_Token;
 
+/*debug*/
+void get_type(t_Token_Type type);
 t_Token		*tokenizer(const char *buffer);
 
 /*list*/
@@ -81,10 +90,12 @@ int			ft_strlen(const char *buffer);
 
 /*parsing*/
 char		*get_word(const char *str);
-int			quote_s(const char *str, int mod, char *buffer);
 int			jump(const char *str, int *len);
 int			quote_s(const char *str, int mod, char *buffer);
 int			word_s(const char *str, char *buffer);
 int			jump_to(const char *buffer, char quote);
 int			get_args(const char *buffer, t_Token *tokens);
+/*free*/
+void	free_list(t_list *list);
+void	free_tokens(t_Token *token);
 #endif /*LIBFT_H*/

@@ -6,33 +6,34 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:17:05 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/07 15:19:23 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/08 20:03:16 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
 
-int quote_s(const char *str, int mod, char *buffer)
-{
-	int i;
-	char quote;
 
+char *get_word(const char *str)
+{
+	int		i;
+	int		len;
+	char	*s;
+
+	if (!str || !*str)
+		return (NULL);
+	if (jump(str, &len) < 0)
+		return (NULL);
+	s = malloc(sizeof(char) * len + 1);
+	check_null(s, "malloc");
+	*s = 0;
 	i = 0;
-	quote = (*str == '\'') * '\'' + (*str == '"') * '"';
-	if (quote == 0)
-		return (0);
-	str++;
-	while (str[i] && str[i] != quote)
+	while (str[i] && !is_sep(str[i]))
 	{
-		if (buffer)
-			buffer[i] = str[i];
-		i++;
+		len = word_s(str + i, s + ft_strlen(s));
+		len += quote_s(str + len + i, SKIP, s + ft_strlen(s));
+		i += len;
 	}
-	if (!str[i])
-		return (-1);
-	if (buffer)
-		buffer[i] = '\0';
-	return (i + mod);
+	return (s);
 }
 
