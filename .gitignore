@@ -1,3 +1,6 @@
 *.o
+a.out
+main
 minishell
-
+file*
+test*

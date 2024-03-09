@@ -6,20 +6,20 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 15:18:31 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/08 20:04:01 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/09 12:46:00 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
 
-static int get_len(const char *buffer)
+static int get_len(const char *buffer, int (*func)(char))
 {
 	int		i;
 	int		l;
 
 	i = 0;
-	while (buffer[i] && !ft_iskey(buffer[i]))
+	while (buffer[i] && !func(buffer[i]))
 	{
 		if (is_quote(buffer[i]))
 		{
@@ -35,14 +35,16 @@ static int get_len(const char *buffer)
 }
 
 
-int	get_args(const char *buffer, t_Token *tokens)
+int	get_args(const char *buffer, t_Token *tokens, int (*func)(char))
 {
 	int		i;
 	int		len;
 	char	*args;
 	t_list	*list;
 	
-	len =get_len(buffer);
+	len =get_len(buffer, func);
+	if (len < 0)
+		return (-42);
 	args = malloc(sizeof(char) * len + 1);
 	check_null(args, "malloc");
 	i = -1;

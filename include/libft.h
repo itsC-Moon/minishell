@@ -6,13 +6,14 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:16:47 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/08 18:38:28 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/09 15:57:47 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <stdarg.h>
+# include <stdlib.h>
 # include <unistd.h>
 # define SKIP 2
 # define LEN 0
@@ -27,10 +28,12 @@ typedef enum e_Token_Type
 {
 	STRING_LTR,
 	PIPE,
-	INPUT_REDIRECT,
-	OUTPUT_REDIRECT,
-	APPEND_REDIRECT,
-	HEREDOC
+	INPUT_REDIR,
+	OUTPUT_REDIR,
+	APPEND_REDIR,
+	HEREDOC,
+	INPUT,
+	OUTPUT
 }	t_Token_Type;
 
 typedef enum e_state
@@ -58,7 +61,6 @@ typedef struct s_Token
 
 /*debug*/
 void get_type(t_Token_Type type);
-t_Token		*tokenizer(const char *buffer);
 
 /*list*/
 t_Token		*create_list(void);
@@ -94,8 +96,8 @@ int			jump(const char *str, int *len);
 int			quote_s(const char *str, int mod, char *buffer);
 int			word_s(const char *str, char *buffer);
 int			jump_to(const char *buffer, char quote);
-int			get_args(const char *buffer, t_Token *tokens);
+int			get_args(const char *buffer, t_Token *tokens, int (*func)(char));
 /*free*/
-void	free_list(t_list *list);
-void	free_tokens(t_Token *token);
+void		free_list(t_list *list);
+void		free_tokens(t_Token *token);
 #endif /*LIBFT_H*/

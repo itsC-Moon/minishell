@@ -6,58 +6,66 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:06:04 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/08 20:04:12 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/09 15:58:18 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "minishell.h"
-#include <string.h>
 
-
-
-int get_redir(const char *buffer, t_Token *tokens, t_Token_Type type)
+static int get_pipe(const char *buffer, t_Token *tokens, t_Token_Type type)
 {
 	t_list	*list;
 	int		offset;
-	char	*word;
 
 	offset = 0;
-	word = NULL;
+	if (type == PIPE && !tokens->front)
+		return (-42);
 	while (ft_isspace(buffer[offset]))
 		offset++;
-	if (!buffer[offset] || ft_iskey(buffer[offset]))
-		return (-5);
-	if (type != PIPE)
-		word = get_word(buffer + offset);
-	if (!word && type != PIPE)
-		return (-5);
-	list = lst(word, type);
+	if (!buffer[offset] || buffer[offset] == '|')
+		return (-42);
+	list = lst(NULL, type);
+	check_null(list, "malloc");
 	addback(tokens, list);
-	if (word)
-		offset += jump(buffer + offset, NULL);
 	return (offset);
 }
 
-int get_next_token(const char *buffer, t_Token *tokens)
+static int get_redir(const char *buffer, t_Token *tokens, t_Token_Type type)
+{
+	int		offset;
+	int		check;
+
+	offset = 0;
+	while (ft_isspace(buffer[offset]))
+		offset++;
+	if (!buffer[offset] || ft_iskey(buffer[offset]))
+		return (-42);
+	check = get_args(buffer + offset, tokens, is_sep);
+	tokens->back->type = type;
+	if (check < 0)
+		return (-42);
+	return (offset + check);
+}
+
+static int get_next_token(const char *buffer, t_Token *tokens)
 {
 	int offset;
 
 	offset = 0;
 	if (cmp(">>", buffer, 2) == 0)
-		offset = get_redir(buffer + 2, tokens, APPEND_REDIRECT) + 2;
+		offset = get_redir(buffer + 2, tokens, APPEND_REDIR) + 2;
 	else if (cmp(">", buffer, 1) == 0)
-		offset = get_redir(buffer + 1, tokens, OUTPUT_REDIRECT) + 1;
+		offset = get_redir(buffer + 1, tokens, OUTPUT_REDIR) + 1;
 	else if (cmp("<<", buffer, 2) == 0)
 		offset = get_redir(buffer + 2, tokens, HEREDOC) + 2;
 	else if (cmp("<", buffer, 1) == 0)
-		offset = get_redir(buffer + 1, tokens, INPUT_REDIRECT) + 1;
+		offset = get_redir(buffer + 1, tokens, INPUT_REDIR) + 1;
 	else if (cmp("|", buffer, 1) == 0)
-		offset = get_redir(buffer + 1, tokens, PIPE) + 1;
+		offset = get_pipe(buffer + 1, tokens, PIPE) + 1;
 	return (offset);
 }
 
-int get_token(const char *buffer, t_Token *tokens)
+static int get_token(const char *buffer, t_Token *tokens)
 {
 	int		offset;
 	int		i;
@@ -72,9 +80,9 @@ int get_token(const char *buffer, t_Token *tokens)
 				|| buffer[offset] == '|')
 			i = get_next_token(buffer + offset, tokens);
 		else
-			i = get_args(buffer + offset, tokens);
+			i = get_args(buffer + offset, tokens, ft_iskey);
 		if (i <= 0)
-			return (free_tokens(tokens), -5);
+			return (free_tokens(tokens), -42);
 		offset += i;
 	}
 	return (0);
@@ -85,6 +93,6 @@ t_Token *tokenizer(const char *buffer)
 
 	tokens = create_list();
 	check_null(tokens, "malloc");
-	get_token(buffer, tokens);
+	get_token(buffer, tokens); //TODO : check for error -42 and free tokens
 	return (tokens);
 }
