@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:59:59 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/09 16:43:56 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/10 19:07:59 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,30 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-typedef  struct s_proc
+typedef enum e_open_type
 {
-	char	**input_file;
-	char	**output_file;
-	char	*binary;
+	INPUT,
+	OUTPUT,
+	APPEND,
+}	t_open_type;
+
+typedef struct s_file
+{
+	char		*file_name;
+	t_open_type	mod;
+}	t_file;
+
+typedef struct s_proc
+{
+	t_file	*file;
+	size_t	nb_file;
+	char	*command; // will be NULL :TODO : search inn PATH
 	char	**args;
 }	t_proc;
 
-typedef  struct s_here_doc
+typedef struct s_here_doc
 {
-	char		*file;
+	char		*file_name;
 	char		*limiter;
 	size_t		nb_doc;
 }	t_here_doc;
@@ -45,5 +58,7 @@ typedef struct s_mini
 
 t_Token		*tokenizer(const char *buffer);
 size_t		count_command(t_Token *token);
-size_t		get_num_redic(t_list *list, t_Token_Type type);
+size_t		get_num_redic(t_list *list);
+/*constructor*/
+t_file *file(char *file_name, t_open_type mod);
 #endif /* !MINISHELL_H */

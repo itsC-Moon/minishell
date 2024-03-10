@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:16:47 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/09 15:57:47 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/10 15:31:38 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ typedef enum e_Token_Type
 	OUTPUT_REDIR,
 	APPEND_REDIR,
 	HEREDOC,
-	INPUT,
-	OUTPUT
 }	t_Token_Type;
 
 typedef enum e_state
@@ -95,7 +93,7 @@ char		*get_word(const char *str);
 int			jump(const char *str, int *len);
 int			quote_s(const char *str, int mod, char *buffer);
 int			word_s(const char *str, char *buffer);
-int			jump_to(const char *buffer, char quote);
+int			jump_to(const char *str, char *buffer);
 int			get_args(const char *buffer, t_Token *tokens, int (*func)(char));
 /*free*/
 void		free_list(t_list *list);

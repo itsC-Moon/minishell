@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 12:20:25 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/09 17:46:24 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/10 10:56:28 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,19 @@ char **_alloc(size_t n)
 	ptr[n] = NULL;
 	return (ptr);
 }
-char **get_args2(const char *buffer)
-{
-	(void)buffer;
-	return (NULL);
-}
+
 void alloc_io(t_list *list, t_proc *proc)
 {
-	size_t	in;
-	size_t	out;
-	
-	in = 0;
-	out = 0;
-	proc->input_file = _alloc(get_num_redic(list, INPUT));	
-	proc->output_file = _alloc(get_num_redic(list, OUTPUT));	
+	size_t it;
+
+	it = 0;
+	proc->nb_file = get_num_redic(list);
+	proc->file = malloc(sizeof(t_file) * proc->nb_file);
+	check_null(proc->file, "malloc");
 	while (list && list->type != PIPE)
 	{
-		if (list->type == INPUT_REDIR || list->type == HEREDOC)
-			proc->input_file[in++] = get_file_name(list->token);
-		else if (list->type == INPUT_REDIR || list->type == APPEND_REDIR)
-			proc->output_file[out++] = get_file_name(list->token);
-		else if ( list->type == STRING_LTR)
-			proc->args = get_args2(list->token);
-		list = list->next;
+		if (list->type != STRING_LTR)
+			proc->file[it].file_name = expand(list->token);
 	}
 }
 

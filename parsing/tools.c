@@ -6,11 +6,13 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:51:18 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/09 15:58:48 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/10 14:56:04 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "minishell.h"
+#include <stdlib.h>
 
 size_t	count_command(t_Token *token)
 {
@@ -28,22 +30,29 @@ size_t	count_command(t_Token *token)
 	return (size + 1);
 }
 
-size_t get_num_redic(t_list *list, t_Token_Type type)
+size_t get_num_redic(t_list *list)
 {
-	size_t in;
-	size_t out;
+	size_t size;
 
-	in = 0;
-	out = 0;
+	size = 0;
 	while (list && list->type != PIPE)
 	{
-		if (list->type  == INPUT_REDIR || list->type == HEREDOC)
-			in++;
-		if (list->type  == OUTPUT_REDIR || list->type == APPEND_REDIR)
-			out++;
+		if (list->type != STRING_LTR)
+			size++;
 		list = list->next;
 	}
-	if (type == INPUT)
-		return (in);
-	return (out);
+	return (size);
 }
+
+t_file *file(char *file_name, t_open_type mod)
+{
+	t_file *file;
+
+	file = malloc(sizeof(t_file));
+	check_null(file, "malloc");
+	file->file_name = file_name;
+	file->mod = mod;
+	return (file);
+}
+
+

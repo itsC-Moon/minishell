@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 16:02:37 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/08 16:06:31 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/10 10:45:12 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ void get_type(t_Token_Type type) {
     case PIPE:
       printf("PIPE\n");
       break;
-    case INPUT_REDIRECT:
-      printf("INPUT_REDIRECT\n");
+    case INPUT_REDIR:
+      printf("INPUT_REDIR\n");
       break;
-    case OUTPUT_REDIRECT:
-      printf("OUTPUT_REDIRECT\n");
+    case OUTPUT_REDIR:
+      printf("OUTPUT_REDIR\n");
       break;
-    case APPEND_REDIRECT:
-      printf("APPEND_REDIRECT\n");
+    case APPEND_REDIR:
+      printf("APPEND_REDIR\n");
       break;
     case HEREDOC:
       printf("HEREDOC\n");
