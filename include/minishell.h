@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:59:59 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/10 19:07:59 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/10 23:39:00 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,20 @@ typedef enum e_open_type
 	OUTPUT,
 	APPEND,
 }	t_open_type;
+
+typedef struct s_lst
+{
+	char	*varible;
+	struct s_lst	*next;
+	struct s_lst	*prev;
+}	t_lst;
+
+typedef struct s_env 
+{
+	t_lst *front;
+	t_lst *back;
+	size_t size;
+}	t_env;
 
 typedef struct s_file
 {
