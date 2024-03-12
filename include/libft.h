@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/06 14:16:47 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/12 13:21:32 by hibenouk         ###   ########.fr       */
+/*   Created: 2024/03/12 13:30:46 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/03/12 13:30:53 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef enum e_state
 	UNE_EOF	= -1,
 	NO_ERROR		= -3
 }	t_state;
+
 
 typedef struct s_list
 {
