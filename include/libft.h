@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:16:47 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/10 15:31:38 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:58:55 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef enum e_state
 	UNE_EOF	= -1,
 	NO_ERROR		= -3
 }	t_state;
+
 
 typedef struct s_list
 {
