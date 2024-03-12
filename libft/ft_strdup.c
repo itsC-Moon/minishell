@@ -6,13 +6,14 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 00:44:40 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/11 01:02:10 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/12 13:10:43 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "stdlib.h"
 
-static int ft_strlen(char *s)
+static int ft_strl(char *s)
 {
 	int i;
 
@@ -28,9 +29,8 @@ char    *ft_strdup(char *s1)
     int        i;
 
     i = 0;
-    dup = malloc(sizeof(char) * (ft_strlen(s1) + 1));
-    if (!dup)
-		exit(1);
+    dup = malloc(sizeof(char) * (ft_strl(s1) + 1));
+	check_null(dup, "malloc");
     while (*s1)
         dup[i++] = *s1++;
     dup[i] = '\0';

@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:16:47 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/10 15:31:38 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/12 13:21:32 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,10 @@ int			ft_iskey(char c);
 int			is_sep(char c);
 int			is_quote(char c);
 int			ft_strlen(const char *buffer);
+char		*ft_strchr(const char	*s, int c);
+char		**ft_split(char *s, char c);
+char		*ft_strdup(char *s1);
+char		*ft_strjoin(char const *s1, char const *s2);
 
 /*parsing*/
 char		*get_word(const char *str);

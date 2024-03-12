@@ -6,11 +6,11 @@
 /*   By: zkotbi <zkotbi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:25:46 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/12 01:41:53 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/12 13:09:09 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
 // static char	**ft_free(char	**rt, int k)
 // {
@@ -66,8 +66,7 @@ char	**ft_split(char *s, char c)
 	i[0] = 0;
 	i[1] = 0;
 	rt = malloc(sizeof(char *) * (count(s, c) + 1));
-	if (rt == NULL)
-		exit (1);
+	check_null(rt, "malloc");
 	while (i[1] < count(s, c))
 	{
 		while (s[*i] && s[*i] == c)
@@ -79,8 +78,7 @@ char	**ft_split(char *s, char c)
 			i[0]++;
 		}
 		rt[i[1]] = malloc(i[2] + 1);
-		if (rt[i[1]] == NULL)
-			exit(1);
+		check_null(rt[i[1]], "malloc");
 		ftstrcpy(s, i[0] - i[2], i[0], rt[i[1]++]);
 	}
 	rt[i[1]] = NULL;

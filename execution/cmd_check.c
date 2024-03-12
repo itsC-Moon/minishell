@@ -6,16 +6,11 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 03:01:08 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/12 03:47:08 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/12 13:24:21 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
-#include <string.h>
-#include <sys/stat.h>
-#include <sys/unistd.h>
-#include <unistd.h>
-#include "test.h"
+#include "minishell.h"
 
 int is_dir(char *path)
 {

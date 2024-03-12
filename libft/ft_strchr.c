@@ -6,11 +6,11 @@
 /*   By: zkotbi <zkotbi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 01:33:21 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/02/20 15:27:11 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/12 13:06:44 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "libft.h"
 
 char	*ft_strchr(const char	*s, int c)
 {
