@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:59:59 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/12 13:25:02 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/13 13:19:55 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,17 @@ typedef struct s_here_doc
 typedef struct s_mini
 {
 	t_proc		*proc;
+	t_env		*envp;
 	size_t		size;
 	t_here_doc	*here_doc;
 }	t_mini;
+/*expand*/
+char		*expand(const char *buffer, t_env *envp);
+void		copy_to_buffer(const char *buffer, char *new_buffer, t_env *envp);
+int			var_len(const char *buffer, t_env *envp);
+int			end_var(char c);
+int			inc(const char *buffer);
+
 /*parsing*/
 t_Token		*tokenizer(const char *buffer);
 size_t		count_command(t_Token *token);
@@ -78,7 +86,7 @@ size_t		get_num_redic(t_list *list);
 t_file		*file(char *file_name, t_open_type mod);
 
 /*env */
-t_lst		*env_search(t_env	*env, char *name);
+char		*env_search(t_env	*env, const char *name);
 t_env		*env_arr_to_lst(char **envp);
 void		check_cmd(t_proc	*proc, char *cmd);
 #endif /* !MINISHELL_H */

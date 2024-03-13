@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 10:56:14 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/11 19:04:01 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:00:20 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,63 +14,14 @@
 #include "minishell.h"
 #include <readline/readline.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-char **get_args2(const char *buffer)
-{
-	(void)buffer;
-	return (NULL);
-}
-// TODO : zaid 
-int var_len(const char *buffer)
-{
-	if (!buffer[1])
-		return (1);
-	return (0);
-}
 
-int end_var(char c)
+int get_expand_len(const char *buffer, t_env *envp)
 {
-	return (c == '\0' || c == '$' || is_sep(c) || c == '"');
-}
-int inc(const char *buffer)
-{
+	int i;
 	int len;
-
-	len = 0;
-	while (!end_var(buffer[len]))
-		len++;
-	return (len + 1);
-}
-
-int	jump_to_s(const char *str, char *new_buffer)
-{
-	int		i;
-
-	if (new_buffer)
-		new_buffer[0] = '\'';
-	i = 1;
-	while (str[i] != '\'')
-	{
-		if (new_buffer)
-			new_buffer[i] = str[i];
-		i++;
-	}
-	if (new_buffer)
-	{
-		new_buffer[i] = str[i];
-		new_buffer[i + 1] = '\0';
-	}
-	return (i + 1);
-}
-
-
-
-int get_expand_len(const char *buffer)
-{
-	int		i;
-	int		len;
-	int		lock_d;
-
+	int lock_d;
 
 	i = 0;
 	len = 0;
@@ -83,28 +34,24 @@ int get_expand_len(const char *buffer)
 			i += jump_to_s(buffer + i, NULL);
 		else if (buffer[i] == '$')
 		{
-			len += var_len(buffer + i);
-			buffer += inc(buffer + i + 1);
+			len += var_len(buffer + i + 1, envp);
+			buffer += inc(buffer + i + 1) + 1;
 		}
 		else
 			i++;
 	}
 	return (i + len);
 }
-void copy_to_buffer(const char *buffer, char *new_buffer)
-{
-	(void)buffer;
-	(void)new_buffer;
-}
-
 int append(const char *buffer, char *new_buffer)
 {
-	int		j;
-	int		i;
+	int j;
+	int i;
 
-	j = ft_strlen(new_buffer);
+	j = strlen(new_buffer);
 	i = 0;
-	while (buffer[i] == ' ' || !end_var(buffer[i]))
+	if (buffer[i] == '"')
+		new_buffer[j++] = buffer[i++];
+	while (buffer[i] && !end_var(buffer[i]))
 	{
 		new_buffer[j] = buffer[i];
 		i++;
@@ -114,15 +61,17 @@ int append(const char *buffer, char *new_buffer)
 	return (i);
 }
 
-char *expand(const char *buffer)
+char *expand(const char *buffer, t_env *envp)
 {
-	int		i;
-	int		lock_d;
-	char	*new_buffer = malloc(100);
-
+	int i;
+	int lock_d;
+	char *new_buffer;
 
 	i = 0;
 	lock_d = 1;
+	new_buffer = malloc((get_expand_len(buffer, envp) + 1) * sizeof(char));
+	check_null(new_buffer, "malloc");
+	*new_buffer = '\0';
 	while (buffer[i])
 	{
 		if (buffer[i] == '"')
@@ -131,27 +80,43 @@ char *expand(const char *buffer)
 			i += jump_to_s(buffer + i, new_buffer);
 		else if (buffer[i] == '$')
 		{
-			copy_to_buffer(buffer + i, new_buffer);
-			buffer += inc(buffer + i + 1);
+			copy_to_buffer(buffer + i + 1, new_buffer, envp);
+			buffer += inc(buffer + i + 1) + 1;
 		}
-		else
-			i += append(buffer + i, new_buffer);
+		i += append(buffer + i, new_buffer);
 	}
 	return (new_buffer);
 }
-int main(int argc, char *argv[])
+
+char **get_args2(const char *buffer, t_env *envp)
 {
+	char *str;
+	char **strs;
+
+	str = expand(buffer, envp);
+	strs = split_arg(str);
+	return (strs);
+}
+int main(int ac, char **argv, char **env)
+{
+	(void)ac;
+	(void)argv;
+
+	t_env	*envp = env_arr_to_lst(env);
 	// char *buffer;
 	// while ((buffer = readline("nudejs>$ ")) != NULL)
 	// {
-	// 	STR(buffer);
-	// 	int len  =get_expand_len(buffer);
-	// 	INT(len)
+	// 	char *new = expand(buffer, envp);
+	// 	STR(new);
 	// }
-	const char *buffer = "\"$PWD\"world";
-	// STR(buffer);
-	int len  = get_expand_len(buffer);
-	INT(len)
-
+	const char *buffer = "$HOME 'ANA'";
+	// char *new = expand(buffer, envp);
+	char **strs = get_args2(buffer, envp);
+	// char **strs = split_arg(buffer);
+	while (*strs)
+	{
+		STR(*strs)
+		strs++;
+	}
 	return EXIT_SUCCESS;
 }

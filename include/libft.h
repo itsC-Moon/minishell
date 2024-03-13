@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:30:46 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/12 13:30:53 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/13 15:48:51 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int			ft_putaddr(int fd, void *ptr);
 
 /*libft*/
 int			cmp(const char *s1, const char *s2, size_t n);
+int			ft_isalpha(int c);
 int			ft_isdigit(char c);
 int			ft_isspace(char c);
 int			ft_iskey(char c);
@@ -99,8 +100,15 @@ int			jump(const char *str, int *len);
 int			quote_s(const char *str, int mod, char *buffer);
 int			word_s(const char *str, char *buffer);
 int			jump_to(const char *str, char *buffer);
+int			jump_to_s(const char *str, char *new_buffer);
 int			get_args(const char *buffer, t_Token *tokens, int (*func)(char));
+char		**split_arg(const char *str);
 /*free*/
 void		free_list(t_list *list);
 void		free_tokens(t_Token *token);
+
+int			jump2(const char *str, int *len);
+int			quote_s2(const char *str, int mod, char *buffer);
+int			word_s2(const char *str, char *buffer);
+
 #endif /*LIBFT_H*/
