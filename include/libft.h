@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
+/*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/06 14:16:47 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/13 02:32:06 by zkotbi           ###   ########.fr       */
+/*   Created: 2024/03/13 21:43:03 by zkotbi            #+#    #+#             */
+/*   Updated: 2024/03/13 21:43:22 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef LIBFT_H
 # define LIBFT_H
@@ -40,6 +41,7 @@ typedef enum e_state
 	UNE_EOF	= -1,
 	NO_ERROR		= -3
 }	t_state;
+
 
 typedef struct s_list
 {
@@ -81,6 +83,7 @@ int			ft_putaddr(int fd, void *ptr);
 
 /*libft*/
 int			cmp(const char *s1, const char *s2, size_t n);
+int			ft_isalpha(int c);
 int			ft_isdigit(char c);
 int			ft_isspace(char c);
 int			ft_iskey(char c);
@@ -88,6 +91,10 @@ int			is_sep(char c);
 int			is_quote(char c);
 int			ft_strlen(const char *buffer);
 void		free_tab(char **tab); // free 2d array
+char		*ft_strchr(const char	*s, int c);
+char		**ft_split(char *s, char c);
+char		*ft_strdup(char *s1);
+char		*ft_strjoin(char const *s1, char const *s2);
 
 /*parsing*/
 char		*get_word(const char *str);
@@ -95,8 +102,15 @@ int			jump(const char *str, int *len);
 int			quote_s(const char *str, int mod, char *buffer);
 int			word_s(const char *str, char *buffer);
 int			jump_to(const char *str, char *buffer);
+int			jump_to_s(const char *str, char *new_buffer);
 int			get_args(const char *buffer, t_Token *tokens, int (*func)(char));
+char		**split_arg(const char *str);
 /*free*/
 void		free_list(t_list *list);
 void		free_tokens(t_Token *token);
+
+int			jump2(const char *str, int *len);
+int			quote_s2(const char *str, int mod, char *buffer);
+int			word_s2(const char *str, char *buffer);
+
 #endif /*LIBFT_H*/

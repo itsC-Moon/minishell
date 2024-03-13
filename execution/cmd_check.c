@@ -5,17 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 03:01:08 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/13 21:04:49 by zkotbi           ###   ########.fr       */
+/*   Created: 2024/03/13 21:42:08 by zkotbi            #+#    #+#             */
+/*   Updated: 2024/03/13 21:42:09 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
-#include <string.h>
-#include <sys/stat.h>
-#include <sys/unistd.h>
-#include <unistd.h>
-#include "tmp.h"
+
+
+#include "minishell.h"
 
 int is_dir(char *path)
 {

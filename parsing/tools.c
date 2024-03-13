@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:51:18 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/10 14:56:04 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/13 15:16:01 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,3 +56,40 @@ t_file *file(char *file_name, t_open_type mod)
 }
 
 
+int	jump_to_s(const char *str, char *new_buffer)
+{
+	int		i;
+	int		j;
+
+	if (new_buffer)
+		j = ft_strlen(new_buffer);
+	if (new_buffer)
+		new_buffer[j++] = '\'';
+	i = 1;
+	while (str[i] != '\'')
+	{
+		if (new_buffer)
+			new_buffer[j++] = str[i];
+		i++;
+	}
+	if (new_buffer)
+	{
+		new_buffer[j++] = str[i];
+		new_buffer[j] = '\0';
+	}
+	return (i + 1);
+}
+
+void copy_to_buffer(const char *buffer, char *new_buffer, t_env *envp)
+{
+	int		j;
+	char	*new;
+	
+	new = env_search(envp, buffer);
+	if (!new)
+		return ;
+	j = ft_strlen(new_buffer);
+	while (*new)
+		new_buffer[j++] = *(new++);
+	new_buffer[j] = '\0';
+}

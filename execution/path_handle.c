@@ -5,28 +5,23 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/11 23:05:58 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/13 21:05:44 by zkotbi           ###   ########.fr       */
+/*   Created: 2024/03/13 21:44:58 by zkotbi            #+#    #+#             */
+/*   Updated: 2024/03/13 21:45:01 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
-#include "tmp.h"
-#include <stdlib.h>
-#include <sys/stat.h>
-#include <libc.h>
-#include <sys/unistd.h>
-#include <unistd.h>
+
+#include "minishell.h"
 
 char **get_paths(t_env	*env)
 {
-	t_lst *path_lst;
+	char *path;
 	char **paths;
 
-	path_lst = env_search(env, "PATH");
-	if (path_lst == NULL)
+	path = env_search(env, "PATH");
+	if (path == NULL)
 		return (NULL);
-	paths = ft_split(&(path_lst->varible[5]), ':');
+	paths = ft_split(path, ':');
 	if (*paths == NULL)
 		return (NULL);
 	return (paths);
@@ -75,17 +70,17 @@ char *get_cmd_path(t_proc	*proc, t_env *env)
 	cmd = get_path(paths, proc->args[0]);
 	return (cmd); // TODO : free paths;
 }
-int main(int argc, char **argv, char **envp)
-{
-	t_env *env = env_arr_to_lst(envp);
-	t_proc proc;
+// int main(int argc, char **argv, char **envp)
+// {
+// 	t_env *env = env_arr_to_lst(envp);
+// 	t_proc proc;
 
-	proc.args = &argv[1];
-	proc.command = get_cmd_path(&proc, env);
-	if (argc < 1 || argv[0] == NULL)
-		return (1);
-	printf("cmd path == %s\n", proc.command);
-	check_cmd(&proc, proc.command);
+// 	proc.args = &argv[1];
+// 	proc.command = get_cmd_path(&proc, env);
+// 	if (argc < 1 || argv[0] == NULL)
+// 		return (1);
+// 	printf("cmd path == %s\n", proc.command);
+// 	check_cmd(&proc, proc.command);
 
-	return (EXIT_SUCCESS);
-}
+// 	return (EXIT_SUCCESS);
+// }

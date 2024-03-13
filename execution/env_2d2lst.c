@@ -6,12 +6,11 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 23:32:40 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/12 00:06:11 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/12 13:24:30 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
-#include "test.h" // ft_strdup prototype 
+#include "minishell.h"
 
 t_lst *lst_addback(t_lst	*lst, char *to_add)
 {

@@ -6,112 +6,117 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 10:56:14 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/10 18:53:21 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:00:20 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
 #include <readline/readline.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-char **get_args2(const char *buffer)
-{
-	(void)buffer;
-	return (NULL);
-}
-// TODO : zaid 
-int var_len(const char *buffer)
-{
-	(void)buffer;
-	return (0);
-}
 
-int end_var(char c)
+int get_expand_len(const char *buffer, t_env *envp)
 {
-	return (c == '\0' || c == '$' || is_sep(c) || c == '"');
-}
-int inc(const char *buffer)
-{
+	int i;
 	int len;
-
-	len = 0;
-	while (!end_var(buffer[len]))
-		len++;
-	return (len);
-}
-
-int	jump_to(const char *str, char *buffer)
-{
-	int		i;
-	char	quote;
+	int lock_d;
 
 	i = 0;
-	quote = (*str == '\'') * '\'' + (*str == '"') * '"';
-	if (buffer)
-		*buffer++ = *(str++);
-	while (str[i] != quote)
+	len = 0;
+	lock_d = 1;
+	while (buffer[i])
 	{
-		if (buffer)
-			buffer[i] = str[i];
+		if (buffer[i] == '"')
+			lock_d = (lock_d != 1);
+		if (lock_d && buffer[i] == '\'')
+			i += jump_to_s(buffer + i, NULL);
+		else if (buffer[i] == '$')
+		{
+			len += var_len(buffer + i + 1, envp);
+			buffer += inc(buffer + i + 1) + 1;
+		}
+		else
+			i++;
+	}
+	return (i + len);
+}
+int append(const char *buffer, char *new_buffer)
+{
+	int j;
+	int i;
+
+	j = strlen(new_buffer);
+	i = 0;
+	if (buffer[i] == '"')
+		new_buffer[j++] = buffer[i++];
+	while (buffer[i] && !end_var(buffer[i]))
+	{
+		new_buffer[j] = buffer[i];
 		i++;
+		j++;
 	}
-	if (buffer)
-	{
-		buffer[i] = quote;
-		buffer[i] = '\0';
-	}
+	new_buffer[j] = '\0';
 	return (i);
 }
 
-int get_expand_len(const char *buffer)
+char *expand(const char *buffer, t_env *envp)
 {
-	int		i;
-	int		len;
+	int i;
+	int lock_d;
+	char *new_buffer;
 
 	i = 0;
-	len = 0;
-	char new_buffer[1024] = {0};
+	lock_d = 1;
+	new_buffer = malloc((get_expand_len(buffer, envp) + 1) * sizeof(char));
+	check_null(new_buffer, "malloc");
+	*new_buffer = '\0';
 	while (buffer[i])
 	{
-		if (buffer[i] == '\'')
-			i += jump_to(buffer + i, NULL);
-		if (buffer[i] == '$')
-			buffer += inc(buffer + i + 1) + 1;
-		else
+		if (buffer[i] == '"')
+			lock_d = (lock_d != 1);
+		if (lock_d && buffer[i] == '\'')
+			i += jump_to_s(buffer + i, new_buffer);
+		else if (buffer[i] == '$')
 		{
-			new_buffer[i] = buffer[i];
-			i++;
+			copy_to_buffer(buffer + i + 1, new_buffer, envp);
+			buffer += inc(buffer + i + 1) + 1;
 		}
+		i += append(buffer + i, new_buffer);
 	}
-	int len2 = strlen(new_buffer);
-	STR(new_buffer)
-	INT(len2)
-	return (i + len);
+	return (new_buffer);
 }
-// char *expand(char *buffer)
-// {
-// 	int		lock;
-// 	int		i;
 
-// 	i = 0;
-// 	lock = 1;
-// 	while (buffer[i])
-// 	{
-// 		if (lock && buffer[i] == '$')
-// 			
-// 	}
-// }
-int main(int argc, char *argv[])
+char **get_args2(const char *buffer, t_env *envp)
 {
+	char *str;
+	char **strs;
+
+	str = expand(buffer, envp);
+	strs = split_arg(str);
+	return (strs);
+}
+int main(int ac, char **argv, char **env)
+{
+	(void)ac;
+	(void)argv;
+
+	t_env	*envp = env_arr_to_lst(env);
 	// char *buffer;
 	// while ((buffer = readline("nudejs>$ ")) != NULL)
 	// {
-	// 	STR(buffer);
-	// 	int len  =get_expand_len(buffer);
+	// 	char *new = expand(buffer, envp);
+	// 	STR(new);
 	// }
-	const char *buffer = "'$hello' world";
-	STR(buffer);
-	get_expand_len(buffer);
-
+	const char *buffer = "$HOME 'ANA'";
+	// char *new = expand(buffer, envp);
+	char **strs = get_args2(buffer, envp);
+	// char **strs = split_arg(buffer);
+	while (*strs)
+	{
+		STR(*strs)
+		strs++;
+	}
 	return EXIT_SUCCESS;
 }
