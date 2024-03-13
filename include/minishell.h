@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:59:59 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/10 23:39:00 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/13 01:04:07 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@ typedef enum e_open_type
 	APPEND,
 }	t_open_type;
 
+// typedef enum e_proc_type
+// {
+	// BIULTEIN,
+	// REDIRECTION,
+	// COMMAND,
+	// HERE_DOC,
+// }	t_proc_type;
+
 typedef struct s_lst
 {
 	char	*varible;
@@ -45,15 +53,16 @@ typedef struct s_env
 typedef struct s_file
 {
 	char		*file_name;
+	int			fd;
 	t_open_type	mod;
 }	t_file;
 
 typedef struct s_proc
 {
-	t_file	*file;
-	size_t	nb_file;
-	char	*command; // will be NULL :TODO : search inn PATH
-	char	**args;
+	t_file		*file;
+	size_t		nb_file;
+	char		*command; // will be NULL :TODO : search inn PATH
+	char		**args;
 }	t_proc;
 
 typedef struct s_here_doc

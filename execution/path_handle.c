@@ -6,12 +6,12 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 23:05:58 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/12 03:43:41 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/13 21:05:44 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include "test.h"
+#include "tmp.h"
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <libc.h>

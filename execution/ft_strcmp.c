@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.c                                          :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 00:31:36 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/13 02:47:20 by zkotbi           ###   ########.fr       */
+/*   Created: 2024/03/13 02:26:11 by zkotbi            #+#    #+#             */
+/*   Updated: 2024/03/13 02:27:42 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
-#include "../include/libft.h"
-#include "tmp.h"
 #include <libc.h>
-#include <unistd.h>
 
-void init_pipe(t_proc *proc, unsigned int size)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	
-}
+	size_t	i;
 
-void	init_cmd(t_proc	*proc)
-{
-	open_files(proc);
-	
-}
-
-void	init_procs(t_mini	*mini)
-{
-	if (mini->size == 1)
-		init_cmd(mini->proc);
-	else if (mini->size > 1)
-		init_pipe(mini->proc, mini->size);
+	i = 0;
+	while (s1[i] || s2[i])
+	{
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
+	}
+	return (0);
 }

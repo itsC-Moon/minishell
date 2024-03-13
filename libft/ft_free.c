@@ -6,13 +6,26 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 18:32:33 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/08 18:43:05 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/13 02:38:20 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "minishell.h"
+#include "../include/libft.h"
+// #include "minishell.h"
 
+void  free_tab(char **tab)
+{
+	int i;
+
+	i = 0;
+	while (tab[i] != NULL)
+	{
+		free(tab[i]);
+		tab[i] = NULL;
+		i++;
+	}
+	free(tab);
+}
 void	free_list(t_list *list)
 {
 	free(list->token);

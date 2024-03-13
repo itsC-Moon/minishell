@@ -1,36 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.c                                          :+:      :+:    :+:   */
+/*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 00:31:36 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/13 02:47:20 by zkotbi           ###   ########.fr       */
+/*   Created: 2024/03/13 02:41:10 by zkotbi            #+#    #+#             */
+/*   Updated: 2024/03/13 02:42:13 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include "../include/libft.h"
 #include "tmp.h"
-#include <libc.h>
-#include <unistd.h>
 
-void init_pipe(t_proc *proc, unsigned int size)
+int	check_builtin(char *cmd_name)
 {
-	
-}
+	char **blin;
+	int	i;
 
-void	init_cmd(t_proc	*proc)
-{
-	open_files(proc);
-	
-}
-
-void	init_procs(t_mini	*mini)
-{
-	if (mini->size == 1)
-		init_cmd(mini->proc);
-	else if (mini->size > 1)
-		init_pipe(mini->proc, mini->size);
+	i = 0;
+	blin = ft_split("exit env unset export pwd cd echo", ' ');
+	while (blin[i] != NULL)
+	{
+		if (ft_strcmp(blin[i], cmd_name) == 0)
+			return (free_tab(blin), 1);
+		i++;
+	}
+	return(0);
 }

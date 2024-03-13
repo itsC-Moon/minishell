@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:16:47 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/10 15:31:38 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/13 02:32:06 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int			ft_iskey(char c);
 int			is_sep(char c);
 int			is_quote(char c);
 int			ft_strlen(const char *buffer);
+void		free_tab(char **tab); // free 2d array
 
 /*parsing*/
 char		*get_word(const char *str);
