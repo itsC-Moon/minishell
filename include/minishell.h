@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
+/*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:59:59 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/15 13:17:03 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/15 21:57:01 by hicham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define MINISHELL_H
 # include <stdio.h>
 # include "libft.h"
-#include <sys/_types/_size_t.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <sys/stat.h>
@@ -30,6 +29,14 @@ typedef enum e_open_type
 	APPEND,
 	_HEREDOC,
 }	t_open_type;
+
+// typedef enum e_proc_type
+// {
+	// BIULTEIN,
+	// REDIRECTION,
+	// COMMAND,
+	// HERE_DOC,
+// }	t_proc_type;
 
 typedef struct s_lst
 {
@@ -48,16 +55,18 @@ typedef struct s_env
 typedef struct s_file
 {
 	char		*file_name;
+	int			fd;
 	char		*limiter;
 	t_open_type	mod;
 }	t_file;
 
 typedef struct s_proc
 {
-	t_file	*file;
-	size_t	nb_file;
-	char	*command;
-	char	**args;
+	t_file		*file;
+	size_t		nb_file;
+	int			io_fd[2];
+	char		*command; // will be NULL :TODO : search inn PATH
+	char		**args;
 	size_t	nb_args;
 }	t_proc;
 
@@ -66,9 +75,20 @@ typedef struct s_mini
 	t_proc		*proc;
 	t_env		*envp;
 	size_t		size;
+	int			status;
 	t_file		*here_doc;
 	size_t		nb_doc;
 }	t_mini;
+
+/*EXCUTE*/
+
+void	init_procs(t_mini	*mini);
+
+/*pipe*/
+int	init_pipe(t_proc *proc, unsigned int size, t_env *envp);
+void get_pipe_io_files(t_proc	*proc, int *fd);
+
+
 /*expand*/
 char		*expand(const char *buffer, t_env *envp);
 void		copy_to_buffer(const char *buffer, char *new_buffer, t_env *envp);

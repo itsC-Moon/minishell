@@ -6,14 +6,13 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:51:18 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/15 13:09:29 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/15 21:58:01 by hicham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
 #include <stdlib.h>
-#include <sys/_types/_size_t.h>
 #include <unistd.h>
 
 size_t	count_command(t_Token *token)

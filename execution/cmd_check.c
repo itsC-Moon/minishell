@@ -5,10 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 03:01:08 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/12 13:24:21 by hibenouk         ###   ########.fr       */
+/*   Created: 2024/03/13 21:42:08 by zkotbi            #+#    #+#             */
+/*   Updated: 2024/03/13 21:42:09 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "minishell.h"
 
@@ -35,8 +37,7 @@ void exit_error(char *str, int exit_val)
 
 void	check_cmd(t_proc	*proc, char *cmd)
 {
-	if (cmd[0] == '.' && cmd[1] == '/'
-		&& is_dir(cmd) == 1)
+	if (ft_strchr(cmd, '/') != NULL && is_dir(cmd) == 1)
 		exit_error("is a directory", 126);
 	else if (access(cmd, F_OK) == -1 && ft_strchr(cmd, '/') != NULL)
 		exit_error("No such a file or directory", 1);

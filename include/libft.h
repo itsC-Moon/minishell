@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
+/*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:30:46 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/15 13:16:20 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/15 21:53:47 by hicham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef LIBFT_H
 # define LIBFT_H
@@ -91,6 +92,7 @@ int			ft_iskey(char c);
 int			is_sep(char c);
 int			is_quote(char c);
 int			ft_strlen(const char *buffer);
+void		free_tab(char **tab); // free 2d array
 char		*ft_strchr(const char	*s, int c);
 char		**ft_split(char *s, char c);
 char		*ft_strdup(char *s1);

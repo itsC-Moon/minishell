@@ -1,3 +1,33 @@
+Makefile
+README.md
+a.out
+app
+builtin
+compile_flags.txt
+execution
+file
+include
+libft
+minishell
+obj
+out
+parsing
+src
+Makefile
+README.md
+a.out
+app
+builtin
+compile_flags.txt
+execution
+file
+include
+libft
+minishell
+obj
+out
+parsing
+src
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
