@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:30:46 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/13 15:48:51 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/15 13:16:20 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@
 /*debug*/
 # define STR(x) dprintf(2, "%s->%s\n",#x,x);
 # define INT(x) dprintf(2, "%s->%d\n",#x,x);
+# define UINT(x) dprintf(2, "%s->%lu\n",#x,x);
 # define CHAR(x) dprintf(2, "%s->%c\n",#x,x);
-# define INFO(x) dprintf(2, "%s->line=%d file%s\n",x,__LINE__, __FILE__)
+# define INFO(x) dprintf(2, "%s->line=%d file%s\n",x,__LINE__, __FILE__);exit(0);
+
 
 
 typedef enum e_Token_Type
@@ -93,6 +95,7 @@ char		*ft_strchr(const char	*s, int c);
 char		**ft_split(char *s, char c);
 char		*ft_strdup(char *s1);
 char		*ft_strjoin(char const *s1, char const *s2);
+char		*ft_itoa(int n);
 
 /*parsing*/
 char		*get_word(const char *str);

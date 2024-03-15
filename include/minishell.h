@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:59:59 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/13 13:19:55 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/15 13:17:03 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 # include <stdio.h>
 # include "libft.h"
+#include <sys/_types/_size_t.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <sys/stat.h>
@@ -27,6 +28,7 @@ typedef enum e_open_type
 	INPUT,
 	OUTPUT,
 	APPEND,
+	_HEREDOC,
 }	t_open_type;
 
 typedef struct s_lst
@@ -46,6 +48,7 @@ typedef struct s_env
 typedef struct s_file
 {
 	char		*file_name;
+	char		*limiter;
 	t_open_type	mod;
 }	t_file;
 
@@ -53,23 +56,18 @@ typedef struct s_proc
 {
 	t_file	*file;
 	size_t	nb_file;
-	char	*command; // will be NULL :TODO : search inn PATH
+	char	*command;
 	char	**args;
+	size_t	nb_args;
 }	t_proc;
-
-typedef struct s_here_doc
-{
-	char		*file_name;
-	char		*limiter;
-	size_t		nb_doc;
-}	t_here_doc;
 
 typedef struct s_mini
 {
 	t_proc		*proc;
 	t_env		*envp;
 	size_t		size;
-	t_here_doc	*here_doc;
+	t_file		*here_doc;
+	size_t		nb_doc;
 }	t_mini;
 /*expand*/
 char		*expand(const char *buffer, t_env *envp);
@@ -80,13 +78,21 @@ int			inc(const char *buffer);
 
 /*parsing*/
 t_Token		*tokenizer(const char *buffer);
+t_mini		parser(const char *buffer, t_env *envp);
 size_t		count_command(t_Token *token);
-size_t		get_num_redic(t_list *list);
+size_t		get_num_redic(t_list *list, t_Token_Type type);
 /*constructor*/
-t_file		*file(char *file_name, t_open_type mod);
+t_file		file(char *file_name, t_open_type mod);
+t_file		file_here(char *limiter, t_open_type mod);
 
 /*env */
 char		*env_search(t_env	*env, const char *name);
 t_env		*env_arr_to_lst(char **envp);
 void		check_cmd(t_proc	*proc, char *cmd);
+
+/*debug*/
+
+void print2d(char **argv, size_t size);
+void print_mini(t_mini mini);
+void print_file(t_file *file, size_t size);
 #endif /* !MINISHELL_H */

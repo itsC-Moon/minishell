@@ -6,12 +6,13 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 12:20:25 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/13 15:48:03 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/15 13:27:21 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 char **_alloc(size_t n)
@@ -23,24 +24,43 @@ char **_alloc(size_t n)
 	ptr[n] = NULL;
 	return (ptr);
 }
-
+static void __alloc(t_list *list, t_proc *proc)
+{
+	proc->nb_file = get_num_redic(list, INPUT_REDIR);
+	proc->nb_args = get_num_redic(list,STRING_LTR);
+	proc->args = malloc(sizeof(char**) * (proc->nb_args + 1));
+	check_null(proc->args, "malloc");
+	proc->file = malloc(sizeof(t_file) * proc->nb_file);
+	check_null(proc->file, "malloc");
+}
 void alloc_io(t_list *list, t_proc *proc, t_env *envp)
 {
 	size_t it;
+	size_t i;
 
 	it = 0;
-	proc->nb_file = get_num_redic(list);
-	proc->file = malloc(sizeof(t_file) * proc->nb_file);
-	check_null(proc->file, "malloc");
+	i = 0;
+	if (list && list->type == PIPE)
+		list = list->next;
+	__alloc(list, proc);
 	while (list && list->type != PIPE)
 	{
-		if (list->type != STRING_LTR)
-			proc->file[it].file_name = expand(list->token, envp);
-		// else
-		// {
-		// 	proc->args = get_a
-		// }
+		if (list->type == STRING_LTR)
+			proc->args[i++] = expand(list->token, envp);
+		else if (list->type == INPUT_REDIR)
+			proc->file[it++] = file(expand(list->token, envp), INPUT);
+		else if (list->type == OUTPUT_REDIR)
+			proc->file[it++] = file(expand(list->token, envp), OUTPUT);
+		else if (list->type == APPEND_REDIR)
+			proc->file[it++] = file(expand(list->token, envp), APPEND);
+		// else if (list->type == HEREDOC)
+		// 	proc->file[it++] = file_here(list->token, _HEREDOC);
+		// if (it != 0)
+		// 	STR(proc->file[it - 1].file_name)
+		// STR(list->token)
+		list = list->next;
 	}
+	proc->args[i] = NULL;
 }
 
 t_mini parsing(t_Token *tokens, t_env *envp)
@@ -60,6 +80,8 @@ t_mini parsing(t_Token *tokens, t_env *envp)
 	{
 		alloc_io(token, it + i, envp);
 		while (token && token->type != PIPE)
+			token = token->next;
+		if (token && token->type == PIPE)
 			token = token->next;
 		i++;
 	}

@@ -6,36 +6,33 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:41:41 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/12 13:34:39 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/15 13:28:32 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
-#include <readline/readline.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
-// int main()
-// {
-// 	char *buffer;
-// 	while ((buffer =  readline("nudejs>")) != NULL)
-// 	{
-// 		t_Token *token = tokenizer(buffer);
-// 		free(buffer);
-// 		t_list *ptr = token->front;
-// 		if (!ptr)
-// 			printf("syntax Error\n");
-// 		while (ptr)
-// 		{
-// 			printf("%s -->", ptr->token);
-// 			get_type(ptr->type);
-// 			ptr = ptr->next;
-// 		}
-// 		if (token->front)
-// 			free_tokens(token);
-// 		free(token);
-// 	}
+int main(int ac, char **argv, char **env)
+{
+	(void)ac;
+	(void)argv;
+	(void)env;
 
-// }
+	t_env	*envp = env_arr_to_lst(env);
+	const char *buffer = "cat -pwd| <hi >>hello -ls | ls >file1 <file2 >>file3 <file4 >>file5";
+	t_mini mini = parser(buffer, envp);
+	print_mini(mini);
+
+	// it = mini.proc[1];
+	// print2d(it.args, it.nb_args);
+	// print_file(it.file, it.nb_file);
+	// it = mini.proc[2];
+	// print2d(it.args, it.nb_args);
+	// print_file(it.file, it.nb_file);
+	// // print_mini(mini);
+
+
+	return EXIT_SUCCESS;
+}
