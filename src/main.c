@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:41:41 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/12 13:34:39 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/14 20:50:23 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,17 @@
 // 		free(token);
 // 	}
 
+// }
+// int main(int argc, char **argv, char **envp)
+// {
+// 	if (argc < 1)
+// 		error_exit("rak ka tkhawr", 1);
+// 	t_mini mini;
+// 	mini.envp = env_arr_to_lst(envp);
+// 	mini.size = 1;
+// 	mini.proc->args = argv;
+// 	mini.proc->nb_file = 0;
+// 	init_procs(&mini);
+// 	printf("input --> %d\noutput --> %d", mini.proc->io_fd[0], mini.proc->io_fd[1]);
+// 	exit(mini.status);
 // }

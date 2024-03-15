@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:42:32 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/13 21:42:33 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/15 00:34:39 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_proc
 {
 	t_file		*file;
 	size_t		nb_file;
+	int			io_fd[2];
 	char		*command; // will be NULL :TODO : search inn PATH
 	char		**args;
 }	t_proc;
@@ -81,7 +82,18 @@ typedef struct s_mini
 	t_env		*envp;
 	size_t		size;
 	t_here_doc	*here_doc;
+	int			status;
 }	t_mini;
+
+/*EXCUTE*/
+
+void	init_procs(t_mini	*mini);
+
+/*pipe*/
+int	init_pipe(t_proc *proc, unsigned int size, t_env *envp);
+void get_pipe_io_files(t_proc	*proc, int *fd);
+
+
 /*expand*/
 char		*expand(const char *buffer, t_env *envp);
 void		copy_to_buffer(const char *buffer, char *new_buffer, t_env *envp);
