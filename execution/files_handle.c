@@ -6,11 +6,10 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:29:41 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/15 00:40:08 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/15 21:58:50 by hicham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libc.h>
 #include <string.h>
 #include <sys/fcntl.h>
 #include "minishell.h"

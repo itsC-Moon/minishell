@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:06:04 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/09 15:58:18 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/14 16:11:42 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int get_token(const char *buffer, t_Token *tokens)
 				|| buffer[offset] == '|')
 			i = get_next_token(buffer + offset, tokens);
 		else
-			i = get_args(buffer + offset, tokens, ft_iskey);
+			i = get_args(buffer + offset, tokens, is_sep);
 		if (i <= 0)
 			return (free_tokens(tokens), -42);
 		offset += i;
@@ -93,6 +93,7 @@ t_Token *tokenizer(const char *buffer)
 
 	tokens = create_list();
 	check_null(tokens, "malloc");
-	get_token(buffer, tokens); //TODO : check for error -42 and free tokens
+	if(get_token(buffer, tokens)<0)
+		exit(3);//TODO : check for error -42 and free tokens
 	return (tokens);
 }

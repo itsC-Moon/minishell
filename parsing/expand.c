@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 10:56:14 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/14 01:28:26 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/15 21:57:41 by hicham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,3 +120,4 @@ char **get_args2(const char *buffer, t_env *envp)
 // 	}
 // 	return EXIT_SUCCESS;
 // }
+

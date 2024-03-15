@@ -6,14 +6,13 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 00:31:36 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/15 21:48:55 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/15 21:58:57 by hicham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include "../include/libft.h"
 #include "tmp.h"
-#include <libc.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/wait.h>

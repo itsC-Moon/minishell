@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 16:02:37 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/10 10:45:12 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/15 13:25:43 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,45 @@ void get_type(t_Token_Type type) {
       printf("HEREDOC\n");
       break;
   };
+}
+
+void print2d(char **argv, size_t size)
+{
+	size_t i = 0;
+	while (i < size)
+	{
+		printf("%s ",argv[i]);
+		i++;
+	}
+	printf("\n");
+}
+void print_file(t_file *file, size_t size)
+{
+	size_t i = 0;
+	while (i < size)
+	{
+		printf("%s =>",file[i].file_name);
+		if (file[i].mod == INPUT)
+			printf("INPUT\n");
+		else if (file[i].mod == APPEND)
+			printf("APPEND\n");
+		else if (file[i].mod == OUTPUT)
+			printf("OUTPUT\n");
+		else if (file[i].mod == _HEREDOC)
+			printf("_HEREDO\n");
+		++i;
+	}
+}
+void print_mini(t_mini mini)
+{
+	t_proc *it;
+
+	it =mini.proc;
+	size_t i = 0;
+	while (i < mini.size)
+	{
+		print2d(it[i].args, it[i].nb_args);
+		print_file(it[i].file, it[i].nb_file);
+		i++;
+	}
 }
