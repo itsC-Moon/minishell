@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:59:59 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/15 13:17:03 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/15 22:45:44 by hicham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define MINISHELL_H
 # include <stdio.h>
 # include "libft.h"
-#include <sys/_types/_size_t.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <sys/stat.h>

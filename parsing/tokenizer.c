@@ -6,11 +6,12 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:06:04 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/14 16:11:42 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/16 20:34:02 by hicham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
 static int get_pipe(const char *buffer, t_Token *tokens, t_Token_Type type)
 {
@@ -18,12 +19,12 @@ static int get_pipe(const char *buffer, t_Token *tokens, t_Token_Type type)
 	int		offset;
 
 	offset = 0;
-	if (type == PIPE && !tokens->front)
-		return (-42);
+	if (!tokens->front)
+		return (report("syntax error near unexpected token `|'"), -42);
 	while (ft_isspace(buffer[offset]))
 		offset++;
 	if (!buffer[offset] || buffer[offset] == '|')
-		return (-42);
+		return (report("syntax error near unexpected token `|'"), -42);
 	list = lst(NULL, type);
 	check_null(list, "malloc");
 	addback(tokens, list);
@@ -39,11 +40,11 @@ static int get_redir(const char *buffer, t_Token *tokens, t_Token_Type type)
 	while (ft_isspace(buffer[offset]))
 		offset++;
 	if (!buffer[offset] || ft_iskey(buffer[offset]))
-		return (-42);
+		return (report("syntax error near unexpected token"), -42);
 	check = get_args(buffer + offset, tokens, is_sep);
-	tokens->back->type = type;
 	if (check < 0)
 		return (-42);
+	tokens->back->type = type;
 	return (offset + check);
 }
 
@@ -81,7 +82,7 @@ static int get_token(const char *buffer, t_Token *tokens)
 			i = get_next_token(buffer + offset, tokens);
 		else
 			i = get_args(buffer + offset, tokens, is_sep);
-		if (i <= 0)
+		if (i < 0)
 			return (free_tokens(tokens), -42);
 		offset += i;
 	}
@@ -93,7 +94,7 @@ t_Token *tokenizer(const char *buffer)
 
 	tokens = create_list();
 	check_null(tokens, "malloc");
-	if(get_token(buffer, tokens)<0)
-		exit(3);//TODO : check for error -42 and free tokens
+	if (get_token(buffer, tokens) < 0)
+		return (free(tokens), NULL);
 	return (tokens);
 }

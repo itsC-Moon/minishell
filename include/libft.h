@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:30:46 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/15 13:16:20 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/16 20:24:50 by hicham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ void		addback(t_Token *token, t_list *list);
 /*Error*/
 void		error(const char *name);
 void		error_exit(const char *name, int code);
-void		check_null(const void *ptr, const char *str);
+void		check_null(void *ptr, const char *str);
+void		report(const char *name);
 
 /*printf*/
 int			ft_printf(int fd, const char *str, ...);

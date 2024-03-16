@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 10:56:14 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/14 22:07:19 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/15 22:56:18 by hicham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int get_expand_len(const char *buffer, t_env *envp)
 	}
 	return (i + len);
 }
-int append(const char *buffer, char *new_buffer)
+int append(const char *buffer, char *new_buffer, int lock)
 {
 	int j;
 	int i;
@@ -50,6 +50,8 @@ int append(const char *buffer, char *new_buffer)
 	j = strlen(new_buffer);
 	i = 0;
 	if (buffer[i] == '"')
+		i++;
+	if (buffer[i] == '\'' && !lock)
 		new_buffer[j++] = buffer[i++];
 	while (buffer[i] && !end_var(buffer[i]))
 	{
@@ -83,7 +85,7 @@ char *expand(const char *buffer, t_env *envp)
 			copy_to_buffer(buffer + i + 1, new_buffer, envp);
 			buffer += inc(buffer + i + 1) + 1;
 		}
-		i += append(buffer + i, new_buffer);
+		i += append(buffer + i, new_buffer, lock_d);
 	}
 	return (new_buffer);
 }

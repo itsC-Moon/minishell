@@ -6,14 +6,13 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:51:18 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/15 13:09:29 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/16 20:14:43 by hicham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
 #include <stdlib.h>
-#include <sys/_types/_size_t.h>
 #include <unistd.h>
 
 size_t	count_command(t_Token *token)
@@ -63,13 +62,13 @@ t_file file(char *file_name, t_open_type mod)
 
 t_file file_here(char *limiter, t_open_type mod)
 {
-	t_file file;
+	t_file	file;
 	char	*str;
 	char	*tmp;
 
 	str = ft_itoa((size_t)limiter);
 	check_null(str, "malloc");
-	tmp = ft_strjoin("/tmp/", str);	
+	tmp = ft_strjoin("/tmp/.", str);	
 	check_null(tmp, "malloc");
 	free(str);
 	file.file_name = tmp;
@@ -85,8 +84,6 @@ int	jump_to_s(const char *str, char *new_buffer)
 
 	if (new_buffer)
 		j = ft_strlen(new_buffer);
-	if (new_buffer)
-		new_buffer[j++] = '\'';
 	i = 1;
 	while (str[i] != '\'')
 	{
@@ -95,10 +92,7 @@ int	jump_to_s(const char *str, char *new_buffer)
 		i++;
 	}
 	if (new_buffer)
-	{
-		new_buffer[j++] = str[i];
 		new_buffer[j] = '\0';
-	}
 	return (i + 1);
 }
 
