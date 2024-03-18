@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:59:59 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/15 21:57:01 by hicham           ###   ########.fr       */
+/*   Updated: 2024/03/17 22:37:48 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,21 @@ typedef struct s_mini
 /*EXCUTE*/
 
 void	init_procs(t_mini	*mini);
+int init_builtin(t_proc	*proc, t_env *env, int *tmp);
+
+/*files_handle*/
+void get_io_files(t_proc	*proc);
 
 /*pipe*/
 int	init_pipe(t_proc *proc, unsigned int size, t_env *envp);
 void get_pipe_io_files(t_proc	*proc, int *fd);
+/*BUILTIN*/
+int open_builtin_files(t_proc	*proc);
+int	echo_func(t_proc	*proc, int *tmp);
+int env_func(t_proc	*proc, t_env	*env, int *tmp);
+int	pwd_func(t_proc	*proc, int *tmp);
+int count_builtins(t_proc	*proc, int size);
+
 
 
 /*expand*/

@@ -1,33 +1,3 @@
-Makefile
-README.md
-a.out
-app
-builtin
-compile_flags.txt
-execution
-file
-include
-libft
-minishell
-obj
-out
-parsing
-src
-Makefile
-README.md
-a.out
-app
-builtin
-compile_flags.txt
-execution
-file
-include
-libft
-minishell
-obj
-out
-parsing
-src
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
@@ -36,7 +6,7 @@ src
 #    By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:29:19 by hibenouk          #+#    #+#              #
-#    Updated: 2024/03/14 20:51:54 by zkotbi           ###   ########.fr        #
+#    Updated: 2024/03/16 00:30:55 by zkotbi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,3 +58,6 @@ clean :
 fclean : clean
 	rm -rf $(NAME)
 re : fclean all
+hello
+hello
+hello

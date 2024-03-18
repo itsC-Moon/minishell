@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 00:31:36 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/15 21:58:57 by hicham           ###   ########.fr       */
+/*   Updated: 2024/03/17 22:37:58 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,12 @@ int init_cmd(t_proc	*proc, t_env	*env)
 	int pid;
 	int status;
 	
+	status = init_builtin(proc, env, NULL);
+	if (status != -1)
+		return (status);
 	pid = fork();
 	if (pid == 0)
-	exec_cmd(proc, env);
+		exec_cmd(proc, env);
 	waitpid(pid, &status, 0);
 	return (WEXITSTATUS(status));
 }

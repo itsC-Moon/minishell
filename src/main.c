@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:41:41 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/15 21:57:51 by hicham           ###   ########.fr       */
+/*   Updated: 2024/03/18 20:43:38 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ int main(int ac, char **argv, char **env)
 	(void)env;
 
 	t_env	*envp = env_arr_to_lst(env);
-	const char *buffer = "cat -pwd| <hi >>hello -ls | ls >file1 <file2 >>file3 <file4 >>file5";
+	const char *buffer = "echo -n hello >> app | cat > out";
 	t_mini mini = parser(buffer, envp);
-	print_mini(mini);
-
+	mini.envp = envp;
+	// print_mini(mini)m
+	init_procs(&mini);
+	// init_procs(&mini);	
 	// it = mini.proc[1];
 	// print2d(it.args, it.nb_args);
 	// print_file(it.file, it.nb_file);
@@ -33,6 +35,5 @@ int main(int ac, char **argv, char **env)
 	// print_file(it.file, it.nb_file);
 	// // print_mini(mini);
 
-
-	return EXIT_SUCCESS;
+	exit(mini.status);
 }
