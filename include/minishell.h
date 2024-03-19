@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:59:59 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/19 12:35:06 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/19 15:57:47 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ char		*env_search(t_env	*env, const char *name);
 t_env		*env_arr_to_lst(char **envp);
 void		check_cmd(t_proc	*proc, char *cmd);
 
+/*here_doc*/
+void		init_here_doc(t_mini *mini);
 /*debug*/
 
 void print2d(char **argv, size_t size);

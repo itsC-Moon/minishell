@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 16:02:37 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/19 14:25:01 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/19 15:59:27 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void print_mini(t_mini mini)
 
 	it =mini.proc;
 	size_t i = 0;
+	print_file(mini.here_doc, mini.nb_doc);
+	printf("------------------------\n");
 	while (i < mini.size)
 	{
 		print2d(it[i].args, it[i].nb_args);

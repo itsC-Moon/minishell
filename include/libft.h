@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:30:46 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/19 14:23:26 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/19 15:46:21 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,6 @@ typedef enum e_Token_Type
 	HEREDOC,
 }	t_Token_Type;
 
-typedef enum e_state
-{
-	UNC_QUOTE	= -1,
-	UNE_EOF	= -1,
-	NO_ERROR		= -3
-}	t_state;
 
 
 typedef struct s_list
@@ -56,7 +50,6 @@ typedef struct s_Token
 {
 	t_list	*front;
 	t_list	*back;
-	t_state	state;
 	size_t	size;
 }	t_Token;
 
