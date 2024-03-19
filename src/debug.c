@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 16:02:37 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/16 20:09:25 by hicham           ###   ########.fr       */
+/*   Updated: 2024/03/19 14:25:01 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,7 @@ void print_file(t_file *file, size_t size)
 		else if (file[i].mod == OUTPUT)
 			printf("OUTPUT\n");
 		else if (file[i].mod == _HEREDOC)
-		{
-
-			printf("limiter %s _HEREDO\n",file[i].limiter);
-		}
+			printf("limiter=> %s| _HEREDO\n",file[i].limiter);
 		++i;
 	}
 }

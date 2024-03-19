@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:59:59 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/15 22:45:44 by hicham           ###   ########.fr       */
+/*   Updated: 2024/03/19 12:35:06 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct s_mini
 }	t_mini;
 /*expand*/
 char		*expand(const char *buffer, t_env *envp);
+int			expand_tildes(const char *buffer, t_env *envp, char *new_buffer);
 void		copy_to_buffer(const char *buffer, char *new_buffer, t_env *envp);
 int			var_len(const char *buffer, t_env *envp);
 int			end_var(char c);

@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:30:46 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/16 20:24:50 by hicham           ###   ########.fr       */
+/*   Updated: 2024/03/19 14:23:26 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,10 @@ char		**split_arg(const char *str);
 void		free_list(t_list *list);
 void		free_tokens(t_Token *token);
 
-int			jump2(const char *str, int *len);
 int			quote_s2(const char *str, int mod, char *buffer);
+int			jump2(const char *str, int *len);
+char		*remove_quote(const char *buffer);
+int			jump_to_s(const char *str, char *new_buffer);
 int			word_s2(const char *str, char *buffer);
 
 #endif /*LIBFT_H*/

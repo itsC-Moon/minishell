@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:51:18 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/16 20:14:43 by hicham           ###   ########.fr       */
+/*   Updated: 2024/03/19 14:36:33 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,20 +60,42 @@ t_file file(char *file_name, t_open_type mod)
 	return (file);
 }
 
+char *remove_quote(const char *buffer)
+{
+	int i;
+	char *str;
+	int len;
+
+	len = 0;
+	jump2(buffer, &len);
+	str = malloc(len * sizeof(char) + 1);
+	check_null(str, "malloc");
+	i = 0;
+	*str = 0;
+	while (buffer[i])
+	{
+		if (is_quote(buffer[i]))
+			i += quote_s(buffer + i, SKIP, str + ft_strlen(str));
+		else
+			i += word_s(buffer + i, str + ft_strlen(str));
+	}
+	return (str);
+}
+
 t_file file_here(char *limiter, t_open_type mod)
 {
 	t_file	file;
 	char	*str;
 	char	*tmp;
 
-	str = ft_itoa((size_t)limiter);
-	check_null(str, "malloc");
-	tmp = ft_strjoin("/tmp/.", str);	
+	tmp = ft_itoa((size_t)limiter);
 	check_null(tmp, "malloc");
-	free(str);
-	file.file_name = tmp;
-	file.limiter = limiter;
+	str = ft_strjoin("/tmp/.", tmp);	
+	check_null(str, "malloc");
+	file.file_name = str;
+	file.limiter = remove_quote(limiter);
 	file.mod = mod;
+	free(tmp);
 	return (file);
 }
 

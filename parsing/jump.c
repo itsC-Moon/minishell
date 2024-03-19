@@ -6,13 +6,11 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:17:05 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/08 20:03:16 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/19 14:24:06 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "minishell.h"
-
 
 char *get_word(const char *str)
 {
