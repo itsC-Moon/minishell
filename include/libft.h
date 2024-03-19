@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/19 23:01:15 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/19 23:01:19 by hibenouk         ###   ########.fr       */
+/*   Created: 2024/03/19 23:05:11 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/03/19 23:05:11 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 
 #ifndef LIBFT_H
@@ -92,6 +93,7 @@ char		**ft_split(char *s, char c);
 char		*ft_strdup(char *s1);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_itoa(int n);
+int			ft_strcmp(const char *s1, const char *s2);
 
 /*parsing*/
 char		*get_word(const char *str);

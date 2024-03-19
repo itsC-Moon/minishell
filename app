@@ -5,13 +5,10 @@
 #                                                     +:+ +:+         +:+      #
 #    By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/03/19 23:06:09 by hibenouk          #+#    #+#              #
-#    Updated: 2024/03/19 23:06:10 by hibenouk         ###   ########.fr        #
+#    Created: 2024/03/06 15:29:19 by hibenouk          #+#    #+#              #
+#    Updated: 2024/03/16 00:30:55 by zkotbi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-
-
 
 LIBFT 	= $(shell find ./libft -type f -name "*.c")
 SRC 	= $(shell find ./src -type f -name "*.c")
@@ -61,3 +58,6 @@ clean :
 fclean : clean
 	rm -rf $(NAME)
 re : fclean all
+hello
+hello
+hello
