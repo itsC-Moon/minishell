@@ -5,8 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+<<<<<<< HEAD
 /*   Created: 2024/03/19 11:09:03 by hibenouk          #+#    #+#             */
 /*   Updated: 2024/03/19 11:09:09 by hibenouk         ###   ########.fr       */
+=======
+/*   Created: 2024/03/07 13:41:41 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/03/19 16:05:26 by hibenouk         ###   ########.fr       */
+>>>>>>> hibenouk
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +21,7 @@
 #include <readline/readline.h>
 #include <stdio.h>
 
+
 int main(int ac, char **argv, char **env)
 {
 	(void)ac;
@@ -24,16 +30,18 @@ int main(int ac, char **argv, char **env)
 
 	t_env	*envp = env_arr_to_lst(env);
 	// char *path = env_search(envp, "PATH");
-	char *buffer;
-	while ((buffer = readline("nudejs>$ ")) != NULL)
-	{
-		t_mini mini = parser(buffer, envp);
-		print_mini(mini);
-	}
+	// char *buffer;
+	// while ((buffer = readline("nudejs>$ ")) != NULL)
+	// {
+	// 	t_mini mini = parser(buffer, envp);
+	// 	print_mini(mini);
+	// }
 
-	// char *buffer = "pwd <'$PWD' |  << hello' world' << EOF";
-	// t_mini mini = parser(buffer, envp);
-	// print_mini(mini);
+	// char *str = remove_quote("'file '' name'");
+	// STR(str)
+	char *buffer = "cat < 'lp' <ppo";
+	t_mini mini = parser(buffer, envp);
+	print_mini(mini);
 	// mini.proc[3];
 	return (0);
 }

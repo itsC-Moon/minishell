@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
+/*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 13:30:46 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/19 11:08:18 by hibenouk         ###   ########.fr       */
+/*   Created: 2024/03/19 23:01:15 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/03/19 23:01:19 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,6 @@ typedef enum e_Token_Type
 	HEREDOC,
 }	t_Token_Type;
 
-typedef enum e_state
-{
-	UNC_QUOTE	= -1,
-	UNE_EOF	= -1,
-	NO_ERROR		= -3
-}	t_state;
 
 
 typedef struct s_list
@@ -57,7 +51,6 @@ typedef struct s_Token
 {
 	t_list	*front;
 	t_list	*back;
-	t_state	state;
 	size_t	size;
 }	t_Token;
 
@@ -113,8 +106,10 @@ char		**split_arg(const char *str);
 void		free_list(t_list *list);
 void		free_tokens(t_Token *token);
 
-int			jump2(const char *str, int *len);
 int			quote_s2(const char *str, int mod, char *buffer);
+int			jump2(const char *str, int *len);
+char		*remove_quote(const char *buffer);
+int			jump_to_s(const char *str, char *new_buffer);
 int			word_s2(const char *str, char *buffer);
 
 #endif /*LIBFT_H*/

@@ -5,10 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/10 10:56:14 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/19 11:08:34 by hibenouk         ###   ########.fr       */
+/*   Created: 2024/03/19 23:02:29 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/03/19 23:02:30 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "libft.h"
 #include "minishell.h"
@@ -24,7 +26,7 @@ int get_expand_len(const char *buffer, t_env *envp)
 	int lock_d;
 
 	i = 0;
-	len = 0;
+	len = expand_tildes(buffer, envp, NULL);
 	lock_d = 1;
 	while (buffer[i])
 	{
@@ -74,6 +76,7 @@ char *expand(const char *buffer, t_env *envp)
 	new_buffer = malloc((get_expand_len(buffer, envp) + 1) * sizeof(char));
 	check_null(new_buffer, "malloc");
 	*new_buffer = '\0';
+	buffer += expand_tildes(buffer, envp, new_buffer);
 	while (buffer[i])
 	{
 		if (buffer[i] == '"')

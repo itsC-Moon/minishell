@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 12:20:25 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/16 20:35:07 by hicham           ###   ########.fr       */
+/*   Updated: 2024/03/19 16:04:14 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,7 @@ t_mini parser(const char *buffer, t_env *envp)
 	if (!token)
 		return ((t_mini){0});
 	mini = parsing(token, envp);
+	mini.envp = envp;
+	init_here_doc(&mini);
 	return (mini);
 }

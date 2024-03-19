@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
+/*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/06 13:59:59 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/19 11:08:01 by hibenouk         ###   ########.fr       */
+/*   Created: 2024/03/19 23:01:43 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/03/19 23:01:44 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -91,6 +93,7 @@ void get_pipe_io_files(t_proc	*proc, int *fd);
 
 /*expand*/
 char		*expand(const char *buffer, t_env *envp);
+int			expand_tildes(const char *buffer, t_env *envp, char *new_buffer);
 void		copy_to_buffer(const char *buffer, char *new_buffer, t_env *envp);
 int			var_len(const char *buffer, t_env *envp);
 int			end_var(char c);
@@ -110,6 +113,8 @@ char		*env_search(t_env	*env, const char *name);
 t_env		*env_arr_to_lst(char **envp);
 void		check_cmd(t_proc	*proc, char *cmd);
 
+/*here_doc*/
+void		init_here_doc(t_mini *mini);
 /*debug*/
 
 void print2d(char **argv, size_t size);
