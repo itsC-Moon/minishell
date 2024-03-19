@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:59:59 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/17 22:37:48 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/19 03:01:23 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,15 @@ int init_builtin(t_proc	*proc, t_env *env, int *tmp);
 void get_io_files(t_proc	*proc);
 
 /*pipe*/
-int	init_pipe(t_proc *proc, unsigned int size, t_env *envp);
-void get_pipe_io_files(t_proc	*proc, int *fd);
+int		init_pipe(t_proc *proc, unsigned int size, t_env *envp);
+void	get_pipe_io_files(t_proc	*proc, int *fd);
 /*BUILTIN*/
 int open_builtin_files(t_proc	*proc);
 int	echo_func(t_proc	*proc, int *tmp);
 int env_func(t_proc	*proc, t_env	*env, int *tmp);
 int	pwd_func(t_proc	*proc, int *tmp);
-int count_builtins(t_proc	*proc, int size);
+int cd_func(t_proc	*proc, t_env	*env);
+int unset_func(t_proc	*proc, t_env	*env);
 
 
 
@@ -118,6 +119,7 @@ t_file		file_here(char *limiter, t_open_type mod);
 
 /*env */
 char		*env_search(t_env	*env, const char *name);
+t_lst		*env_search_2(t_env	*env, const char *name);
 t_env		*env_arr_to_lst(char **envp);
 void		check_cmd(t_proc	*proc, char *cmd);
 

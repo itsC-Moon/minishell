@@ -6,12 +6,13 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 00:22:41 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/17 22:33:57 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/19 00:16:49 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
+#include <stdlib.h>
 
 void	print_echo_args(char **args, int outfile)
 {

@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:29:41 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/18 20:40:19 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/19 21:16:36 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,10 @@ void get_pipe_io_files(t_proc	*proc, int *fd)
 			proc->io_fd[0] = proc->file[i].fd;
 		i++;
 	}
+	// if (proc->io_fd[0] != fd[0])
+		// close(fd[0]);
+	// if (proc->io_fd[1] != fd[1])
+		// close(fd[1]);
 }
 
 

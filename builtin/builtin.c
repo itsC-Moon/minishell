@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 01:14:42 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/18 00:56:31 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/19 03:02:02 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ int init_builtin(t_proc	*proc, t_env	*env, int *tmp)
 	else if (ft_strcmp(proc->args[0], "env") == 0)
 		return (env_func(proc, env, tmp));
 	// else if (ft_strcmp(proc->args[0], "cd") == 0)
-	// 	return (cd_func(proc));
-	// else if (ft_strcmp(proc->args[0], "unset") == 0)
-	// 	return (unset_func(proc));
+		// return (cd_func(proc, env));
+	else if (ft_strcmp(proc->args[0], "unset") == 0)
+		return (unset_func(proc, env));
 	// else if (ft_strcmp(proc->args[0], "export") == 0)
 	// 	return (export_func(proc));
 	// else if (ft_strcmp(proc->args[0], "exit") == 0)
