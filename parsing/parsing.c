@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 12:20:25 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/15 13:27:21 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/16 20:35:07 by hicham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char **_alloc(size_t n)
-{
-	char	**ptr;
-
-	ptr = malloc((n + 1) * sizeof(char**));
-	check_null(ptr, "mallco");
-	ptr[n] = NULL;
-	return (ptr);
-}
 static void __alloc(t_list *list, t_proc *proc)
 {
 	proc->nb_file = get_num_redic(list, INPUT_REDIR);
-	proc->nb_args = get_num_redic(list,STRING_LTR);
-	proc->args = malloc(sizeof(char**) * (proc->nb_args + 1));
+	proc->nb_args = get_num_redic(list, STRING_LTR);
+	proc->args = malloc(sizeof(char **) * (proc->nb_args + 1));
 	check_null(proc->args, "malloc");
 	proc->file = malloc(sizeof(t_file) * proc->nb_file);
 	check_null(proc->file, "malloc");
 }
-void alloc_io(t_list *list, t_proc *proc, t_env *envp)
+
+static void alloc_io(t_list *list, t_proc *proc, t_env *envp)
 {
 	size_t it;
 	size_t i;
@@ -53,22 +45,19 @@ void alloc_io(t_list *list, t_proc *proc, t_env *envp)
 			proc->file[it++] = file(expand(list->token, envp), OUTPUT);
 		else if (list->type == APPEND_REDIR)
 			proc->file[it++] = file(expand(list->token, envp), APPEND);
-		// else if (list->type == HEREDOC)
-		// 	proc->file[it++] = file_here(list->token, _HEREDOC);
-		// if (it != 0)
-		// 	STR(proc->file[it - 1].file_name)
-		// STR(list->token)
+		else if (list->type == HEREDOC)
+			proc->file[it++] = file_here(list->token, _HEREDOC);
 		list = list->next;
 	}
 	proc->args[i] = NULL;
 }
 
-t_mini parsing(t_Token *tokens, t_env *envp)
+static t_mini parsing(t_Token *tokens, t_env *envp)
 {
 	t_mini	mini;
-	size_t	i;
-	t_proc	*it;
-	t_list	*token;
+	size_t 	i;
+	t_proc 	*it;
+	t_list 	*token;
 
 	i = 0;
 	mini.size = count_command(tokens);
@@ -92,7 +81,10 @@ t_mini parser(const char *buffer, t_env *envp)
 {
 	t_mini	mini;
 	t_Token *token;
+
 	token = tokenizer(buffer);
+	if (!token)
+		return ((t_mini){0});
 	mini = parsing(token, envp);
 	return (mini);
 }

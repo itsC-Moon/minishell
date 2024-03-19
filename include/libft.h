@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:30:46 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/15 21:53:47 by hicham           ###   ########.fr       */
+/*   Updated: 2024/03/19 11:08:18 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ void		addback(t_Token *token, t_list *list);
 /*Error*/
 void		error(const char *name);
 void		error_exit(const char *name, int code);
-void		check_null(const void *ptr, const char *str);
+void		check_null(void *ptr, const char *str);
+void		report(const char *name);
 
 /*printf*/
 int			ft_printf(int fd, const char *str, ...);
