@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 12:20:25 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/19 16:04:14 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/20 14:20:41 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,15 @@ static t_mini parsing(t_Token *tokens, t_env *envp)
 t_mini parser(const char *buffer, t_env *envp)
 {
 	t_mini	mini;
-	t_Token *token;
+	t_Token *tokens;
 
-	token = tokenizer(buffer);
-	if (!token)
+	tokens = tokenizer(buffer);
+	if (!tokens)
 		return ((t_mini){0});
-	mini = parsing(token, envp);
+	mini = parsing(tokens, envp);
+	// print_mini(mini);
+	free_tokens(tokens);
+	free(tokens);
 	mini.envp = envp;
 	init_here_doc(&mini);
 	return (mini);

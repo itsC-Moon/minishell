@@ -6,50 +6,43 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 23:06:25 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/20 20:23:03 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/20 20:42:03 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
 #include <readline/readline.h>
+#include <readline/history.h>
+#include <signal.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
-
+void    ft_signal_ctrl_c(int sig)
+{
+    (void)sig;
+    write(2, "\n", 1);
+	rl_replace_line("", 0);
+    rl_on_new_line();
+    rl_redisplay();
+}
+void leaks()
+{
+	system("leaks minishell");
+}
 int main(int ac, char **argv, char **env)
 {
-    // atexit(leak);
-    t_mini mini;
-    (void)ac;
-    (void)argv;
-    (void)env;
 
+	(void)ac;
+	(void)argv;
+	(void)env;
+	t_env	*envp;
+	// int		status;
 
-	ft_printf(2, "child %d\n",getpid());
-    t_env    *envp = env_arr_to_lst(env);
-    char *buffer;
-    while ((buffer = readline("nudejs>$ ")) != NULL)
-    {
-        mini = parser(buffer, envp);
-		// printf("--->%s", mini.proc[0].args[0]);
-        mini.envp = envp;
-        init_procs(&mini);
-		buffer = NULL;
-    }
-	ft_printf(2, "child %d\n",getpid());
-	// ft_printf(2, "child %d",getpid());
-	perror("check");
-	// perror("check");
-    // print_mini(mini)m
-    // init_procs(&mini);    
-    // it = mini.proc[1];
-    // print2d(it.args, it.nb_args);
-    // print_file(it.file, it.nb_file);
-    // it = mini.proc[2];
-    // print2d(it.args, it.nb_args);
-    // print_file(it.file, it.nb_file);
-    // // print_mini(mini);
+	envp = env_arr_to_lst(env);
+	signal(SIGINT, ft_signal_ctrl_c);
+	minishell(envp);
 
-    // exit(mini.status);
+	return (0);
 }

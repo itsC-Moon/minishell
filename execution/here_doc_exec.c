@@ -6,7 +6,7 @@
 /*   By: zkotbi <hibenouk@1337.ma>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 00:29:58 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/20 01:22:04 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/20 20:48:44 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void read_until_lim(t_file	*here_doc)
 	char *buff;
 	int fd;
 
-	fd = open(here_doc->file_name, O_CREAT | O_WRONLY, 0644);
+	fd = open(here_doc->file_name, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	buff = NULL;
 	while (1)
 	{

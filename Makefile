@@ -1,16 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/03/19 23:06:09 by hibenouk          #+#    #+#              #
-#    Updated: 2024/03/19 23:06:10 by hibenouk         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-
 
 
 LIBFT 	= $(shell find ./libft -type f -name "*.c")
@@ -27,16 +14,18 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -ggdb3 -Wall -Wextra -Wunreachable-code -fsanitize=address
+CFLAGS = -ggdb3 -Wall -Wextra -Wunreachable-code \
+		 -I$(HOME)/.brew/opt/readline/include \
 
 INC = include
 
-
+READLINE = -L$(HOME)/.brew/opt/readline/lib
+READINC = -I$(HOME)/.brew/opt/readline/include
 
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	$(CC)  $(CFLAGS) $(OBJ) -lreadline -I$(INC) -o $(NAME)
+	@$(CC)  $(CFLAGS) $(OBJ) $(READLINE) -lreadline  -I$(INC) -o $(NAME)
 
 ./obj/%.o : ./libft/%.c $(INCL)
 	$(CC) -c $(CFLAGS) -I$(INC) $< -o $@

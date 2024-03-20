@@ -6,11 +6,9 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 23:05:24 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/20 01:04:03 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/20 20:40:53 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -82,6 +80,8 @@ typedef struct s_mini
 	size_t		nb_doc;
 }	t_mini;
 
+/*minishell*/
+void minishell(t_env *envp);
 /*EXCUTE*/
 
 void	init_procs(t_mini	*mini);

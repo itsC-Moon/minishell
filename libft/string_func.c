@@ -6,10 +6,11 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 11:05:25 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/07 11:21:09 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/20 13:24:05 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minishell.h"
 
 int	cmp(const char *s1, const char *s2, size_t n)
@@ -38,4 +39,16 @@ int	ft_strlen(const char *buffer)
 	while (buffer[i])
 		i++;
 	return (i);
+}
+
+int is_empty(const char *buffer)
+{
+	int i;
+
+	i = 0;
+	while (buffer[i] && ft_isspace(buffer[i]))
+		i++;
+	if (!buffer[i])
+		return (1);
+	return (0); 
 }

@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 01:31:19 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/19 03:22:29 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/20 14:18:17 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char *env_search(t_env	*env, const char *name)
 	int i;
 
 	tmp = env->front;
+	if (name[0] == '?')
+		return ("$?");
 	if (!is_id(name[0]))
 		return ("$");
 	i = 0;
