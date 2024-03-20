@@ -6,10 +6,11 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 23:32:40 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/12 13:24:30 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/19 01:54:26 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minishell.h"
 
 t_lst *lst_addback(t_lst	*lst, char *to_add)
@@ -20,9 +21,10 @@ t_lst *lst_addback(t_lst	*lst, char *to_add)
 	while (tmp->next != NULL)
 		tmp = tmp->next;
 	tmp->next = malloc(sizeof(t_lst));
+	check_null(tmp->next, "malloc");
 	tmp->next->next = NULL;
 	tmp->next->prev = tmp;
-	tmp->next->varible = to_add;
+	tmp->next->varible = ft_strdup(to_add);
 	return (tmp->next);
 }
 
@@ -35,12 +37,10 @@ t_env	*env_arr_to_lst(char **envp)
 
 	i = 0;
 	lst = malloc(sizeof(t_lst));
-	if (lst == NULL)
-		exit(1);
+	check_null(lst, "malloc");
 	env = malloc(sizeof(t_env));
-	if (env == NULL)
-		exit(1);
-	lst->varible = envp[i++];
+	check_null(env, "malloc");
+	lst->varible = ft_strdup(envp[i++]);
 	lst->next = NULL;
 	lst->prev = NULL;
 	while (envp[i] != NULL)

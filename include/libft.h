@@ -1,14 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 13:30:46 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/20 13:21:51 by hibenouk         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #ifndef LIBFT_H
 # define LIBFT_H
@@ -85,12 +75,14 @@ int			ft_iskey(char c);
 int			is_sep(char c);
 int			is_quote(char c);
 int			ft_strlen(const char *buffer);
+void		free_tab(char **tab); // free 2d array
 char		*ft_strchr(const char	*s, int c);
 char		**ft_split(char *s, char c);
 char		*ft_strdup(char *s1);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_itoa(int n);
 int			is_empty(const char *buffer);
+int			ft_strcmp(const char *s1, const char *s2);
 
 /*parsing*/
 char		*get_word(const char *str);

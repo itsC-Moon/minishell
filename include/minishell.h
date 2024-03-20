@@ -1,14 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/06 13:59:59 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/20 13:41:07 by hibenouk         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
+
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -30,6 +22,14 @@ typedef enum e_open_type
 	_HEREDOC,
 }	t_open_type;
 
+// typedef enum e_proc_type
+// {
+	// BIULTEIN,
+	// REDIRECTION,
+	// COMMAND,
+	// HERE_DOC,
+// }	t_proc_type;
+
 typedef struct s_lst
 {
 	char			*varible;
@@ -47,16 +47,18 @@ typedef struct s_env
 typedef struct s_file
 {
 	char		*file_name;
+	int			fd;
 	char		*limiter;
 	t_open_type	mod;
 }	t_file;
 
 typedef struct s_proc
 {
-	t_file	*file;
-	size_t	nb_file;
-	char	*command;
-	char	**args;
+	t_file		*file;
+	size_t		nb_file;
+	int			io_fd[2];
+	char		*command; // will be NULL :TODO : search inn PATH
+	char		**args;
 	size_t	nb_args;
 }	t_proc;
 
@@ -65,12 +67,33 @@ typedef struct s_mini
 	t_proc		*proc;
 	t_env		*envp;
 	size_t		size;
+	int			status;
 	t_file		*here_doc;
 	size_t		nb_doc;
 }	t_mini;
 
 /*minishell*/
 void minishell(t_env *envp);
+/*EXCUTE*/
+
+void	init_procs(t_mini	*mini);
+int init_builtin(t_proc	*proc, t_env *env, int *tmp);
+
+/*files_handle*/
+void get_io_files(t_proc	*proc);
+
+/*pipe*/
+int		init_pipe(t_proc *proc, unsigned int size, t_env *envp);
+void	get_pipe_io_files(t_proc	*proc, int *fd);
+/*BUILTIN*/
+int open_builtin_files(t_proc	*proc);
+int	echo_func(t_proc	*proc, int *tmp);
+int env_func(t_proc	*proc, t_env	*env, int *tmp);
+int	pwd_func(t_proc	*proc, int *tmp);
+int cd_func(t_proc	*proc, t_env	*env);
+int unset_func(t_proc	*proc, t_env	*env);
+
+
 
 /*expand*/
 char		*expand(const char *buffer, t_env *envp);
@@ -91,6 +114,7 @@ t_file		file_here(char *limiter, t_open_type mod);
 
 /*env */
 char		*env_search(t_env	*env, const char *name);
+t_lst		*env_search_2(t_env	*env, const char *name);
 t_env		*env_arr_to_lst(char **envp);
 void		check_cmd(t_proc	*proc, char *cmd);
 

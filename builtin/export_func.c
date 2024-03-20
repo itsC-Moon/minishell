@@ -1,32 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   event_loop.c                                       :+:      :+:    :+:   */
+/*   export_func.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
+/*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/20 13:30:29 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/20 13:58:35 by hibenouk         ###   ########.fr       */
+/*   Created: 2024/03/19 03:23:52 by zkotbi            #+#    #+#             */
+/*   Updated: 2024/03/19 03:24:51 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "libft.h"
 
-void minishell(t_env *envp)
+int export_func(t_proc	*proc)
 {
-	t_mini mini;
-	char *buffer;
 
-	while (1)
-	{
-		buffer = readline("nudejs>$ ");
-		if (!buffer)
-			break ;
-		if (!is_empty(buffer))
-			add_history(buffer);
-		else
-			continue;
-		mini = parser(buffer, envp);
-		init_procs(&mini);
-	}
 }
