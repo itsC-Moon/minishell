@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 00:31:36 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/17 22:37:58 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/20 20:22:33 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../include/libft.h"
 #include "tmp.h"
 #include <stdio.h>
+#include <limits.h>
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <unistd.h>
@@ -46,6 +47,10 @@ int init_cmd(t_proc	*proc, t_env	*env)
 
 void	init_procs(t_mini	*mini)
 {
+	if (mini->nb_doc > 0)
+		here_doc_exec(mini);
+	if (mini->proc->args[0] == NULL)
+		return ;
 	if (mini->size == 1)
 		mini->status = init_cmd(mini->proc, mini->envp);
 	else if (mini->size > 1)

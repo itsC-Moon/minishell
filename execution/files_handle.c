@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:29:41 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/19 21:16:36 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/20 00:59:34 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void open_files(t_proc	*proc)
 	{
 		if (proc->file[i].mod == INPUT)
 			proc->file[i].fd = open(proc->file[i].file_name, O_RDONLY);
+		if (proc->file[i].mod == _HEREDOC)
+			proc->file[i].fd = open(proc->file[i].file_name, O_RDONLY);
 		else if (proc->file[i].mod == OUTPUT)
 			proc->file[i].fd = open(proc->file[i].file_name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		else if (proc->file[i].mod == APPEND)
@@ -53,7 +55,8 @@ void get_io_files(t_proc	*proc)
 		if (proc->file[i].mod == OUTPUT
 		|| proc->file[i].mod == APPEND)
 			proc->io_fd[1] = proc->file[i].fd;
-		else if (proc->file[i].mod == INPUT)
+		else if (proc->file[i].mod == INPUT
+				|| proc->file[i].mod == _HEREDOC)
 			proc->io_fd[0] = proc->file[i].fd;
 		i++;
 	}

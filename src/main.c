@@ -6,12 +6,9 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 23:06:25 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/19 23:06:43 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/20 20:23:03 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-
 
 #include "libft.h"
 #include "minishell.h"
@@ -35,6 +32,7 @@ int main(int ac, char **argv, char **env)
     while ((buffer = readline("nudejs>$ ")) != NULL)
     {
         mini = parser(buffer, envp);
+		// printf("--->%s", mini.proc[0].args[0]);
         mini.envp = envp;
         init_procs(&mini);
 		buffer = NULL;

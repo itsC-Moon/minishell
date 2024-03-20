@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 23:05:24 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/19 23:05:25 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/20 01:04:03 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void		check_cmd(t_proc	*proc, char *cmd);
 
 /*here_doc*/
 void		init_here_doc(t_mini *mini);
+void here_doc_exec(t_mini	*mini);
 /*debug*/
 
 void print2d(char **argv, size_t size);
