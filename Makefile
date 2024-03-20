@@ -6,7 +6,7 @@
 #    By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 15:29:19 by hibenouk          #+#    #+#              #
-#    Updated: 2024/03/16 20:20:33 by hicham           ###   ########.fr        #
+#    Updated: 2024/03/20 13:28:20 by hibenouk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,7 @@ EXEC 	= $(shell find ./execution -type f -name "*.c")
 BUILT 	= $(shell find ./builtin -type f -name "*.c")
 INCL 	= $(shell find ./include -type f -name "*.c")
 
-# OBJ 	= $(LIBFT:.c=.o) $(SRC:.c=.o) $(PARSER:.c=.o) $(EXEC:.c=.o) $(BUILT:.c=.o)
-# OBJ 	= $(LIBFT:.c=.o) $(SRC:.c=.o) $(PARSER:.c=.o) $(EXEC:.c=.o) $(BUILT:.c=.o)
+
 OBJ 	=	$(patsubst ./libft/%.c, ./obj/%.o, $(LIBFT)) 	$(patsubst ./src/%.c, ./obj/%.o, $(SRC)) \
 			$(patsubst ./parsing/%.c, ./obj/%.o, $(PARSER)) $(patsubst ./execution/%.c, ./obj/%.o, $(EXEC))\
 			$(patsubst ./builtin/%.c, ./obj/%.o, $(BUILT))
@@ -26,16 +25,18 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -ggdb3 -Wall -Wextra -Wunreachable-code -fsanitize=address
+CFLAGS = -ggdb3 -Wall -Wextra -Wunreachable-code \
+		 -I/Users/hibenouk/.brew/opt/readline/include \
 
 INC = include
 
-
+READLINE = -L/Users/hibenouk/.brew/opt/readline/lib
+READINC = -I/Users/hibenouk/.brew/opt/readline/include
 
 all : $(NAME) run
 
 $(NAME) : $(OBJ)
-	@$(CC)  $(CFLAGS) $(OBJ) -lreadline -I$(INC) -o $(NAME)
+	@$(CC)  $(CFLAGS) $(OBJ) $(READLINE) -lreadline  -I$(INC) -o $(NAME)
 
 ./obj/%.o : ./libft/%.c $(INCL)
 	@$(CC) -c $(CFLAGS) -I$(INC) $< -o $@

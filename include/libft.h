@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:30:46 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/19 15:46:21 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/20 13:21:51 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ char		**ft_split(char *s, char c);
 char		*ft_strdup(char *s1);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_itoa(int n);
+int			is_empty(const char *buffer);
 
 /*parsing*/
 char		*get_word(const char *str);

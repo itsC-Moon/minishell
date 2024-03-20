@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:59:59 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/19 15:57:47 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/20 13:41:07 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,10 @@ typedef struct s_mini
 	t_file		*here_doc;
 	size_t		nb_doc;
 }	t_mini;
+
+/*minishell*/
+void minishell(t_env *envp);
+
 /*expand*/
 char		*expand(const char *buffer, t_env *envp);
 int			expand_tildes(const char *buffer, t_env *envp, char *new_buffer);
