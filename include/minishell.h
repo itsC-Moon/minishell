@@ -122,6 +122,7 @@ void		check_cmd(t_proc	*proc, char *cmd);
 void		init_here_doc(t_mini *mini);
 /*debug*/
 
+void print_tokens(t_Token *tokens);
 void print2d(char **argv, size_t size);
 void print_mini(t_mini mini);
 void print_file(t_file *file, size_t size);

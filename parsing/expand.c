@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 23:02:29 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/20 14:19:43 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/20 15:40:12 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,37 +92,3 @@ char *expand(const char *buffer, t_env *envp)
 	}
 	return (new_buffer);
 }
-
-char **get_args2(const char *buffer, t_env *envp)
-{
-	char *str;
-	char **strs;
-
-	str = expand(buffer, envp);
-	strs = split_arg(str);
-	return (strs);
-}
-// int main(int ac, char **argv, char **env)
-// {
-// 	(void)ac;
-// 	(void)argv;
-
-// 	t_env	*envp = env_arr_to_lst(env);
-// 	// char *buffer;
-// 	// while ((buffer = readline("nudejs>$ ")) != NULL)
-// 	// {
-// 	// 	char *new = expand(buffer, envp);
-// 	// 	STR(new);
-// 	// }
-// 	const char *buffer = "$HOME 'ANA'";
-// 	// char *new = expand(buffer, envp);
-// 	char **strs = get_args2(buffer, envp);
-// 	// char **strs = split_arg(buffer);
-// 	while (*strs)
-// 	{
-// 		STR(*strs)
-// 		strs++;
-// 	}
-// 	return EXIT_SUCCESS;
-// }
-

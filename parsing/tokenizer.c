@@ -6,12 +6,12 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:06:04 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/16 20:34:02 by hicham           ###   ########.fr       */
+/*   Updated: 2024/03/20 15:50:12 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
+#include "minishell.h"
 
 static int get_pipe(const char *buffer, t_Token *tokens, t_Token_Type type)
 {
@@ -77,6 +77,8 @@ static int get_token(const char *buffer, t_Token *tokens)
 	{
 		while (ft_isspace(buffer[offset]))
 			offset++;
+		if (!buffer[offset])
+			return (0);
 		if (buffer[offset] == '<' || buffer[offset] == '>' 
 				|| buffer[offset] == '|')
 			i = get_next_token(buffer + offset, tokens);
