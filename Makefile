@@ -15,12 +15,12 @@ NAME = minishell
 CC = cc
 
 CFLAGS = -ggdb3 -Wall -Wextra -Wunreachable-code \
-		 -I/Users/hibenouk/.brew/opt/readline/include \
+		 -I$(HOME)/.brew/opt/readline/include \
 
 INC = include
 
-READLINE = -L/Users/hibenouk/.brew/opt/readline/lib
-READINC = -I/Users/hibenouk/.brew/opt/readline/include
+READLINE = -L$(HOME)/.brew/opt/readline/lib
+READINC = -I$(HOME)/.brew/opt/readline/include
 
 all : $(NAME)
 
