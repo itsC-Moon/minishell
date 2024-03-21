@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:28:41 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/21 14:48:32 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/21 21:05:58 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int 		env_func(t_proc	*proc, t_env	*env, int *tmp);
 int			pwd_func(t_proc	*proc, int *tmp);
 int 		cd_func(t_proc	*proc, t_env	*env);
 int 		unset_func(t_proc	*proc, t_env	*env);
+int validate_name(char *name);
 
 
 
@@ -122,6 +123,7 @@ char		*env_search(t_env	*env, const char *name);
 t_lst		*env_search_2(t_env	*env, const char *name);
 t_env		*env_arr_to_lst(char **envp);
 void		check_cmd(t_proc	*proc, char *cmd);
+char *env_search_3(t_env	*env, const char *name);
 
 /*here_doc*/
 void		init_here_doc(t_mini *mini);

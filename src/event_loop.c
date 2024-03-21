@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:29:46 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/21 16:00:02 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/21 20:38:44 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void minishell(const char *shell, t_env *envp)
 		mini = parser(buffer, envp);
 		if (mini.size == 0 && mini.nb_doc == 0)
 			continue;
-		print_mini(mini);
+		// print_mini(mini);
 		mini.status = status;
 		init_procs(&mini);
 		status = mini.status;

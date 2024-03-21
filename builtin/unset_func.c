@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 02:29:01 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/19 03:01:08 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/21 21:06:17 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int unset_func(t_proc	*proc, t_env	*env)
 		return (1);
 	while (proc->args[i] != NULL)
 	{
-		tmp = env_search(env, proc->args[i]);
+		tmp = env_search_3(env, proc->args[i]);
 		if (tmp == NULL)
 			i++;
 		else if (ft_strcmp(tmp, "$") == 0)

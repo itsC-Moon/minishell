@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:29:41 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/20 20:53:59 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/21 21:18:45 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ void open_files(t_proc	*proc)
 			proc->file[i].fd = open(proc->file[i].file_name, O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if (proc->file[i].fd < 0)
 			error_file(proc->file[i]);
+		if (proc->file[i].mod == AMBIGUOUS)
+		{
+			ft_printf(2, "nudejs: %s: %s\n", proc->file[i].file_name, "ambiguous redirect");
+			exit(1);
+		}
 		i++;
 	}
 }
