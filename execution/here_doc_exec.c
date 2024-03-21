@@ -6,7 +6,7 @@
 /*   By: zkotbi <hibenouk@1337.ma>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 00:29:58 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/20 20:48:44 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/20 21:35:27 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void read_until_lim(t_file	*here_doc)
 	while (1)
 	{
 		buff = readline(">");
-		if (buff == NULL)
+		if (buff == NULL && close(fd))
 			return ;
 		if (ft_strcmp(buff, here_doc->limiter) == 0)
 			break ;

@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 23:02:29 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/20 22:10:10 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/21 15:50:50 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int null_expand(const char *buffer, t_env *envp)
+{
+	int		i;
+	char	*var;
+	i = 0;
+	if (buffer[i++] != '$')
+		return (0);
+	while(is_id(buffer[i]))
+		i++;
+	if (buffer[i])
+		return (0);
+	var = env_search(envp, buffer + 1);
+	if (var)
+		return (0);
+	return (1);
+}
 
 int get_expand_len(const char *buffer, t_env *envp)
 {
@@ -73,6 +89,8 @@ char *expand(const char *buffer, t_env *envp)
 
 	i = 0;
 	lock_d = 1;
+	if (null_expand(buffer, envp))
+		return (NULL);
 	new_buffer = malloc((get_expand_len(buffer, envp) + 1) * sizeof(char));
 	check_null(new_buffer, "malloc");
 	*new_buffer = '\0';

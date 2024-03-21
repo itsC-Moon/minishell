@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/20 13:30:29 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/20 22:12:52 by hibenouk         ###   ########.fr       */
+/*   Created: 2024/03/21 13:29:46 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/03/21 16:00:02 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -16,6 +17,7 @@ void minishell(const char *shell, t_env *envp)
 {
 	t_mini mini;
 	char *buffer;
+	int status = 0;
 
 	while (1)
 	{
@@ -27,6 +29,11 @@ void minishell(const char *shell, t_env *envp)
 		else
 			continue;
 		mini = parser(buffer, envp);
+		if (mini.size == 0 && mini.nb_doc == 0)
+			continue;
+		print_mini(mini);
+		mini.status = status;
 		init_procs(&mini);
+		status = mini.status;
 	}
 }
