@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 12:20:25 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/20 14:20:41 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/21 15:59:02 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,12 @@ static void alloc_io(t_list *list, t_proc *proc, t_env *envp)
 			proc->file[it++] = file(expand(list->token, envp), APPEND);
 		else if (list->type == HEREDOC)
 			proc->file[it++] = file_here(list->token, _HEREDOC);
+		if (list->type == STRING_LTR && !proc->args[i - 1])
+			i--;
 		list = list->next;
 	}
+	proc->nb_args = i;
+	UINT(i);
 	proc->args[i] = NULL;
 }
 
@@ -86,7 +90,6 @@ t_mini parser(const char *buffer, t_env *envp)
 	if (!tokens)
 		return ((t_mini){0});
 	mini = parsing(tokens, envp);
-	// print_mini(mini);
 	free_tokens(tokens);
 	free(tokens);
 	mini.envp = envp;

@@ -6,13 +6,10 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:57:48 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/21 01:20:57 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/21 13:38:54 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "minishell.h"
-// #include "libft.h"
-// #include "libft.h"
 #include "minishell.h"
 #include "libft.h"
 #include <stdio.h>
@@ -30,7 +27,7 @@ int error_func(char *name, int code)
 int cd_func(t_proc	*proc, t_env	*env)
 {
 	t_lst	*lst;
-	char *old_pwd;
+	char	*old_pwd;
 	
 	if (open_builtin_files(proc) == 1 || env == NULL)
 		return (1);

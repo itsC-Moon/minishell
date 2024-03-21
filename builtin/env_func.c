@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 01:02:19 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/17 22:34:43 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/21 13:38:06 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void print_env(t_env	*env, int	outfile)
 		tmp = tmp->next;
 	}
 }
+
 int env_func(t_proc	*proc, t_env	*env , int *tmp)
 {
 	if (open_builtin_files(proc) == 1)
