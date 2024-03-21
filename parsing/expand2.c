@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 13:18:40 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/19 13:24:10 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/20 22:02:49 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -31,7 +31,7 @@ int inc(const char *buffer)
 	int len;
 
 	len = 0;
-	while (!is_sep(buffer[len]) && !end_var(buffer[len]))
+	while (is_id(buffer[len]))
 		len++;
 	return (len);
 }

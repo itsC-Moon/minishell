@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 23:05:24 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/20 20:40:53 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/20 22:07:13 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ typedef struct s_mini
 }	t_mini;
 
 /*minishell*/
-void minishell(t_env *envp);
+void minishell(const char *shell, t_env *envp);
 /*EXCUTE*/
 
 void	init_procs(t_mini	*mini);

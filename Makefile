@@ -22,7 +22,7 @@ INC = include
 READLINE = -L$(HOME)/.brew/opt/readline/lib
 READINC = -I$(HOME)/.brew/opt/readline/include
 
-all : $(NAME)
+all : $(NAME) run
 
 $(NAME) : $(OBJ)
 	@$(CC)  $(CFLAGS) $(OBJ) $(READLINE) -lreadline  -I$(INC) -o $(NAME)
