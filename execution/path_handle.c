@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:44:58 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/16 00:26:01 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/20 23:22:02 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char *get_cmd_path(t_proc	*proc, t_env *env)
 	char *cmd;
 
 	paths = get_paths(env);
-	if (ft_strchr(proc->args[0], '/') != NULL || paths == NULL)
+	if (proc->args[0][0] == 0 || ft_strchr(proc->args[0], '/') != NULL || paths == NULL)
 		return (ft_strdup(proc->args[0])); // TODO : free paths;
 	cmd = get_path(paths, proc->args[0]);
 	return (cmd); // TODO : free paths;

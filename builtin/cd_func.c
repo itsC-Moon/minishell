@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:57:48 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/19 02:10:15 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/21 01:20:57 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,29 @@ int error_func(char *name, int code)
 
 int cd_func(t_proc	*proc, t_env	*env)
 {
-	char path[1024];
 	t_lst	*lst;
-	char *tmp;
+	char *old_pwd;
 	
 	if (open_builtin_files(proc) == 1 || env == NULL)
 		return (1);
+	old_pwd = getcwd(NULL, 0);
 	if (chdir(proc->args[1]) < 0)
-		return (error_func("cd", 1));
+		return (free(old_pwd), error_func("cd", 1));
+	lst = env_search_2(env, "OLDPWD");
+	if (lst != NULL)
+	{
+		free(lst->varible);
+		lst->varible = ft_strjoin("OLDPWD=", old_pwd);
+		free(old_pwd);
+	}
 	lst = env_search_2(env, "PWD");
 	if (lst != NULL)
+	{
 		free(lst->varible);
-	tmp = ft_strdup(getcwd(path, sizeof(path)));
+		old_pwd = getcwd(NULL, 0);
+		lst->varible = ft_strjoin("PWD=", old_pwd);
+		free(old_pwd);
+	}
 	return (0);
 }	
 

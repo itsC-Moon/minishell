@@ -1,0 +1,14 @@
+Makefile
+README.md
+builtin
+checker_linux
+compile_flags.txt
+execution
+include
+kl
+libft
+minishell
+obj
+out
+parsing
+src

@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 23:05:24 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/20 20:40:53 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/21 01:46:58 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,17 @@ void minishell(t_env *envp);
 /*EXCUTE*/
 
 void	init_procs(t_mini	*mini);
-int init_builtin(t_proc	*proc, t_env *env, int *tmp);
+int init_builtin(t_proc	*proc, t_env *env, int *tmp, int status);
 
 /*files_handle*/
 void get_io_files(t_proc	*proc);
 
 /*pipe*/
-int		init_pipe(t_proc *proc, unsigned int size, t_env *envp);
+int		init_pipe(t_proc *proc, unsigned int size, t_env *envp, int mini_status);
 void	get_pipe_io_files(t_proc	*proc, int *fd);
 /*BUILTIN*/
 int open_builtin_files(t_proc	*proc);
-int	echo_func(t_proc	*proc, int *tmp);
+int	echo_func(t_proc	*proc, int *tmp, int status);
 int env_func(t_proc	*proc, t_env	*env, int *tmp);
 int	pwd_func(t_proc	*proc, int *tmp);
 int cd_func(t_proc	*proc, t_env	*env);

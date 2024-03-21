@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 21:59:43 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/19 21:22:00 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/21 01:47:07 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@
 #include <unistd.h>
 #include "tmp.h"
 
-void	child(t_proc	*proc, t_env	*env, int *fd)
+void	child(t_proc	*proc, t_env	*env, int *fd, int mini_status)
 {
 	int status;
 
-	status = init_builtin(proc, env, fd);
+	status = init_builtin(proc, env, fd, mini_status);
 	if (status != -1)
 		exit(status);
 	open_files(proc);
@@ -34,6 +34,7 @@ void	child(t_proc	*proc, t_env	*env, int *fd)
 	if (proc->io_fd[1] != 1)
 		dup2(proc->io_fd[1], 1);
 	execve(proc->command, proc->args, env_lst_to_arr(env));
+	error_exit(proc->args[0], 126);
 }
 
 void wait_process(int *pids, int *status, int size)
@@ -67,7 +68,7 @@ void ft_close(int *fd)
 	close(*fd);
 	*fd = -1;
 }
-int	init_pipe(t_proc *proc, unsigned int size, t_env *envp)
+int	init_pipe(t_proc *proc, unsigned int size, t_env *envp, int mini_status)
 {
 	size_t i;
 	int status;
@@ -86,7 +87,7 @@ int	init_pipe(t_proc *proc, unsigned int size, t_env *envp)
 		{
 			if (i < size - 1)
 				ft_close(&fd[0]);
-			child(&proc[i], envp, tmp);
+			child(&proc[i], envp, tmp, mini_status);
 		}
 		ft_close(&tmp[0]);
 		ft_close(&tmp[1]);

@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 00:31:36 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/20 20:22:33 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/21 01:56:20 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,15 @@ void	exec_cmd(t_proc	*proc, t_env	*env)
 	dup2(proc->io_fd[0], 0);
 	dup2(proc->io_fd[1], 1);
 	execve(proc->command, proc->args, env_lst_to_arr(env));
+	error_exit(proc->args[0], 126);
 }
 
-int init_cmd(t_proc	*proc, t_env	*env)
+int init_cmd(t_proc	*proc, t_env	*env, int mini_status)
 {
 	int pid;
 	int status;
 	
-	status = init_builtin(proc, env, NULL);
+	status = init_builtin(proc, env, NULL, mini_status);
 	if (status != -1)
 		return (status);
 	pid = fork();
@@ -50,10 +51,16 @@ void	init_procs(t_mini	*mini)
 	if (mini->nb_doc > 0)
 		here_doc_exec(mini);
 	if (mini->proc->args[0] == NULL)
+	{
+		if (mini->nb_doc > 0)
+			mini->status = open_builtin_files(mini->proc);
+		else
+			mini->status = 0;
 		return ;
+	}
 	if (mini->size == 1)
-		mini->status = init_cmd(mini->proc, mini->envp);
+		mini->status = init_cmd(mini->proc, mini->envp, mini->status);
 	else if (mini->size > 1)
-		mini->status = init_pipe(mini->proc, mini->size, mini->envp);
+		mini->status = init_pipe(mini->proc, mini->size, mini->envp, mini->status);
 }
 
