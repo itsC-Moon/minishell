@@ -5,10 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/22 00:53:36 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/22 00:53:36 by hibenouk         ###   ########.fr       */
+/*   Created: 2024/03/22 12:42:44 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/03/22 12:43:09 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 
 
@@ -31,6 +33,14 @@ void    ft_signal_ctrl_c(int sig)
     rl_on_new_line();
     rl_redisplay();
 }
+
+void ft_ignore(int sig)
+{
+	if (sig == 3)
+		return ;
+	return ;
+}
+
 void leaks()
 {
 	system("leaks minishell");

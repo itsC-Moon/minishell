@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 00:52:42 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/22 00:57:11 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/22 12:44:21 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ void minishell(t_env *envp)
 		print_mini(mini);
 		init_procs(&mini);
 		status = mini.status;
-		// clean_mini(&mini);
+		clean_mini(&mini);
 	}
 }
