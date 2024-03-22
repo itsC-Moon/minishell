@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 23:02:29 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/21 15:50:50 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/21 22:37:55 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char *expand(const char *buffer, t_env *envp)
 
 	i = 0;
 	lock_d = 1;
-	if (null_expand(buffer, envp))
+	if (null_expand(buffer, envp)) // TODO : return buffer
 		return (NULL);
 	new_buffer = malloc((get_expand_len(buffer, envp) + 1) * sizeof(char));
 	check_null(new_buffer, "malloc");

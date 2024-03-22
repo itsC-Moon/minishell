@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 12:20:25 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/21 15:59:02 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/21 22:35:57 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,27 @@
 #include "minishell.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
+#define check_null(x, y) (check_null(x, #x))
 static void __alloc(t_list *list, t_proc *proc)
 {
 	proc->nb_file = get_num_redic(list, INPUT_REDIR);
 	proc->nb_args = get_num_redic(list, STRING_LTR);
-	proc->args = malloc(sizeof(char **) * (proc->nb_args + 1));
-	check_null(proc->args, "malloc");
-	proc->file = malloc(sizeof(t_file) * proc->nb_file);
-	check_null(proc->file, "malloc");
+	if (proc->nb_args)
+	{
+		proc->args = malloc(sizeof(char **) * (proc->nb_args + 1));
+		check_null(proc->args, "malloc26");
+	}
+	else
+		proc->args = NULL;
+	if (proc->nb_file)
+	{
+		proc->file = malloc(sizeof(t_file) * proc->nb_file);
+		check_null(proc->file, "malloc33");
+	}
+	else
+		proc->file = NULL;
 }
 
 static void alloc_io(t_list *list, t_proc *proc, t_env *envp)
@@ -52,8 +64,8 @@ static void alloc_io(t_list *list, t_proc *proc, t_env *envp)
 		list = list->next;
 	}
 	proc->nb_args = i;
-	UINT(i);
-	proc->args[i] = NULL;
+	if (i)
+		proc->args[i] = NULL;
 }
 
 static t_mini parsing(t_Token *tokens, t_env *envp)

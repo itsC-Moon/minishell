@@ -6,14 +6,14 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:29:46 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/21 16:00:02 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/22 00:50:21 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
 
-void minishell(const char *shell, t_env *envp)
+void minishell(t_env *envp)
 {
 	t_mini mini;
 	char *buffer;
@@ -21,19 +21,21 @@ void minishell(const char *shell, t_env *envp)
 
 	while (1)
 	{
-		buffer = readline(shell);
+		buffer = readline("nudejs>$ ");
 		if (!buffer)
-			break ;
-		if (*shell && !is_empty(buffer))
+			return ;
+		if (!is_empty(buffer))
 			add_history(buffer);
 		else
 			continue;
 		mini = parser(buffer, envp);
+		free(buffer);
 		if (mini.size == 0 && mini.nb_doc == 0)
 			continue;
-		print_mini(mini);
 		mini.status = status;
 		init_procs(&mini);
+		// print_mini(mini);
 		status = mini.status;
+		// clean_mini(&mini);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 16:02:37 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/19 15:59:27 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/22 00:49:43 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void get_type(t_Token_Type type) {
 void print2d(char **argv, size_t size)
 {
 	size_t i = 0;
+	UINT(size)
 	while (i < size)
 	{
 		printf("%s ",argv[i]);
@@ -48,6 +49,7 @@ void print2d(char **argv, size_t size)
 void print_file(t_file *file, size_t size)
 {
 	size_t i = 0;
+	UINT(size)
 	while (i < size)
 	{
 		printf("%s =>",file[i].file_name);
@@ -70,6 +72,7 @@ void print_mini(t_mini mini)
 	size_t i = 0;
 	print_file(mini.here_doc, mini.nb_doc);
 	printf("------------------------\n");
+	UINT(mini.size)
 	while (i < mini.size)
 	{
 		print2d(it[i].args, it[i].nb_args);

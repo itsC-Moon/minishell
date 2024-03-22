@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 23:06:25 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/20 22:08:11 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/22 00:45:13 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 #include <readline/history.h>
 #include <signal.h>
 #include <stdio.h>
+# include <fcntl.h>
 #include <stdlib.h>
+#include <sys/fcntl.h>
 #include <unistd.h>
 
 void    ft_signal_ctrl_c(int sig)
@@ -33,21 +35,18 @@ void leaks()
 }
 
 int main(int ac, char **argv, char **env)
-{
+{/*atexit(leaks);*/
 
 	(void)ac;
 	(void)argv;
-	(void)env;
 	t_env	*envp;
-	char *shell;
-	// int		status;
 
-	shell = "";
-	if (isatty(0))
-		shell = "nudejs>$ ";
+	if (!isatty(0))
+		return (ft_printf(2, "nudejs: require a tty session\n"), 1);
 	envp = env_arr_to_lst(env);
 	signal(SIGINT, ft_signal_ctrl_c);
-	minishell(shell, envp);
-
+	minishell(envp);
+	free_env(envp);
+	rl_clear_history();
 	return (0);
 }

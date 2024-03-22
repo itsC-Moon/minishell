@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:28:41 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/21 14:48:32 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/22 00:41:15 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+
+
 typedef enum e_open_type
 {
 	INPUT,
@@ -31,7 +33,6 @@ typedef enum e_open_type
 	APPEND,
 	_HEREDOC,
 	AMBIGUOUS,
-	EMPTY_EXPAND,
 }	t_open_type;
 
 typedef struct s_lst
@@ -78,7 +79,7 @@ typedef struct s_mini
 }	t_mini;
 
 /*minishell*/
-void		minishell(const char *shell, t_env *envp);
+void		minishell(t_env *envp);
 /*EXCUTE*/
 
 void		init_procs(t_mini	*mini);
@@ -125,10 +126,15 @@ void		check_cmd(t_proc	*proc, char *cmd);
 
 /*here_doc*/
 void		init_here_doc(t_mini *mini);
-void here_doc_exec(t_mini	*mini);
+void		here_doc_exec(t_mini	*mini);
+
+/*clean*/
+void		clean_mini(t_mini *mini);
+void		free_env(t_env *envp);
 /*debug*/
 
 void print2d(char **argv, size_t size);
 void print_mini(t_mini mini);
 void print_file(t_file *file, size_t size);
+void leaks();
 #endif /* !MINISHELL_H */

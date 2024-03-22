@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 23:05:11 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/20 22:03:42 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/21 22:33:18 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 # define LIBFT_H
 # include <stdarg.h>
 # include <stdlib.h>
+# include <string.h>
+# include <errno.h>
 # include <unistd.h>
 # define SKIP 2
 # define LEN 0
@@ -69,6 +71,7 @@ void		error_exit(const char *name, int code);
 void		check_null(void *ptr, const char *str);
 void		report(const char *name);
 
+
 /*printf*/
 int			ft_printf(int fd, const char *str, ...);
 int			ft_putstr(int fd, const char *str);
@@ -76,6 +79,7 @@ int			ft_putnbr(int fd, int n);
 int			ft_puthex(int fd, int n, const char *base);
 int			ft_putnbr_u(int fd, unsigned int n);
 int			ft_putaddr(int fd, void *ptr);
+
 
 /*libft*/
 int			cmp(const char *s1, const char *s2, size_t n);
