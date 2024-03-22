@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
+/*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 00:31:36 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/22 12:59:34 by hibenouk         ###   ########.fr       */
+/*   Created: 2024/03/22 21:02:41 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/03/22 21:03:01 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "../include/minishell.h"
 #include "../include/libft.h"
@@ -21,11 +23,11 @@
 
 void close_fds(t_proc	*proc)
 {
-	 unsigned int i;
+	unsigned int i;
 
 	i = 0;
 	while (i < proc->nb_file)
-		close (proc->file[i].fd);
+		close (proc->file[i++].fd);
 }
 
 void	exec_cmd(t_proc	*proc, t_env	*env)
