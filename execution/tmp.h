@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 00:59:14 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/14 01:15:32 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/22 13:29:23 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define TMP_H
 
 # include "../include/minishell.h"
-char    *ft_strdup(char *s1);
 char *env_search(t_env	*env, const char *name);
 char	**ft_split(char *s, char c);
 t_env	*env_arr_to_lst(char **envp);

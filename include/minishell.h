@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 00:52:51 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/22 00:52:52 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/22 13:32:08 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
+#define FILE 1
+#define ARGS 0
 
 
 typedef enum e_open_type
@@ -82,8 +83,9 @@ typedef struct s_mini
 
 /*minishell*/
 void		minishell(t_env *envp);
-/*EXCUTE*/
 
+
+/*EXCUTE*/
 void		init_procs(t_mini	*mini);
 int			init_builtin(t_proc	*proc, t_env *env, int *tmp, int status);
 
@@ -93,6 +95,8 @@ void		get_io_files(t_proc	*proc);
 /*pipe*/
 int			init_pipe(t_proc *proc, unsigned int size, t_env *envp, int mini_status);
 void		get_pipe_io_files(t_proc	*proc, int *fd);
+
+
 /*BUILTIN*/
 int			open_builtin_files(t_proc	*proc);
 int			echo_func(t_proc	*proc, int *tmp, int status);
@@ -100,12 +104,10 @@ int 		env_func(t_proc	*proc, t_env	*env, int *tmp);
 int			pwd_func(t_proc	*proc, int *tmp);
 int 		cd_func(t_proc	*proc, t_env	*env);
 int 		unset_func(t_proc	*proc, t_env	*env);
-int validate_name(char *name);
-
-
+int			validate_name(char *name);
 
 /*expand*/
-char		*expand(const char *buffer, t_env *envp);
+char		*expand(const char *buffer, t_env *envp, int opt);
 int			expand_tildes(const char *buffer, t_env *envp, char *new_buffer);
 void		copy_to_buffer(const char *buffer, char *new_buffer, t_env *envp);
 int			var_len(const char *buffer, t_env *envp);
@@ -117,6 +119,7 @@ t_Token		*tokenizer(const char *buffer);
 t_mini		parser(const char *buffer, t_env *envp);
 size_t		count_command(t_Token *token);
 size_t		get_num_redic(t_list *list, t_Token_Type type);
+
 /*constructor*/
 t_file		file(char *file_name, t_open_type mod);
 t_file		file_here(char *limiter, t_open_type mod);
@@ -135,8 +138,8 @@ void		here_doc_exec(t_mini	*mini);
 /*clean*/
 void		clean_mini(t_mini *mini);
 void		free_env(t_env *envp);
-/*debug*/
 
+/*debug*/
 void print2d(char **argv, size_t size);
 void print_mini(t_mini mini);
 void print_file(t_file *file, size_t size);

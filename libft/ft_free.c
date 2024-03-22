@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 18:32:33 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/21 23:45:58 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/22 16:47:31 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,21 @@ void  free_tab(char **tab)
 	}
 	free(tab);
 }
+
+void  free_n_tab(char **tab, size_t size)
+{
+	size_t  i;
+
+	i = 0;
+	while (i < size)
+	{
+		free(tab[i]);
+		tab[i] = NULL;
+		i++;
+	}
+	free(tab);
+}
+
 void	free_list(t_list *list)
 {
 	free(list->token);
@@ -55,7 +70,6 @@ void free_file(t_file *file)
 {
 	free(file->limiter);	
 	free(file->file_name);	
-	free(file);
 }
 
 void free_proc(t_proc *proc)
@@ -63,10 +77,10 @@ void free_proc(t_proc *proc)
 	size_t i;
 
 	i = 0;
-	free(proc->command);	
-	free_tab(proc->args);
+	free_n_tab(proc->args, proc->nb_args);
 	while (i < proc->nb_file)
 		free_file(proc->file + i++);
+	free(proc->file);
 }
 
 void free_env(t_env *envp)
@@ -92,4 +106,6 @@ void	clean_mini(t_mini *mini)
 	while(i < mini->size) 
 		free_proc(&mini->proc[i++]);
 	free(mini->proc);
+	free(mini->here_doc);
+	mini->proc = NULL;
 }

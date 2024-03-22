@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 12:42:44 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/22 12:43:09 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/22 20:47:26 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void leaks()
 }
 
 int main(int ac, char **argv, char **env)
-{//atexit(leaks);
+{
+	// atexit(leaks);
 
 	(void)ac;
 	(void)argv;
@@ -55,8 +56,8 @@ int main(int ac, char **argv, char **env)
 
 	if (!isatty(0))
 		return (ft_printf(2, "nudejs: require a tty session\n"), 1);
-	envp = env_arr_to_lst(env);
 	signal(SIGINT, ft_signal_ctrl_c);
+	envp = env_arr_to_lst(env);
 	minishell(envp);
 	free_env(envp);
 	rl_clear_history();

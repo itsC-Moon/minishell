@@ -6,7 +6,7 @@
 /*   By: zkotbi <hibenouk@1337.ma>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 00:29:58 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/22 01:34:23 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/22 16:46:10 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int read_until_lim(t_file	*here_doc)
 		free(buff);
 	}
 	close (fd);
+	free(buff);
 	return (0);
 }
 void here_doc_exec(t_mini	*mini)
