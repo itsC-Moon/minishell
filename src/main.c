@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 23:06:25 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/20 22:08:11 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/21 23:46:45 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void leaks()
 }
 
 int main(int ac, char **argv, char **env)
-{
+{//atexit(leaks);
 
 	(void)ac;
 	(void)argv;
