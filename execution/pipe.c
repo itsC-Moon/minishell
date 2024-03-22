@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 21:59:43 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/21 01:47:07 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/22 00:44:25 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	child(t_proc	*proc, t_env	*env, int *fd, int mini_status)
 {
 	int status;
 
+	if (proc->args[0] == NULL)
+		exit(open_builtin_files(proc));
 	status = init_builtin(proc, env, fd, mini_status);
 	if (status != -1)
 		exit(status);
@@ -47,20 +49,6 @@ void wait_process(int *pids, int *status, int size)
 	}
 }
 
-void pipe_file(int *tmp, int *fd, int i, int size)
-{
-	tmp[0] = fd[0];
-	if (i != size -1)
-	{
-		pipe(fd);
-		tmp[1] = fd[1];
-	}
-	if (i == 0 )
-		tmp[0] = 0;
-	else if (i == size -1)
-		tmp[1] = 1;
-}
-
 void ft_close(int *fd)
 {
 	if (*fd <= 1)
@@ -68,6 +56,23 @@ void ft_close(int *fd)
 	close(*fd);
 	*fd = -1;
 }
+
+int pipe_file(int *tmp, int *fd, int i, int size)
+{
+	tmp[0] = fd[0];
+	if (i != size -1)
+	{
+		if (pipe(fd) < 0)
+			return (ft_close(&tmp[0]), 1);
+		tmp[1] = fd[1];
+	}
+	if (i == 0 )
+		tmp[0] = 0;
+	else if (i == size -1)
+		tmp[1] = 1;
+	return (0);
+}
+
 int	init_pipe(t_proc *proc, unsigned int size, t_env *envp, int mini_status)
 {
 	size_t i;
@@ -81,7 +86,8 @@ int	init_pipe(t_proc *proc, unsigned int size, t_env *envp, int mini_status)
 	check_null(pids, "malloc");
 	while (i < size)
 	{
-		pipe_file(tmp, fd, i, size);
+		if (pipe_file(tmp, fd, i, size) == 1)
+			return (free(pids), 1);	
 		pids[i] = fork();
 		if (pids[i] == 0)
 		{

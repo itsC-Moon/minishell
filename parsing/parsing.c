@@ -6,7 +6,11 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 12:20:25 by hibenouk          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/03/21 22:35:57 by hibenouk         ###   ########.fr       */
+=======
+/*   Updated: 2024/03/21 20:38:41 by zkotbi           ###   ########.fr       */
+>>>>>>> 727b416109b5ad136a917d4b8a469a3eb48a6e91
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +68,13 @@ static void alloc_io(t_list *list, t_proc *proc, t_env *envp)
 		list = list->next;
 	}
 	proc->nb_args = i;
+<<<<<<< HEAD
 	if (i)
 		proc->args[i] = NULL;
+=======
+	// UINT(i);
+	proc->args[i] = NULL;
+>>>>>>> 727b416109b5ad136a917d4b8a469a3eb48a6e91
 }
 
 static t_mini parsing(t_Token *tokens, t_env *envp)

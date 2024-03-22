@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 00:31:36 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/21 13:35:41 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/22 00:29:37 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,15 @@
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <unistd.h>
+
+void close_fds(t_proc	*proc)
+{
+	 unsigned int i;
+
+	i = 0;
+	while (i < proc->nb_file)
+		close (proc->file[i].fd);
+}
 
 void	exec_cmd(t_proc	*proc, t_env	*env)
 {
@@ -36,6 +45,13 @@ int init_cmd(t_proc	*proc, t_env	*env, int mini_status)
 	int pid;
 	int status;
 	
+	if (proc->args[0] == NULL)
+	{
+		status = open_builtin_files(proc);
+		if (status != 1)
+			close_fds(proc);
+		return (status);
+	}
 	status = init_builtin(proc, env, NULL, mini_status);
 	if (status != -1)
 		return (status);
@@ -50,14 +66,6 @@ void	init_procs(t_mini	*mini)
 {
 	if (mini->nb_doc > 0)
 		here_doc_exec(mini);
-	if (mini->proc->args[0] == NULL)
-	{
-		if (mini->nb_doc > 0)
-			mini->status = open_builtin_files(mini->proc);
-		else
-			mini->status = 0;
-		return ;
-	}
 	if (mini->size == 1)
 		mini->status = init_cmd(mini->proc, mini->envp, mini->status);
 	else if (mini->size > 1)

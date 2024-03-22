@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 01:14:42 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/21 01:58:19 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/21 21:59:45 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,15 @@
 // #include "tmp.h"
 #include <string.h>
 
-int error_builtin_file(void)
-{
-	ft_printf(2, "error opening file\n");
+int error_builtin_file(t_proc	*proc, int size, t_file file)
+{	
+	int i = 0;
+	while (i < size)
+	{
+		close(proc->file[i].fd);
+		i++;
+	}
+	ft_printf(2, "nudejs: %s: %s\n", file.file_name, strerror(errno));
 	return (1);
 }
 
@@ -35,8 +41,13 @@ int open_builtin_files(t_proc	*proc)
 			proc->file[i].fd = open(proc->file[i].file_name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		else if (proc->file[i].mod == APPEND)
 			proc->file[i].fd = open(proc->file[i].file_name, O_CREAT | O_WRONLY | O_APPEND, 0644);
+		if (proc->file[i].mod == AMBIGUOUS)
+		{
+			ft_printf(2, "nudejs: %s: %s\n", proc->file[i].file_name, "ambiguous redirect");
+			return (1);
+		}
 		if (proc->file[i].fd < 0)
-			return (error_builtin_file());
+			return (error_builtin_file(proc, i, proc->file[i]));
 		i++;
 	}
 	return (0);

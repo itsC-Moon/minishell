@@ -5,10 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/19 23:06:25 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/22 00:45:13 by hibenouk         ###   ########.fr       */
+/*   Created: 2024/03/22 00:53:36 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/03/22 00:53:36 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "libft.h"
 #include "minishell.h"
@@ -35,7 +37,7 @@ void leaks()
 }
 
 int main(int ac, char **argv, char **env)
-{/*atexit(leaks);*/
+{//atexit(leaks);
 
 	(void)ac;
 	(void)argv;
