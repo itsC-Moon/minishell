@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 23:06:25 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/21 23:46:45 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/22 00:59:04 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@ void    ft_signal_ctrl_c(int sig)
     rl_on_new_line();
     rl_redisplay();
 }
+
+void ft_ignore(int sig)
+{
+	if (sig == 3)
+		return ;
+	return ;
+}
+
 void leaks()
 {
 	system("leaks minishell");
@@ -47,6 +55,7 @@ int main(int ac, char **argv, char **env)
 		shell = "nudejs>$ ";
 	envp = env_arr_to_lst(env);
 	signal(SIGINT, ft_signal_ctrl_c);
+	signal(SIGQUIT, ft_ignore);
 	minishell(shell, envp);
 
 	return (0);
