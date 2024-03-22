@@ -6,7 +6,7 @@
 /*   By: zkotbi <hibenouk@1337.ma>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 00:29:58 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/22 01:34:23 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/22 21:16:30 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,18 @@ int read_until_lim(t_file	*here_doc)
 	int fd;
 
 	fd = open(here_doc->file_name, O_CREAT | O_TRUNC | O_WRONLY, 0644);
+	if (fd < 0)
+		return (1);
 	buff = NULL;
 	while (1)
 	{
 		buff = readline(">");
-		if (buff == NULL && close(fd))
-			return (1);
+		if (buff == NULL && !close(fd))
+			return (0);
 		if (ft_strcmp(buff, here_doc->limiter) == 0)
 			break ;
-		ft_printf(fd, "%s\n", buff);
+		if (ft_printf(fd, "%s\n", buff) < 0)
+			return (free(buff), close(fd),  1);
 		free(buff);
 	}
 	close (fd);
