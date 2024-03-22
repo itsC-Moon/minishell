@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 00:31:36 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/22 00:29:37 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/22 21:00:33 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 
 void close_fds(t_proc	*proc)
 {
-	 unsigned int i;
+	unsigned int i;
 
 	i = 0;
 	while (i < proc->nb_file)
-		close (proc->file[i].fd);
+		close (proc->file[i++].fd);
 }
 
 void	exec_cmd(t_proc	*proc, t_env	*env)
@@ -44,8 +44,8 @@ int init_cmd(t_proc	*proc, t_env	*env, int mini_status)
 {
 	int pid;
 	int status;
-	
-	if (proc->args[0] == NULL)
+
+	if (proc->args == NULL || proc->args[0] == NULL)
 	{
 		status = open_builtin_files(proc);
 		if (status != 1)
