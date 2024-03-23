@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 23:05:11 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/20 22:03:42 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/23 01:14:18 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 # define LIBFT_H
 # include <stdarg.h>
 # include <stdlib.h>
+# include <string.h>
+# include <errno.h>
 # include <unistd.h>
 # define SKIP 2
 # define LEN 0
@@ -69,6 +71,7 @@ void		error_exit(const char *name, int code);
 void		check_null(void *ptr, const char *str);
 void		report(const char *name);
 
+
 /*printf*/
 int			ft_printf(int fd, const char *str, ...);
 int			ft_putstr(int fd, const char *str);
@@ -76,6 +79,7 @@ int			ft_putnbr(int fd, int n);
 int			ft_puthex(int fd, int n, const char *base);
 int			ft_putnbr_u(int fd, unsigned int n);
 int			ft_putaddr(int fd, void *ptr);
+
 
 /*libft*/
 int			cmp(const char *s1, const char *s2, size_t n);
@@ -90,12 +94,14 @@ int			ft_strlen(const char *buffer);
 void		free_tab(char **tab); // free 2d array
 char		*ft_strchr(const char	*s, int c);
 char		**ft_split(char *s, char c);
-char		*ft_strdup(char *s1);
+char		*ft_strdup(const char *s1);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_itoa(int n);
 int			is_empty(const char *buffer);
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
+void		*ft_calloc(size_t size);
+int			ft_atoi(const char *str);
 
 /*parsing*/
 char		*get_word(const char *str);

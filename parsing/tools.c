@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 23:03:18 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/21 15:40:26 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/22 15:25:33 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ t_file file(char *file_name, t_open_type mod)
 
 	file.file_name = file_name;
 	file.mod = mod;
-	if (!file_name)
+	file.limiter = NULL;
+	if (file_name[0] == '$' && file_name[1])
 		file.mod = AMBIGUOUS;
 	return (file);
 }

@@ -5,10 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/19 23:06:25 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/22 00:59:04 by zkotbi           ###   ########.fr       */
+/*   Created: 2024/03/22 12:42:44 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/03/23 20:23:34 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
+
+
 
 #include "libft.h"
 #include "minishell.h"
@@ -16,7 +20,9 @@
 #include <readline/history.h>
 #include <signal.h>
 #include <stdio.h>
+# include <fcntl.h>
 #include <stdlib.h>
+#include <sys/fcntl.h>
 #include <unistd.h>
 
 void    ft_signal_ctrl_c(int sig)
@@ -37,26 +43,26 @@ void ft_ignore(int sig)
 
 void leaks()
 {
-	system("leaks minishell");
+    char buffer[256] = {0};
+    sprintf(buffer, "lsof -p %d",getpid());
+    system(buffer);
+    system("leaks minishell");
 }
 
 int main(int ac, char **argv, char **env)
-{//atexit(leaks);
+{
+	atexit(leaks);
 
 	(void)ac;
 	(void)argv;
-	(void)env;
 	t_env	*envp;
-	char *shell;
-	// int		status;
 
-	shell = "";
-	if (isatty(0))
-		shell = "nudejs>$ ";
-	envp = env_arr_to_lst(env);
+	if (!isatty(0))
+		return (ft_printf(2, "nudejs: require a tty session\n"), 1);
 	signal(SIGINT, ft_signal_ctrl_c);
-	signal(SIGQUIT, ft_ignore);
-	minishell(shell, envp);
-
+	envp = env_arr_to_lst(env);
+	minishell(envp);
+	free_env(envp);
+	rl_clear_history();
 	return (0);
 }

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zkotbi <hibenouk@1337.ma>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/20 00:29:58 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/22 21:16:30 by zkotbi           ###   ########.fr       */
+/*   Created: 2024/03/22 21:23:16 by zkotbi            #+#    #+#             */
+/*   Updated: 2024/03/23 20:12:03 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,15 @@ int read_until_lim(t_file	*here_doc)
 	while (1)
 	{
 		buff = readline(">");
-		if (buff == NULL && !close(fd))
-			return (0);
+		if (buff == NULL)
+			return (close(fd), 0);
 		if (ft_strcmp(buff, here_doc->limiter) == 0)
 			break ;
 		if (ft_printf(fd, "%s\n", buff) < 0)
 			return (free(buff), close(fd),  1);
 		free(buff);
 	}
+	free(buff);
 	close (fd);
 	return (0);
 }

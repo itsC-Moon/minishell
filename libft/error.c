@@ -6,10 +6,11 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:15:16 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/16 20:24:02 by hicham           ###   ########.fr       */
+/*   Updated: 2024/03/22 21:08:23 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minishell.h"
 
 void error(const char *name)
@@ -27,6 +28,7 @@ void report(const char *name)
 {
 	ft_printf(2, "nudejs: %s\n", name);	
 }
+
 void check_null(void *ptr, const char *str)
 {
 	if (ptr)

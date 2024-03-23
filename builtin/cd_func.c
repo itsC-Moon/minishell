@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:57:48 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/22 00:05:56 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/23 21:06:39 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int error_func(char *name, int code)
 	return (code);
 }
 
-int error_home(char *name, int code)
+int error_home(char *name, char *str, int code)
 {
-	ft_printf(2, "nudejs: %s: HOME not set \n", name);	
+	ft_printf(2, "nudejs: %s: %s \n", name, str);	
 	return (code);
 }
 
@@ -37,22 +37,26 @@ int go_home(t_env *env)
 
 	home = env_search(env, "HOME");
 	if (home == NULL)
-		return (error_home("cd", 1));
+		return (error_home("cd", "HOME not set",  1));
 	if (chdir(home) < 0)
 		return (error_func("cd", 1));
 	return (0);
 }
 
-int cd_func(t_proc	*proc, t_env	*env)
+int cd_func(t_proc	*proc, t_env	*env, int *tmp)
 {
 	t_lst	*lst;
 	char	*old_pwd;
 	
+	close_builtin_file(tmp);
 	if (open_builtin_files(proc) == 1 || env == NULL)
 		return (1);
+	close_fds(proc);
 	old_pwd = getcwd(NULL, 0);
 	if (proc->args[1] == NULL)
 		return (free(old_pwd), go_home(env));
+	else if (proc->nb_args > 2)
+		return (free(old_pwd), error_home("cd", "too many arguments", 1));
 	if (chdir(proc->args[1]) < 0)
 		return (free(old_pwd), error_func("cd", 1));
 	lst = env_search_2(env, "OLDPWD");

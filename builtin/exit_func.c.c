@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd_func.c                                         :+:      :+:    :+:   */
+/*   exit_func.c.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
+/*   By: zkotbi <hibenouk@1337.ma>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/17 02:08:32 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/23 01:50:57 by zkotbi           ###   ########.fr       */
+/*   Created: 2024/03/23 01:08:38 by zkotbi            #+#    #+#             */
+/*   Updated: 2024/03/23 01:49:48 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
-#include <unistd.h>
 
-int	pwd_func(t_proc	*proc, int *tmp)
+int exit_func(t_proc	*proc, int *tmp)
 {
-	char *cwd;
-
+	close_builtin_file(tmp);
 	if (open_builtin_files(proc) == 1)
 		return (1);
-	if (tmp != NULL)
-		get_pipe_io_files(proc, tmp);
-	else
-		get_io_files(proc);
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
-		return (close_fds(proc), error("pwd"), 1);
-	ft_printf(proc->io_fd[1], "%s\n", cwd);
-	free(cwd);
 	close_fds(proc);
-	return (close_builtin_file(tmp), 0);
+	if (proc->nb_args > 2)
+	{
+		ft_printf(2, "nudejs: exit: too many arguments\n");
+		return (1);
+	}
+	if (proc->nb_args == 2)
+		exit(ft_atoi(proc->args[1]));
+	else
+		exit(0);
+	return (0);
 }

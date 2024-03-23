@@ -5,10 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/21 13:28:41 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/21 21:05:58 by zkotbi           ###   ########.fr       */
+/*   Created: 2024/03/22 00:52:51 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/03/23 01:46:25 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 
 
@@ -23,6 +25,9 @@
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+#define FILE 1
+#define ARGS 0
+
 
 typedef enum e_open_type
 {
@@ -31,7 +36,6 @@ typedef enum e_open_type
 	APPEND,
 	_HEREDOC,
 	AMBIGUOUS,
-	EMPTY_EXPAND,
 }	t_open_type;
 
 typedef struct s_lst
@@ -78,31 +82,35 @@ typedef struct s_mini
 }	t_mini;
 
 /*minishell*/
-void		minishell(const char *shell, t_env *envp);
-/*EXCUTE*/
+void		minishell(t_env *envp);
 
+
+/*EXCUTE*/
 void		init_procs(t_mini	*mini);
 int			init_builtin(t_proc	*proc, t_env *env, int *tmp, int status);
 
 /*files_handle*/
 void		get_io_files(t_proc	*proc);
+void		close_fds(t_proc	*proc);
 
 /*pipe*/
 int			init_pipe(t_proc *proc, unsigned int size, t_env *envp, int mini_status);
 void		get_pipe_io_files(t_proc	*proc, int *fd);
+
+
 /*BUILTIN*/
 int			open_builtin_files(t_proc	*proc);
 int			echo_func(t_proc	*proc, int *tmp, int status);
 int 		env_func(t_proc	*proc, t_env	*env, int *tmp);
 int			pwd_func(t_proc	*proc, int *tmp);
-int 		cd_func(t_proc	*proc, t_env	*env);
-int 		unset_func(t_proc	*proc, t_env	*env);
-int validate_name(char *name);
-
-
+int 		cd_func(t_proc	*proc, t_env	*env, int *tmp);
+int 		unset_func(t_proc	*proc, t_env	*env, int *fd);
+int			validate_name(char *name);
+void		close_builtin_file(int *tmp);
+int			exit_func(t_proc	*proc, int *tmp);
 
 /*expand*/
-char		*expand(const char *buffer, t_env *envp);
+char		*expand(const char *buffer, t_env *envp, int opt);
 int			expand_tildes(const char *buffer, t_env *envp, char *new_buffer);
 void		copy_to_buffer(const char *buffer, char *new_buffer, t_env *envp);
 int			var_len(const char *buffer, t_env *envp);
@@ -114,6 +122,7 @@ t_Token		*tokenizer(const char *buffer);
 t_mini		parser(const char *buffer, t_env *envp);
 size_t		count_command(t_Token *token);
 size_t		get_num_redic(t_list *list, t_Token_Type type);
+
 /*constructor*/
 t_file		file(char *file_name, t_open_type mod);
 t_file		file_here(char *limiter, t_open_type mod);
@@ -122,15 +131,20 @@ t_file		file_here(char *limiter, t_open_type mod);
 char		*env_search(t_env	*env, const char *name);
 t_lst		*env_search_2(t_env	*env, const char *name);
 t_env		*env_arr_to_lst(char **envp);
-void		check_cmd(t_proc	*proc, char *cmd);
+void		check_cmd(t_proc	*proc, char *cmd, int *fd);
 char *env_search_3(t_env	*env, const char *name);
 
 /*here_doc*/
 void		init_here_doc(t_mini *mini);
-void here_doc_exec(t_mini	*mini);
-/*debug*/
+void		here_doc_exec(t_mini	*mini);
 
+/*clean*/
+void		clean_mini(t_mini *mini);
+void		free_env(t_env *envp);
+
+/*debug*/
 void print2d(char **argv, size_t size);
 void print_mini(t_mini mini);
 void print_file(t_file *file, size_t size);
+void leaks();
 #endif /* !MINISHELL_H */

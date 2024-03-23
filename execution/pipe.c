@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 21:59:43 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/22 20:59:02 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/23 03:55:20 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,14 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include "tmp.h"
+
+void ft_close(int *fd)
+{
+	if (*fd <= 1)
+		return ;
+	close(*fd);
+	*fd = -1;
+}
 
 void	child(t_proc	*proc, t_env	*env, int *fd, int mini_status)
 {
@@ -30,11 +38,18 @@ void	child(t_proc	*proc, t_env	*env, int *fd, int mini_status)
 	open_files(proc);
 	get_pipe_io_files(proc, fd);
 	proc->command = get_cmd_path(proc, env);
-	check_cmd(proc, proc->command);
+	check_cmd(proc, proc->command, fd);
 	if (proc->io_fd[0] != 0)
+	{
 		dup2(proc->io_fd[0], 0);
+		ft_close (&proc->io_fd[0]);
+	}
 	if (proc->io_fd[1] != 1)
+	{
 		dup2(proc->io_fd[1], 1);
+		ft_close(&proc->io_fd[1]);
+	}
+	close_fds(proc);
 	execve(proc->command, proc->args, env_lst_to_arr(env));
 	error_exit(proc->args[0], 126);
 }
@@ -49,13 +64,6 @@ void wait_process(int *pids, int *status, int size)
 	}
 }
 
-void ft_close(int *fd)
-{
-	if (*fd <= 1)
-		return ;
-	close(*fd);
-	*fd = -1;
-}
 
 int pipe_file(int *tmp, int *fd, int i, int size)
 {

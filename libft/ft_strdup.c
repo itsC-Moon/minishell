@@ -6,14 +6,14 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 00:44:40 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/12 13:10:43 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/22 13:29:51 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "stdlib.h"
 
-static int ft_strl(char *s)
+static int ft_strl(const char *s)
 {
 	int i;
 
@@ -23,7 +23,7 @@ static int ft_strl(char *s)
 	return (i);
 }
 
-char    *ft_strdup(char *s1)
+char    *ft_strdup(const char *s1)
 {
     char    *dup;
     int        i;

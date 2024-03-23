@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
+/*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 00:31:36 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/22 21:00:33 by zkotbi           ###   ########.fr       */
+/*   Created: 2024/03/22 21:02:41 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/03/23 04:01:07 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "../include/minishell.h"
 #include "../include/libft.h"
@@ -25,7 +27,10 @@ void close_fds(t_proc	*proc)
 
 	i = 0;
 	while (i < proc->nb_file)
-		close (proc->file[i++].fd);
+	{
+		if (proc->file[i].fd != 0 && proc->file[i].fd != 1) 
+			close (proc->file[i++].fd);
+	}
 }
 
 void	exec_cmd(t_proc	*proc, t_env	*env)
@@ -33,9 +38,10 @@ void	exec_cmd(t_proc	*proc, t_env	*env)
 	open_files(proc);
 	get_io_files(proc);
 	proc->command = get_cmd_path(proc, env);
-	check_cmd(proc, proc->command);
+	check_cmd(proc, proc->command, NULL);
 	dup2(proc->io_fd[0], 0);
 	dup2(proc->io_fd[1], 1);
+	close_fds(proc);
 	execve(proc->command, proc->args, env_lst_to_arr(env));
 	error_exit(proc->args[0], 126);
 }
@@ -44,8 +50,8 @@ int init_cmd(t_proc	*proc, t_env	*env, int mini_status)
 {
 	int pid;
 	int status;
-
-	if (proc->args == NULL || proc->args[0] == NULL)
+	
+	if (proc->nb_args == 0 || proc->args[0] == NULL)
 	{
 		status = open_builtin_files(proc);
 		if (status != 1)

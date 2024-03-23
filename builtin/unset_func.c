@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 02:29:01 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/21 21:06:17 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/23 01:49:08 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void remove_node(t_env	*env, t_lst	*lst)
 	free(lst);
 }
 
-int unset_func(t_proc	*proc, t_env	*env)
+int unset_func(t_proc	*proc, t_env	*env, int *fd)
 {
 	int i;
 	char *tmp;
@@ -36,7 +36,8 @@ int unset_func(t_proc	*proc, t_env	*env)
 	i = 1;
 	status = 0;
 	if (open_builtin_files(proc) == 1)
-		return (1);
+		return (close_builtin_file(fd), 1);
+	close_fds(proc);
 	while (proc->args[i] != NULL)
 	{
 		tmp = env_search_3(env, proc->args[i]);

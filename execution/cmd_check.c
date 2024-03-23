@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:42:08 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/20 13:57:48 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/23 01:58:19 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,27 @@ int is_dir(char *path)
 	return (0);
 }
 
-static void exit_error(const char *str, int exit_val, const char *name)
+static void exit_error(const char *str, int exit_val, const char *name, int *fd)
 {
+	if (fd != NULL)
+	{
+		close (fd[0]);
+		close (fd[1]);
+	}	
 	ft_printf(2, "nudejs: %s: %s\n",name, str);
 	exit(exit_val);
 }
 
-void	check_cmd(t_proc	*proc, char *cmd)
+void	check_cmd(t_proc	*proc, char *cmd, int *fd)
 {
 	if (ft_strchr(cmd, '/') != NULL && is_dir(cmd) == 1)
-		exit_error("is a directory", 126, cmd);
+		exit_error("is a directory", 126, cmd, fd);
 	else if (access(cmd, F_OK) == -1 && ft_strchr(cmd, '/') != NULL)
-		exit_error("No such a file or directory", 1, cmd);
+		exit_error("No such a file or directory", 1, cmd, fd);
 	else if (access(cmd, F_OK | X_OK) == -1 && ft_strchr(proc->args[0], '/') == NULL)
-		exit_error("command not found", 127, cmd);
+		exit_error("command not found", 127, cmd, fd);
 	else if (access(cmd, X_OK) == -1 && ft_strchr(cmd, '/') != NULL)
-		exit_error("permission denied", 126, cmd);
+		exit_error("permission denied", 126, cmd, fd);
 }
 
 
