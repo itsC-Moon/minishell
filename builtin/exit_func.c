@@ -6,7 +6,7 @@
 /*   By: zkotbi <hibenouk@1337.ma>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 01:08:38 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/24 00:32:52 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/24 01:38:30 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int exit_func(t_proc	*proc, int *tmp)
 		return (1);
 	}
 	if (check_arg(proc->args[1]) == -1)
-		exit (255);
+		exit (2);
 	if (proc->nb_args == 2)
 		exit(ft_atoi(proc->args[1]));
 	else
