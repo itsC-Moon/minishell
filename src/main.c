@@ -5,13 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/22 12:42:44 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/23 23:46:08 by hibenouk         ###   ########.fr       */
+/*   Created: 2024/03/24 01:23:13 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/03/24 01:23:48 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "libft.h"
+
+
+# include "libft.h"
 #include "minishell.h"
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -40,10 +42,11 @@ void ft_ignore(int sig)
 
 void leaks()
 {
-	char buffer[256] = {0};
-	sprintf(buffer, "lsof -p %d",getpid());
-	system(buffer);
-	system("leaks minishell");
+
+    char buffer[256] = {0};
+    sprintf(buffer, "lsof -p %d",getpid());
+    system(buffer);
+    system("leaks minishell");
 }
 
 

@@ -1,14 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   builtin.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/16 01:14:42 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/23 13:46:34 by hibenouk         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #include "minishell.h"
 #include "libft.h"
@@ -35,7 +25,7 @@ int open_builtin_files(t_proc	*proc)
 	i = 0;
 	while (i < proc->nb_file)
 	{
-		if (proc->file[i].mod == INPUT)
+		if (proc->file[i].mod == INPUT || proc->file[i].mod == _HEREDOC)
 			proc->file[i].fd = open(proc->file[i].file_name, O_RDONLY);
 		else if (proc->file[i].mod == OUTPUT)
 			proc->file[i].fd = open(proc->file[i].file_name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
@@ -53,44 +43,32 @@ int open_builtin_files(t_proc	*proc)
 	return (0);
 }
 
-int count_builtins(t_proc	*proc, int size)
+void close_builtin_file(int *tmp)
 {
-	int i;
-	int count;
-
-	i = 0;
-	count = 0;
-	while (i < size)
-	{
-		if (ft_strcmp(proc->args[0], "echo") == 0
-		|| ft_strcmp(proc->args[0], "env") == 0
-		/*|| ft_strcmp(proc->args[0], "cd") == 0
-		|| ft_strcmp(proc->args[0], "exit") == 0
-		|| ft_strcmp(proc->args[0], "export") == 0*/
-		|| ft_strcmp(proc->args[0], "pwd") == 0
-		/*|| ft_strcmp(proc->args[0], "unset") == 0*/)
-			count++;
-		i++;
-	}
-	return (count);
+	if (tmp == NULL)
+		return ;
+	if (tmp[0] > 1)
+		close(tmp[0]);
+	if (tmp[1] > 1)
+		close(tmp[1]);
 }
 
-int init_builtin(t_proc	*proc, t_env	*env, int *tmp, int status)
+int init_builtin(t_proc	*proc, t_env	*env, int *fd, int status)
 {
 	if (ft_strcmp(proc->args[0], "echo") == 0)
-		return (echo_func(proc, tmp, status));
+		return (echo_func(proc, fd, status));
 	else if (ft_strcmp(proc->args[0], "env") == 0)
-		return (env_func(proc, env, tmp));
+		return (env_func(proc, env, fd));
 	else if (ft_strcmp(proc->args[0], "cd") == 0)
-		return (cd_func(proc, env));
+		return (cd_func(proc, env, fd));
 	else if (ft_strcmp(proc->args[0], "unset") == 0)
-		return (unset_func(proc, env));
+		return (unset_func(proc, env, fd));
 	else if (ft_strcmp(proc->args[0], "export") == 0)
-		return (export_func(proc, tmp, env));
-	// else if (ft_strcmp(proc->args[0], "exit") == 0)
-	// 	return (exit_func(proc));
+		return (export_func(proc, fd, env));
+	else if (ft_strcmp(proc->args[0], "exit") == 0)
+		return (exit_func(proc, fd));
 	else if (ft_strcmp(proc->args[0], "pwd") == 0)
-		return (pwd_func(proc, tmp));
+		return (pwd_func(proc, fd));
 	return (-1);
 }
 // int	check_builtin(char *cmd_name)

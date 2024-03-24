@@ -5,10 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/19 23:05:11 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/23 23:36:42 by hibenouk         ###   ########.fr       */
+/*   Created: 2024/03/24 01:24:55 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/03/24 01:24:56 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 
 #ifndef LIBFT_H
@@ -103,6 +105,7 @@ int			ft_strcmp(const char *s1, const char *s2);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 int			count_numbers2(long nb);
 void		*ft_calloc(size_t size);
+long	ft_atoi(const char *str);
 
 /*parsing*/
 char		*get_word(const char *str);

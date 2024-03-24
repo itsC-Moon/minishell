@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/22 00:52:51 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/23 23:29:23 by hibenouk         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 
 
@@ -93,6 +82,7 @@ int			init_builtin(t_proc	*proc, t_env *env, int *tmp, int status);
 
 /*files_handle*/
 void		get_io_files(t_proc	*proc);
+void		close_fds(t_proc	*proc);
 
 /*pipe*/
 int			init_pipe(t_proc *proc, unsigned int size, t_env *envp, int mini_status);
@@ -104,10 +94,12 @@ int			open_builtin_files(t_proc	*proc);
 int			echo_func(t_proc	*proc, int *tmp, int status);
 int 		env_func(t_proc	*proc, t_env	*env, int *tmp);
 int			pwd_func(t_proc	*proc, int *tmp);
-int 		cd_func(t_proc	*proc, t_env	*env);
-int 		unset_func(t_proc	*proc, t_env	*env);
+int 		cd_func(t_proc	*proc, t_env	*env, int *tmp);
+int 		unset_func(t_proc	*proc, t_env	*env, int *fd);
 int			export_func(t_proc	*proc, int *fd, t_env *env);
 int			validate_name(const char *name);
+void		close_builtin_file(int *tmp);
+int			exit_func(t_proc	*proc, int *tmp);
 
 /*expand*/
 char		*expand(const char *buffer, t_env *envp, int opt);
@@ -131,9 +123,10 @@ t_file		file_here(char *limiter, t_open_type mod);
 char		*env_search(t_env	*env, const char *name);
 t_lst		*env_search_2(t_env	*env, const char *name);
 t_env		*env_arr_to_lst(char **envp);
-void		check_cmd(t_proc	*proc, char *cmd);
+void		check_cmd(t_proc	*proc, char *cmd, int *fd);
 char		*env_search_3(t_env	*env, const char *name);
 t_lst		*lst_addback(t_lst	*lst, const char *to_add);
+
 
 /*here_doc*/
 void		init_here_doc(t_mini *mini);
