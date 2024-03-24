@@ -6,14 +6,14 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 01:02:19 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/21 13:38:06 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/23 13:43:09 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-void print_env(t_env	*env, int	outfile)
+static void print_env(t_env	*env, int	outfile)
 {
 	t_lst	*tmp;
 

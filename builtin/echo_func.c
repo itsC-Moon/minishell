@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 00:22:41 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/21 01:51:47 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/22 22:34:19 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,15 @@ void	print_echo_args(char **args, int outfile, int status)
 {
 	int i;
 
+	(void)status;
 	i = 1;
 	if (ft_strcmp(args[i], "-n") == 0)
 		i++;
-	if (ft_strcmp("$?", args[i]) == 0)
-	{
-		ft_printf(outfile, "%d", status);
-		return ;
-	}
+	// if (ft_strcmp("$?", args[i]) == 0)
+	// {
+	// 	ft_printf(outfile, "%d", status);
+	// 	return ;
+	// }
 	while(args[i] != NULL)
 	{
 		ft_printf(outfile, "%s", args[i]);

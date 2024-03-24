@@ -6,14 +6,14 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 23:32:40 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/19 01:54:26 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/23 15:50:21 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
 
-t_lst *lst_addback(t_lst	*lst, char *to_add)
+t_lst *lst_addback(t_lst	*lst, const char *to_add)
 {
 	t_lst *tmp;
 
@@ -70,30 +70,4 @@ char **env_lst_to_arr(t_env *env)
 	arr[i] = NULL;
 	return (arr);
 }
-
-// int main(int argc, char **argv, char **envp)
-// {
-// 	if (argc < 1 && argv[0] == NULL)
-// 		return (0);
-// 	t_env *env = env_arr_to_lst(envp);
-// 	printf("front --> %s\n", env->front->varible);
-// 	printf("back --> %s\n", env->back->varible);
-// 	printf("front --> %ld\n", env->size);
-// 	t_lst *lst = env->front;
-// 	int i = 0;
-// 	while (lst != NULL)
-// 	{
-// 		// printf("var%d=%s\n", (i + 1), lst->varible);
-// 		lst = lst->next;
-// 		i++;
-// 	}
-// 	char **envs = env_lst_to_arr(env);
-// 	i = 0;
-// 	printf("-----------------------------arr_to_lst----------------------------------\n");
-// 	while (envs[i] != NULL)
-// 	{
-// 		printf("var %d --> %s\n", i + 1, envs[i]);
-// 		i++;
-// 	}
-// }
 

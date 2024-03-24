@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 00:52:42 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/22 16:36:14 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/23 23:43:01 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 
 void minishell(t_env *envp)
 {
-	t_mini mini;
-	char *buffer;
-	int status = 0;
+	t_mini	mini;
+	char	*buffer;
+	int		status = 0;
 
 	while (1)
 	{
@@ -37,9 +37,9 @@ void minishell(t_env *envp)
 		if (mini.size == 0 && mini.nb_doc == 0)
 			continue;
 		mini.status = status;
-		// print_mini(mini);
 		init_procs(&mini);
 		status = mini.status;
+		get_status(status, SET);
 		clean_mini(&mini);
 	}
 }

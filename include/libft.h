@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 23:05:11 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/22 14:08:29 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/23 23:36:42 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,11 @@ char		**ft_split(char *s, char c);
 char		*ft_strdup(const char *s1);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_itoa(int n);
+char		*random_name(int n);
 int			is_empty(const char *buffer);
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
+int			count_numbers2(long nb);
 void		*ft_calloc(size_t size);
 
 /*parsing*/

@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:28:20 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/21 21:05:36 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/23 23:23:39 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int is_id(char c)
 	return (c == '_' || ft_isalpha(c) || ft_isdigit(c));
 }
 
-int validate_name(char *name)
+int validate_name(const char *name)
 {
 	int i = 0;
 	while (name[i] != 0 && is_id(name[i]))
@@ -35,7 +35,7 @@ char *env_search(t_env	*env, const char *name)
 	int i;
 
 	tmp = env->front;
-	if (name[0] == '?' || !is_id(name[0]))
+	if (!is_id(name[0]))
 		return ("$");
 	while(tmp != NULL)
 	{

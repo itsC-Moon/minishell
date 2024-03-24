@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:42:08 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/20 13:57:48 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/22 22:04:31 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	check_cmd(t_proc	*proc, char *cmd)
 	if (ft_strchr(cmd, '/') != NULL && is_dir(cmd) == 1)
 		exit_error("is a directory", 126, cmd);
 	else if (access(cmd, F_OK) == -1 && ft_strchr(cmd, '/') != NULL)
-		exit_error("No such a file or directory", 1, cmd);
+		exit_error("No such file or directory", 1, cmd);
 	else if (access(cmd, F_OK | X_OK) == -1 && ft_strchr(proc->args[0], '/') == NULL)
 		exit_error("command not found", 127, cmd);
 	else if (access(cmd, X_OK) == -1 && ft_strchr(cmd, '/') != NULL)

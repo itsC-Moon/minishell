@@ -6,13 +6,14 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 18:32:33 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/22 16:47:31 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/24 00:00:18 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 #include "minishell.h"
 #include <sys/_types/_size_t.h>
+#include <unistd.h>
 // #include "minishell.h"
 
 void  free_tab(char **tab)
@@ -20,6 +21,8 @@ void  free_tab(char **tab)
 	int i;
 
 	i = 0;
+	if (!tab)
+		return ;
 	while (tab[i] != NULL)
 	{
 		free(tab[i]);
@@ -102,6 +105,9 @@ void	clean_mini(t_mini *mini)
 {
 	size_t i;
 
+	i = 0;
+	while (i < mini->nb_doc)
+		unlink(mini->here_doc[i++].file_name);
 	i = 0;
 	while(i < mini->size) 
 		free_proc(&mini->proc[i++]);

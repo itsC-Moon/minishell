@@ -6,12 +6,9 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 12:42:44 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/22 20:47:26 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/23 23:46:08 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-
 
 
 #include "libft.h"
@@ -23,6 +20,7 @@
 # include <fcntl.h>
 #include <stdlib.h>
 #include <sys/fcntl.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 void    ft_signal_ctrl_c(int sig)
@@ -36,15 +34,18 @@ void    ft_signal_ctrl_c(int sig)
 
 void ft_ignore(int sig)
 {
-	if (sig == 3)
-		return ;
-	return ;
+	(void)sig;
+    rl_on_new_line();
 }
 
 void leaks()
 {
+	char buffer[256] = {0};
+	sprintf(buffer, "lsof -p %d",getpid());
+	system(buffer);
 	system("leaks minishell");
 }
+
 
 int main(int ac, char **argv, char **env)
 {
@@ -54,9 +55,10 @@ int main(int ac, char **argv, char **env)
 	(void)argv;
 	t_env	*envp;
 
-	if (!isatty(0))
-		return (ft_printf(2, "nudejs: require a tty session\n"), 1);
+	// if (!isatty(0))
+	// 	return (ft_printf(2, "nudejs: require a tty session\n"), 1);
 	signal(SIGINT, ft_signal_ctrl_c);
+	signal(SIGQUIT, ft_ignore);
 	envp = env_arr_to_lst(env);
 	minishell(envp);
 	free_env(envp);

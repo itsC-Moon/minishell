@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 02:29:01 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/21 21:06:17 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/24 00:04:30 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,10 @@ int unset_func(t_proc	*proc, t_env	*env)
 			status = 1;
 		}
 		else
+		{
 			remove_node(env, env_search_2(env, proc->args[i++]));
+			env->size--;
+		}
 	}
 	return (status);
 }

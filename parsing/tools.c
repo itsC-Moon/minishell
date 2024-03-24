@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 23:03:18 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/22 15:25:33 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/22 22:32:53 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ t_file file_here(char *limiter, t_open_type mod)
 	char	*str;
 	char	*tmp;
 
-	tmp = ft_itoa((size_t)limiter);
+	tmp = random_name((size_t)limiter);
 	check_null(tmp, "malloc");
 	str = ft_strjoin("/tmp/.", tmp);	
 	check_null(str, "malloc");
@@ -126,13 +126,26 @@ int	jump_to_s(const char *str, char *new_buffer)
 void copy_to_buffer(const char *buffer, char *new_buffer, t_env *envp)
 {
 	int		j;
+	int		i;
 	char	*new;
-	
-	new = env_search(envp, buffer);
-	if (!new)
-		return ;
+
+
+	if (buffer[0] == '?')
+	{
+		new = ft_itoa(get_status(0, GET));
+		check_null(new, "malloc");
+	}
+	else
+	{
+		new = env_search(envp, buffer);
+		if (!new)
+			return ;
+	}
 	j = ft_strlen(new_buffer);
-	while (*new)
-		new_buffer[j++] = *(new++);
+	i = 0;
+	while (new[i])
+		new_buffer[j++] = new[i++];
 	new_buffer[j] = '\0';
+	if (buffer[0] == '?')
+		free(new);
 }
