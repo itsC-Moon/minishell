@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:57:48 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/23 21:06:39 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/23 21:11:55 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@ int go_home(t_env *env)
 	return (0);
 }
 
+int go_to_prev(t_env *env)
+{
+}
+
 int cd_func(t_proc	*proc, t_env	*env, int *tmp)
 {
 	t_lst	*lst;
@@ -57,6 +61,8 @@ int cd_func(t_proc	*proc, t_env	*env, int *tmp)
 		return (free(old_pwd), go_home(env));
 	else if (proc->nb_args > 2)
 		return (free(old_pwd), error_home("cd", "too many arguments", 1));
+	else if (proc->args[1][0] == '-')
+		return (free(old_pwd), go_to_prev(env));
 	if (chdir(proc->args[1]) < 0)
 		return (free(old_pwd), error_func("cd", 1));
 	lst = env_search_2(env, "OLDPWD");

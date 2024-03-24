@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 23:05:11 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/23 01:14:18 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/23 21:29:28 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int			is_empty(const char *buffer);
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 void		*ft_calloc(size_t size);
-int			ft_atoi(const char *str);
+long	ft_atoi(const char *str);
 
 /*parsing*/
 char		*get_word(const char *str);
