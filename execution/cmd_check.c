@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/24 01:27:49 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/24 22:04:33 by hibenouk         ###   ########.fr       */
+/*   Created: 2024/03/25 00:29:41 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/03/25 00:30:10 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ void	check_cmd(t_proc	*proc, char *cmd, int *fd)
 	if (ft_strchr(cmd, '/') != NULL && is_dir(cmd) == 1)
 		exit_error("Is a directory", 126, cmd, fd);
 	else if (access(cmd, F_OK) == -1 && ft_strchr(cmd, '/') != NULL)
-		exit_error("No such file or directory", 1, cmd, fd);
-	else if (access(cmd, F_OK | X_OK) == -1 && ft_strchr(proc->args[0], '/') == NULL)
-		exit_error("command not found", 127, cmd, fd);
+		exit_error("No such file or directory", 1, proc->args[0], fd);
 	else if (access(cmd, X_OK) == -1 && ft_strchr(cmd, '/') != NULL)
-		exit_error("Permission denied", 126, cmd, fd);
+		exit_error("Permission denied", 126, proc->args[0], fd);
+	else if (access(cmd, F_OK | X_OK) == -1 && ft_strchr(proc->args[0], '/') == NULL)
+		exit_error("command not found", 127, proc->args[0], fd);
 }
 
 

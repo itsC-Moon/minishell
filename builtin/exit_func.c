@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exit_func.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zkotbi <hibenouk@1337.ma>                  +#+  +:+       +#+        */
+/*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/23 01:08:38 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/24 21:50:33 by hibenouk         ###   ########.fr       */
+/*   Created: 2024/03/25 00:29:28 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/03/25 00:30:40 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "minishell.h"
 #include "libft.h"
@@ -50,7 +52,9 @@ int is_long(char *str)
 
 int check_arg(char *arg)
 {
-	if (is_numeric(arg) == 0)
+	if (arg[0] == 0)
+		return (ft_printf(2, "nudejs: exit: %s: numeric argument required\n", arg), -1);
+	if (is_numeric(arg)  == 0)
 		return (ft_printf(2, "nudejs: exit: %s: numeric argument required\n", arg), -1);
 	if (is_long(arg) == 0)
 		return (ft_printf(2, "nudejs: exit: %s: numeric argument required\n", arg), -1);
@@ -68,9 +72,9 @@ int exit_func(t_proc	*proc, int *tmp)
 		ft_printf(2, "nudejs: exit: too many arguments\n");
 		return (1);
 	}
-	if (check_arg(proc->args[1]) == -1)
+	if (proc->args[1] != NULL && check_arg(proc->args[1]) == -1)
 		exit (2);
-	if (proc->nb_args == 2)
+	if (proc->nb_args == 2 && (proc->args[1] != NULL) && proc->args[1][0] != 0)
 		exit(ft_atoi(proc->args[1]));
 	else
 		exit(0);
