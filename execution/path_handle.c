@@ -6,13 +6,14 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:44:58 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/21 21:17:40 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/24 21:16:30 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "libft.h"
 #include "minishell.h"
+#include <unistd.h>
 
 char **get_paths(t_env	*env)
 {
@@ -60,14 +61,28 @@ char *get_path(char **paths, char *cmd)
 	return (free(tmp_cmd), free(tmp_path), path);
 }
 
+char *null_path_handle(t_proc *proc)
+{
+	char *pwd;
+	char *cmd;
+	char *tmp;
+
+	pwd = getcwd(NULL, 0);
+	cmd = ft_strjoin("/", proc->args[0]);
+	tmp = ft_strjoin(pwd, cmd);
+	return (free(cmd), free(pwd), tmp);
+}
+
 char *get_cmd_path(t_proc	*proc, t_env *env)
 {
 	char **paths;
 	char *cmd;
 
 	paths = get_paths(env);
-	if (proc->args[0][0] == 0 || ft_strchr(proc->args[0], '/') != NULL || paths == NULL)
+	if (proc->args[0][0] == 0 || ft_strchr(proc->args[0], '/') != NULL)
 		return (free_tab(paths), ft_strdup(proc->args[0])); // TODO : free paths;
+	if (paths == NULL || paths[0][0] == 0)
+		return (free_tab(paths), null_path_handle(proc));
 	cmd = get_path(paths, proc->args[0]);
 	return (free_tab(paths), cmd); // TODO : free paths;
 }
