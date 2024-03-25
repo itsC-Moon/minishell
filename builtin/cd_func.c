@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:57:48 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/25 20:33:48 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/25 21:20:27 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,19 +99,4 @@ int cd_func(t_proc	*proc, t_env	*env, int *tmp)
 	set_env_variale(env, old_pwd);
 	return (close_fds(proc), close_builtin_file(tmp), 0);
 }
-// 	lst = env_search_2(env, "OLDPWD");
-// 	if (lst != NULL)
-// 	{
-// 		free(lst->varible);
-// 		lst->varible = ft_strjoin("OLDPWD=", old_pwd);
-// 		free(old_pwd);
-// 	}
-// 	lst = env_search_2(env, "PWD");
-// 	if (lst != NULL)
-// 	{
-// 		free(lst->varible);
-// 		old_pwd = getcwd(NULL, 0);
-// 		lst->varible = ft_strjoin("PWD=", old_pwd);
-// 		free(old_pwd);
-// 	}
-// }	
+
