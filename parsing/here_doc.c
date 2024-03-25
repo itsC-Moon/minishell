@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 15:42:29 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/19 16:02:02 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/22 16:49:22 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ void init_here_doc(t_mini *mini)
 	t_proc *proc;
 	 
 	mini->nb_doc = count_doc(mini);
+	mini->here_doc = NULL;
+	if (mini->nb_doc == 0)
+		return ;
 	mini->here_doc = malloc(sizeof(t_file) * mini->nb_doc);
 	check_null(mini->here_doc, "malloc");
 	i = 0;

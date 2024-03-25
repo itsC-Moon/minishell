@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:29:41 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/19 21:16:36 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/22 22:00:02 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,14 @@
 #include "libft.h"
 #include "tmp.h"
 
-void error_file(t_file file)
+void error_file(t_proc *proc, int size)
 {
-	ft_printf(2, "nudejs: %s: %s\n", file.file_name, strerror(errno));
+	int i;
+
+	i = 0;
+	while (i < size)
+		close(proc->file[i++].fd);
+	ft_printf(2, "nudejs: %s: %s\n", proc->file[i].file_name, strerror(errno));
 	exit(1);
 }
 
@@ -31,12 +36,19 @@ void open_files(t_proc	*proc)
 	{
 		if (proc->file[i].mod == INPUT)
 			proc->file[i].fd = open(proc->file[i].file_name, O_RDONLY);
+		if (proc->file[i].mod == _HEREDOC)
+			proc->file[i].fd = open(proc->file[i].file_name, O_RDONLY);
 		else if (proc->file[i].mod == OUTPUT)
 			proc->file[i].fd = open(proc->file[i].file_name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		else if (proc->file[i].mod == APPEND)
 			proc->file[i].fd = open(proc->file[i].file_name, O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if (proc->file[i].fd < 0)
-			error_file(proc->file[i]);
+			error_file(proc, i);
+		if (proc->file[i].mod == AMBIGUOUS)
+		{
+			ft_printf(2, "nudejs: %s: %s\n", proc->file[i].file_name, "ambiguous redirect");
+			exit(1);
+		}
 		i++;
 	}
 }
@@ -53,7 +65,8 @@ void get_io_files(t_proc	*proc)
 		if (proc->file[i].mod == OUTPUT
 		|| proc->file[i].mod == APPEND)
 			proc->io_fd[1] = proc->file[i].fd;
-		else if (proc->file[i].mod == INPUT)
+		else if (proc->file[i].mod == INPUT
+				|| proc->file[i].mod == _HEREDOC)
 			proc->io_fd[0] = proc->file[i].fd;
 		i++;
 	}
@@ -71,14 +84,11 @@ void get_pipe_io_files(t_proc	*proc, int *fd)
 		if (proc->file[i].mod == OUTPUT
 		|| proc->file[i].mod == APPEND)
 			proc->io_fd[1] = proc->file[i].fd;
-		else if (proc->file[i].mod == INPUT)
+		else if (proc->file[i].mod == INPUT
+				|| proc->file[i].mod == _HEREDOC)
 			proc->io_fd[0] = proc->file[i].fd;
 		i++;
 	}
-	// if (proc->io_fd[0] != fd[0])
-		// close(fd[0]);
-	// if (proc->io_fd[1] != fd[1])
-		// close(fd[1]);
 }
 
 

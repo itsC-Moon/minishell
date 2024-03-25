@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_func.c                                      :+:      :+:    :+:   */
+/*   tools2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
+/*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/19 03:23:52 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/20 15:32:22 by hibenouk         ###   ########.fr       */
+/*   Created: 2024/03/22 14:05:52 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/03/22 14:08:11 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "libft.h"
+#include <stdlib.h>
 
-static t_lst		*find_var(t_env	*env, const char *name)
+void *ft_calloc(size_t size)
 {
-	(void)proc;
-	return (0);
+	char	*ptr;
+	size_t	i;
+
+	ptr = malloc(size);
+	if (!ptr)
+		return (NULL);
+	i = 0;
+	while (i < size)
+		ptr[i++] = 0;
+	return (ptr);
 }

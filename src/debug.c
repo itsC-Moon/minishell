@@ -5,10 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/08 16:02:37 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/20 15:44:14 by hibenouk         ###   ########.fr       */
+/*   Created: 2024/03/25 00:35:16 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/03/25 00:35:17 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "libft.h"
 #include "minishell.h"
@@ -39,6 +41,7 @@ void get_type(t_Token_Type type) {
 void print2d(char **argv, size_t size)
 {
 	size_t i = 0;
+	printf("--There %lu args ----------\n",size);
 	while (i < size)
 	{
 		printf("|%s| ",argv[i]);
@@ -52,6 +55,8 @@ void print_file(t_file *file, size_t size)
 	while (i < size)
 	{
 		printf("%s =>",file[i].file_name);
+		if (file[i].mod == AMBIGUOUS)
+			printf("AMBIGUOUS\n");
 		if (file[i].mod == INPUT)
 			printf("INPUT\n");
 		else if (file[i].mod == APPEND)
@@ -69,6 +74,8 @@ void print_mini(t_mini mini)
 
 	it =mini.proc;
 	size_t i = 0;
+	printf("--There %lu command ----------\n",mini.size);
+	printf("-----HEREDOC--%lu-------\n",mini.nb_doc);
 	print_file(mini.here_doc, mini.nb_doc);
 	printf("------------------------\n");
 	while (i < mini.size)
@@ -76,6 +83,7 @@ void print_mini(t_mini mini)
 		print2d(it[i].args, it[i].nb_args);
 		print_file(it[i].file, it[i].nb_file);
 		i++;
+		printf("------------------------\n");
 	}
 }
 

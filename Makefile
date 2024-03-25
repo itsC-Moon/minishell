@@ -5,7 +5,7 @@ SRC 	= $(shell find ./src -type f -name "*.c")
 PARSER 	= $(shell find ./parsing -type f -name "*.c")
 EXEC 	= $(shell find ./execution -type f -name "*.c")
 BUILT 	= $(shell find ./builtin -type f -name "*.c")
-INCL 	= $(shell find ./include -type f -name "*.c")
+INCL 	= $(shell find ./include -type f -name "*.h")
 
 OBJ 	=	$(patsubst ./libft/%.c, ./obj/%.o, $(LIBFT)) 	$(patsubst ./src/%.c, ./obj/%.o, $(SRC)) \
 			$(patsubst ./parsing/%.c, ./obj/%.o, $(PARSER)) $(patsubst ./execution/%.c, ./obj/%.o, $(EXEC))\
@@ -14,13 +14,13 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -ggdb3 -Wall -Wextra -Wunreachable-code \
-		 -I/Users/hibenouk/.brew/opt/readline/include \
+CFLAGS = -ggdb3 -Wall -Wextra -Wunreachable-code -fsanitize=address \
+		 -I$(HOME)/.brew/opt/readline/include \
 
 INC = include
 
-READLINE = -L/Users/hibenouk/.brew/opt/readline/lib
-READINC = -I/Users/hibenouk/.brew/opt/readline/include
+READLINE = -L$(HOME)/.brew/opt/readline/lib
+READINC = -I$(HOME)/.brew/opt/readline/include
 
 all : $(NAME)
 

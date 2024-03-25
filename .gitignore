@@ -1,6 +1,8 @@
 *.o
 a.out
 main*
-minishell
+out
+minishell*
 obj
 app
+minishell_tester

@@ -1,11 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/24 01:23:13 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/03/24 22:03:20 by hibenouk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "libft.h"
+
+
+
+# include "libft.h"
 #include "minishell.h"
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <signal.h>
 #include <stdio.h>
+# include <fcntl.h>
 #include <stdlib.h>
+#include <sys/fcntl.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 void    ft_signal_ctrl_c(int sig)
@@ -16,28 +33,37 @@ void    ft_signal_ctrl_c(int sig)
     rl_on_new_line();
     rl_redisplay();
 }
+
+void ft_ignore(int sig)
+{
+	(void)sig;
+    rl_on_new_line();
+}
+
 void leaks()
 {
-	system("leaks minishell");
+
+    char buffer[256] = {0};
+    sprintf(buffer, "lsof -p %d",getpid());
+    system(buffer);
+    system("leaks minishell");
 }
+
+
 int main(int ac, char **argv, char **env)
 {
+	// atexit(leaks);
+
 	(void)ac;
 	(void)argv;
-	(void)env;
 	t_env	*envp;
-	// int		status;
-
-	envp = env_arr_to_lst(env);
+	// if (!isatty(0))
+	// 	return (ft_printf(2, "nudejs: require a tty session\n"), 1);
 	signal(SIGINT, ft_signal_ctrl_c);
-	// char *path = env_search(envp, "PATH");
+	signal(SIGQUIT, ft_ignore);
+	envp = env_arr_to_lst(env);
 	minishell(envp);
-
-	// char *str = remove_quote("'file '' name'");
-	// STR(str)
-	// const char *buffer = "cat << 'lp' <<ppo";
-	// t_mini mini = parser(buffer, envp);
-	// print_mini(mini);
-	// mini.proc[3];
+	free_env(envp);
+	rl_clear_history();
 	return (0);
 }

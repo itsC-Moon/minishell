@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   env_func.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
+/*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/17 01:02:19 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/17 22:34:43 by zkotbi           ###   ########.fr       */
+/*   Created: 2024/03/24 01:33:19 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/03/24 01:33:19 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "minishell.h"
 #include "libft.h"
 
-void print_env(t_env	*env, int	outfile)
+static void print_env(t_env	*env, int	outfile)
 {
 	t_lst	*tmp;
 
@@ -24,14 +26,15 @@ void print_env(t_env	*env, int	outfile)
 		tmp = tmp->next;
 	}
 }
+
 int env_func(t_proc	*proc, t_env	*env , int *tmp)
 {
 	if (open_builtin_files(proc) == 1)
-		return (1);
+		return (close_builtin_file(tmp), 1);
 	if (tmp != NULL)
 		get_pipe_io_files(proc, tmp);
 	else
 		get_io_files(proc);
 	print_env(env, proc->io_fd[1]);
-	return (0);
+	return (close_builtin_file(tmp), close_fds(proc), 0);
 }

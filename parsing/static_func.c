@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_func.c                                      :+:      :+:    :+:   */
+/*   static_func.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
+/*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/19 03:23:52 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/20 15:32:22 by hibenouk         ###   ########.fr       */
+/*   Created: 2024/03/22 22:10:45 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/03/22 22:13:29 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "libft.h"
 
-static t_lst		*find_var(t_env	*env, const char *name)
+int get_status(int status, int opt)
 {
-	(void)proc;
-	return (0);
+	static int _status;
+	if (opt == GET)
+		return (_status);
+	_status = status;
+	return (_status);
 }

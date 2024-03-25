@@ -10,21 +10,47 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "libft.h"
 #include "minishell.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 static void __alloc(t_list *list, t_proc *proc)
 {
 	proc->nb_file = get_num_redic(list, INPUT_REDIR);
 	proc->nb_args = get_num_redic(list, STRING_LTR);
-	proc->args = malloc(sizeof(char **) * (proc->nb_args + 1));
-	check_null(proc->args, "malloc");
-	proc->file = malloc(sizeof(t_file) * proc->nb_file);
-	check_null(proc->file, "malloc");
+	if (proc->nb_args)
+	{
+		proc->args = ft_calloc(sizeof(char **) * (proc->nb_args + 1));
+		check_null(proc->args, "malloc");
+	}
+	else
+		proc->args = NULL;
+	if (proc->nb_file)
+	{
+		proc->file = ft_calloc(sizeof(t_file) * proc->nb_file);
+		check_null(proc->file, "malloc");
+	}
+	else
+		proc->file = NULL;
 }
+static t_file get_file(t_list *list, t_env *envp)
+{
+	t_file _file;
 
+	_file = (t_file){0};
+	if (list->type == INPUT_REDIR)
+		_file = file(expand(list->token, envp, FILE), INPUT);
+	else if (list->type == OUTPUT_REDIR)
+		_file = file(expand(list->token, envp, FILE), OUTPUT);
+	else if (list->type == APPEND_REDIR)
+		_file = file(expand(list->token, envp, FILE), APPEND);
+	else if (list->type == HEREDOC)
+		_file = file_here(list->token, _HEREDOC);
+	return (_file);
+}
 static void alloc_io(t_list *list, t_proc *proc, t_env *envp)
 {
 	size_t it;
@@ -38,18 +64,16 @@ static void alloc_io(t_list *list, t_proc *proc, t_env *envp)
 	while (list && list->type != PIPE)
 	{
 		if (list->type == STRING_LTR)
-			proc->args[i++] = expand(list->token, envp);
-		else if (list->type == INPUT_REDIR)
-			proc->file[it++] = file(expand(list->token, envp), INPUT);
-		else if (list->type == OUTPUT_REDIR)
-			proc->file[it++] = file(expand(list->token, envp), OUTPUT);
-		else if (list->type == APPEND_REDIR)
-			proc->file[it++] = file(expand(list->token, envp), APPEND);
-		else if (list->type == HEREDOC)
-			proc->file[it++] = file_here(list->token, _HEREDOC);
+			proc->args[i++] = expand(list->token, envp, ARGS);
+		else
+			proc->file[it++] = get_file(list, envp);
+		if (list->type == STRING_LTR && !proc->args[i - 1])
+			i--;
 		list = list->next;
 	}
-	proc->args[i] = NULL;
+	proc->nb_args = i;
+	if (i)
+		proc->args[i] = NULL;
 }
 
 static t_mini parsing(t_Token *tokens, t_env *envp)
@@ -61,7 +85,7 @@ static t_mini parsing(t_Token *tokens, t_env *envp)
 
 	i = 0;
 	mini.size = count_command(tokens);
-	mini.proc = malloc(mini.size * sizeof(t_proc));
+	mini.proc = ft_calloc(mini.size * sizeof(t_proc));
 	check_null(mini.proc, "malloc");
 	it = mini.proc;
 	token = tokens->front;

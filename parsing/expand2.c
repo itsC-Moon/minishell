@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 13:18:40 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/19 13:24:10 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/23 23:41:50 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -15,7 +15,8 @@
 int var_len(const char *buffer, t_env *envp)
 {
 	char *new;
-
+	if (buffer[0] == '?')
+		return (count_numbers2(get_status(0, GET)));
 	new = env_search(envp, buffer);
 	if (!new)
 		return (0);
@@ -31,7 +32,9 @@ int inc(const char *buffer)
 	int len;
 
 	len = 0;
-	while (!is_sep(buffer[len]) && !end_var(buffer[len]))
+	if (buffer[0] == '?')
+		return (1);
+	while (is_id(buffer[len]))
 		len++;
 	return (len);
 }
