@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 03:23:52 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/20 15:32:22 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/25 13:41:02 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 static t_lst		*find_var(t_env	*env, const char *name)
 {
-	(void)proc;
+	// (void)proc;
 	return (0);
 }
