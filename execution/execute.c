@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:29:56 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/24 01:29:57 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/25 03:06:08 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 #include "../include/minishell.h"
 #include "../include/libft.h"
-#include "tmp.h"
 #include <stdio.h>
 #include <limits.h>
 #include <stdlib.h>
@@ -33,7 +32,7 @@ void close_fds(t_proc	*proc)
 	}
 }
 
-void	exec_cmd(t_proc	*proc, t_env	*env)
+static void	exec_cmd(t_proc	*proc, t_env	*env)
 {
 	open_files(proc);
 	get_io_files(proc);
@@ -46,7 +45,7 @@ void	exec_cmd(t_proc	*proc, t_env	*env)
 	error_exit(proc->args[0], 126);
 }
 
-int init_cmd(t_proc	*proc, t_env	*env, int mini_status)
+static int init_cmd(t_proc	*proc, t_env	*env, int mini_status)
 {
 	int pid;
 	int status;

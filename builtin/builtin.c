@@ -3,7 +3,7 @@
 #include "minishell.h"
 #include "libft.h"
 
-int error_builtin_file(t_proc	*proc, int size, t_file file)
+static int error_builtin_file(t_proc	*proc, int size, t_file file)
 {	
 	int i = 0;
 	while (i < size)
@@ -14,7 +14,6 @@ int error_builtin_file(t_proc	*proc, int size, t_file file)
 	ft_printf(2, "nudejs: %s: %s\n", file.file_name, strerror(errno));
 	return (1);
 }
-
 int open_builtin_files(t_proc	*proc)
 {
 	unsigned int i;

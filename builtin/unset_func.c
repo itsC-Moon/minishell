@@ -3,7 +3,7 @@
 #include "minishell.h"
 #include "libft.h"
 
-void remove_node(t_env	*env, t_lst	*lst)
+static void remove_node(t_env	*env, t_lst	*lst)
 {
 	free(lst->varible);
 	if (lst->next != NULL)

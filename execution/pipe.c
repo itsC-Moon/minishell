@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 21:59:43 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/24 21:50:29 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/25 03:05:54 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 #include <stdio.h>
 #include <sys/wait.h>
 #include <unistd.h>
-#include "tmp.h"
 
-void ft_close(int *fd)
+static void ft_close(int *fd)
 {
 	if (*fd <= 1)
 		return ;
@@ -25,7 +24,7 @@ void ft_close(int *fd)
 	*fd = -1;
 }
 
-void	child(t_proc	*proc, t_env	*env, int *fd, int mini_status)
+static void	child(t_proc	*proc, t_env	*env, int *fd, int mini_status)
 {
 	int status;
 
@@ -53,7 +52,7 @@ void	child(t_proc	*proc, t_env	*env, int *fd, int mini_status)
 	error_exit(proc->args[0], 126);
 }
 
-void wait_process(int *pids, int *status, int size)
+static void wait_process(int *pids, int *status, int size)
 {
 	int i = 0;
 	while (i < size)
@@ -64,7 +63,7 @@ void wait_process(int *pids, int *status, int size)
 }
 
 
-int pipe_file(int *tmp, int *fd, int i, int size)
+static int pipe_file(int *tmp, int *fd, int i, int size)
 {
 	tmp[0] = fd[0];
 	if (i != size -1)
