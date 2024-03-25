@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:29:41 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/22 22:00:02 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/25 03:06:18 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 #include <sys/fcntl.h>
 #include "minishell.h"
 #include "libft.h"
-#include "tmp.h"
 
-void error_file(t_proc *proc, int size)
+static void error_file(t_proc *proc, int size)
 {
 	int i;
 

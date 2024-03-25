@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:32:55 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/24 01:32:56 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/25 03:34:08 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "libft.h"
 #include <stdlib.h>
 
-void	print_echo_args(char **args, int outfile, int status)
+static void	print_echo_args(char **args, int outfile, int status)
 {
 	int i;
 
@@ -24,11 +24,6 @@ void	print_echo_args(char **args, int outfile, int status)
 	i = 1;
 	if (ft_strcmp(args[i], "-n") == 0)
 		i++;
-	// if (ft_strcmp("$?", args[i]) == 0)
-	// {
-	// 	ft_printf(outfile, "%d", status);
-	// 	return ;
-	// }
 	while(args[i] != NULL)
 	{
 		ft_printf(outfile, "%s", args[i]);

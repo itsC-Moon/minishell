@@ -6,18 +6,16 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 00:30:19 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/25 00:30:27 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/25 03:02:23 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 
 #include "libft.h"
 #include "minishell.h"
 #include <unistd.h>
 
-char **get_paths(t_env	*env)
+static char **get_paths(t_env	*env)
 {
 	char *path;
 	char **paths;
@@ -31,7 +29,7 @@ char **get_paths(t_env	*env)
 	return (paths);
 }
 
-char *get_path(char **paths, char *cmd)
+static char *get_path(char **paths, char *cmd)
 {
 	char *tmp_cmd;
 	char *path;
@@ -63,7 +61,7 @@ char *get_path(char **paths, char *cmd)
 	return (free(tmp_cmd), free(tmp_path), path);
 }
 
-char *null_path_handle(t_proc *proc)
+static char *null_path_handle(t_proc *proc)
 {
 	char *pwd;
 	char *cmd;
