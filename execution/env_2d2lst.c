@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 23:32:40 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/23 15:50:21 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/25 20:50:54 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_env	*env_arr_to_lst(char **envp)
 	t_lst	*tmp;
 
 	i = 0;
+	if (!envp || !*envp)
 	lst = malloc(sizeof(t_lst));
 	check_null(lst, "malloc");
 	env = malloc(sizeof(t_env));

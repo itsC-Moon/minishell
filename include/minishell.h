@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 00:35:23 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/25 00:35:41 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/25 14:54:29 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,14 @@ typedef enum e_open_type
 	AMBIGUOUS,
 }	t_open_type;
 
+typedef enum e_state 
+{
+	DONOTHING = 2,
+	NOMATCH,
+	INSERT ,
+	UPDATE ,
+	ERROR 
+}	t_state;
 typedef struct s_lst
 {
 	char			*varible;

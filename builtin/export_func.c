@@ -6,36 +6,43 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 03:23:52 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/25 14:08:55 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/25 15:46:12 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
 #include "libft.h"
-
 #include "minishell.h"
-#include "libft.h"
+#include <stdio.h>
 
-static t_lst		*find_var(t_env	*env, const char *name)
+int compar_func(const char *in_env, const char *to_find)
 {
-	t_lst	*tmp;
-	int		i;
+	int i;
 
-	tmp = env->front;
-	while(tmp != NULL)
+	i = 0;
+	while (in_env[i] && to_find[i] && in_env[i] != '=')
 	{
-		i = 0;
-		while (tmp->varible[i] == name[i] && name[i] != '=')
-			i++;
-		if (tmp->varible[i] == '=' && name[i] == '=')
-			return (tmp);
-		tmp = tmp->next;
+		if (in_env[i] != to_find[i])
+			break;
+		i++;
 	}
-	return (NULL);
+	if (in_env[i] == '\0' && to_find[i] == '=')
+		return (UPDATE);
+	else if (in_env[i] == '=' && !to_find[i])
+		return (DONOTHING);
+	else if (in_env[i] != to_find[i])
+		return (NOMATCH);
+	else if (!in_env[i] && !to_find[i])
+		return (DONOTHING);
+	else if (in_env[i] == to_find[i])
+		return (UPDATE);
+	else if (to_find[i] != in_env[i] && !to_find[i])
+		return (INSERT);
+	return (ERROR);
 }
+
 static int is_valide(const char *buffer)
 {
-	if (*buffer == '=' || ft_isdigit(*buffer))
+	if (*buffer == '=' || *buffer == '\0' || ft_isdigit(*buffer))
 		return (0);
 	while (*buffer && is_id(*buffer))
 		buffer++;
@@ -46,28 +53,41 @@ static int is_valide(const char *buffer)
 	return (0);
 }
 
-static void new_var(const char *buffer, t_env *env)
-{
-	t_lst	*ptr;
 
-	ptr = find_var(env, buffer);
-	if (!ptr)
+static void insert_var(t_env *env, const char *name)
+{
+	t_lst *tmp;
+	t_state state;
+
+	tmp = env->front;
+	while (tmp != NULL)
 	{
-		lst_addback(env->back, buffer);
-		env->size++;
+		state = compar_func(tmp->varible, name);
+		if (state == DONOTHING)
+			return ;
+		else if (state == UPDATE)
+			break ;
+		else if (state == INSERT)
+			break;
+		tmp = tmp->next;
+	}
+	if (state == UPDATE)
+	{
+		free(tmp->varible);
+		tmp->varible = ft_strdup(name);
 	}
 	else
 	{
-		free(ptr->varible);
-		ptr->varible = ft_strdup(buffer);
+		lst_addback(env->back, name);
+		env->size++;
 	}
+	return ;
 }
-
 static int export_var(t_proc *proc, t_env *env)
 {
-	size_t	i;
-	int		status;
-	int		state;
+	size_t i;
+	int status;
+	int state;
 
 	status = 0;
 	i = 0;
@@ -75,12 +95,11 @@ static int export_var(t_proc *proc, t_env *env)
 	{
 		state = is_valide(proc->args[i + 1]);
 		if (state == 1)
-			new_var(proc->args[i + 1], env);
+			insert_var(env, proc->args[i + 1]);
 		else if (state == 0)
 		{
 			status = 1;
-			ft_printf(2, "nudejs: export: `%s': not a valid identifier\n",\
-					proc->args[i + 1]);
+			ft_printf(2, "nudejs: export: `%s': not a valid identifier\n", proc->args[i + 1]);
 		}
 		i++;
 	}
@@ -90,7 +109,7 @@ static int export_var(t_proc *proc, t_env *env)
 static void print_env2(t_env *env, int fd)
 {
 	const t_lst *it;
-	const char	*it2;
+	const char *it2;
 
 	it = env->front;
 	while (it)
@@ -100,11 +119,11 @@ static void print_env2(t_env *env, int fd)
 		while (*it2 && *it2 != '=')
 			write(fd, it2++, 1);
 		if (*it2)
-			ft_printf(fd, "=\"%s\"\n",it2 + 1);
+			ft_printf(fd, "=\"%s\"\n", it2 + 1);
 		it = it->next;
 	}
 }
-int export_func(t_proc	*proc, int *fd, t_env *env)
+int export_func(t_proc *proc, int *fd, t_env *env)
 {
 
 	if (open_builtin_files(proc) == 1)
