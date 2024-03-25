@@ -8,6 +8,7 @@
 # include <stdio.h>
 # include "libft.h"
 # include <unistd.h>
+# include <fcntl.h>
 # include <stdlib.h>
 # include <sys/stat.h>
 # include <string.h>

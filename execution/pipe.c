@@ -6,14 +6,13 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 21:59:43 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/23 03:55:20 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/24 21:50:29 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 #include <stdio.h>
-#include <sys/_types/_size_t.h>
 #include <sys/wait.h>
 #include <unistd.h>
 #include "tmp.h"

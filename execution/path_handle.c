@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:44:58 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/21 21:17:40 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/24 21:56:46 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char *get_path(char **paths, char *cmd)
 
 	i = 0;
 	tmp_path = NULL;
-	path = NULL;
+	path = ft_strdup("");
 	tmp_cmd = ft_strjoin("/", cmd);
 	while (access(path, F_OK | X_OK) == -1)
 	{

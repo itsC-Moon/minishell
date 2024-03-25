@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:27:49 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/24 01:40:10 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/24 22:04:33 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void exit_error(const char *str, int exit_val, const char *name, int *fd)
 void	check_cmd(t_proc	*proc, char *cmd, int *fd)
 {
 	if (ft_strchr(cmd, '/') != NULL && is_dir(cmd) == 1)
-		exit_error("is a directory", 126, cmd, fd);
+		exit_error("Is a directory", 126, cmd, fd);
 	else if (access(cmd, F_OK) == -1 && ft_strchr(cmd, '/') != NULL)
 		exit_error("No such file or directory", 1, cmd, fd);
 	else if (access(cmd, F_OK | X_OK) == -1 && ft_strchr(proc->args[0], '/') == NULL)

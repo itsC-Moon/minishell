@@ -6,13 +6,12 @@
 /*   By: zkotbi <hibenouk@1337.ma>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 01:08:38 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/24 01:38:30 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/24 21:50:33 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
-#include <sys/_types/_size_t.h>
 
 int is_numeric(char *str)
 {

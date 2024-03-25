@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 11:35:51 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/06 14:19:15 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/24 21:18:21 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_handler(int fd, va_list ap, char format)
 	if (format == 's')
 		count = ft_putstr(fd, va_arg(ap, char *));
 	else if (format == 'c')
-		(1 == 1) && (c = fd, va_arg(ap, int), count = write(1, &c, 1));
+		(1 == 1) && (c = va_arg(ap, int), count = write(fd, &c, 1));
 	return (count);
 }
 

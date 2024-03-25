@@ -2,9 +2,6 @@
 
 #include "minishell.h"
 #include "libft.h"
-#include <libc.h>
-// #include "tmp.h"
-#include <string.h>
 
 int error_builtin_file(t_proc	*proc, int size, t_file file)
 {	
