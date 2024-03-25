@@ -5,13 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/08 16:02:37 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/22 15:21:04 by hibenouk         ###   ########.fr       */
+/*   Created: 2024/03/25 00:35:16 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/03/25 00:35:17 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
+
 #include "libft.h"
 #include "minishell.h"
+#include <stdio.h>
 void get_type(t_Token_Type type) {
   switch (type) {
     case STRING_LTR:
@@ -41,7 +44,7 @@ void print2d(char **argv, size_t size)
 	printf("--There %lu args ----------\n",size);
 	while (i < size)
 	{
-		printf("%s ",argv[i]);
+		printf("|%s| ",argv[i]);
 		i++;
 	}
 	printf("\n");
@@ -81,5 +84,23 @@ void print_mini(t_mini mini)
 		print_file(it[i].file, it[i].nb_file);
 		i++;
 		printf("------------------------\n");
+	}
+}
+
+void print_tokens(t_Token *tokens)
+{
+	t_list *it;
+
+	it = tokens->front;
+	while (it)
+	{
+		if (it->type ==PIPE)
+			ft_printf(2, "PIPE");
+		else
+		{
+			ft_printf(2, "%s ",it->token);
+			get_type(it->type);
+		}
+		it = it->next;
 	}
 }

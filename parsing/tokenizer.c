@@ -6,13 +6,12 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:06:04 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/21 16:08:06 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/20 15:50:12 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
-#include <sys/stat.h>
+#include "minishell.h"
 
 static int get_pipe(const char *buffer, t_Token *tokens, t_Token_Type type)
 {

@@ -6,3 +6,4 @@ minishell*
 obj
 app
 minishell_tester
+test.c

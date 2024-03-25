@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/25 00:35:23 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/03/25 14:54:29 by hibenouk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 
 
@@ -30,6 +42,14 @@ typedef enum e_open_type
 	AMBIGUOUS,
 }	t_open_type;
 
+typedef enum e_state 
+{
+	DONOTHING = 2,
+	NOMATCH,
+	INSERT ,
+	UPDATE ,
+	ERROR 
+}	t_state;
 typedef struct s_lst
 {
 	char			*varible;
@@ -166,6 +186,7 @@ t_file		file_here(char *limiter, t_open_type mod);
 /*here_doc*/
 void		init_here_doc(t_mini *mini);
 
+void print_tokens(t_Token *tokens);
 /*clean*/
 void		clean_mini(t_mini *mini);
 void		free_env(t_env *envp);
