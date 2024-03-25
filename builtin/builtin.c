@@ -68,18 +68,4 @@ int init_builtin(t_proc	*proc, t_env	*env, int *fd, int status)
 		return (pwd_func(proc, fd));
 	return (-1);
 }
-// int	check_builtin(char *cmd_name)
-// {
-// 	char **blin;
-// 	int	i;
 
-// 	i = 0;
-// 	blin = ft_split("exit env unset export pwd cd echo", ' ');
-// 	while (blin[i] != NULL)
-// 	{
-// 		if (ft_strcmp(blin[i], cmd_name) == 0)
-// 			return (free_tab(blin), 1);
-// 		i++;
-// 	}
-// 	return(0);
-// }
