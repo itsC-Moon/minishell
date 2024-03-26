@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:57:48 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/25 20:33:48 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/26 03:48:43 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,35 @@ static int error_func(t_proc *proc, char *str, int *tmp)
 static void	set_env_variale(t_env *env, char *old_pwd)
 {
 	t_lst *lst;
+	char *pwd;
 
+	if (old_pwd == NULL)
+		old_pwd = env->pwd;
+	else
+		free(env->pwd);
+	pwd = getcwd(NULL, 0);
+	env->pwd = pwd;
 	lst = env_search_2(env, "OLDPWD");
-	if (lst != NULL)
+	if (lst != NULL && old_pwd != NULL)
 	{
 		free(lst->varible);
 		lst->varible = ft_strjoin("OLDPWD=", old_pwd);
 		free(old_pwd);
 	}
 	lst = env_search_2(env, "PWD");
-	if (lst != NULL)
+	if (lst != NULL && pwd != NULL)
 	{
 		free(lst->varible);
-		old_pwd = getcwd(NULL, 0);
-		lst->varible = ft_strjoin("PWD=", old_pwd);
-		free(old_pwd);
+		lst->varible = ft_strjoin("PWD=", pwd);
 	}
-
 }
 
 static int go_home(t_env *env, char *old_pwd, t_proc *proc, int *tmp)
 {
 	char *home;
 
+	if (env->pwd == NULL)
+		return (0);
 	home = env_search(env, "HOME");
 	if (home == NULL)
 		return (free(old_pwd), error_func(proc, "HOME not set", tmp));
@@ -65,6 +71,8 @@ static int go_to_prev(t_env *env, char *old_pwd, t_proc *proc, int *tmp)
 {
 	char *pwdold_var;
 
+	if (env->pwd == NULL)
+		return (0);
 	pwdold_var = env_search(env, "OLDPWD");
 	if (pwdold_var == NULL)
 		return (free(old_pwd), error_func(proc, "OLDPWD not set", tmp));
@@ -75,6 +83,20 @@ static int go_to_prev(t_env *env, char *old_pwd, t_proc *proc, int *tmp)
 	ft_printf(proc->io_fd[1], "%s\n", pwdold_var);
 	set_env_variale(env, old_pwd);
 	return (close_fds(proc), close_builtin_file(tmp), 0);
+}
+
+void cd_set_pwd(char *dir_to, t_env	*env)
+{
+	char *tmp;
+
+	if (env->pwd != NULL)
+	{
+		tmp = ft_strjoin(env->pwd, ft_strjoin("/", dir_to));
+		free(env->pwd);
+		env->pwd = tmp;
+	}
+	else
+		ft_printf(2, "cd: error retrieving current directory\n");
 }
 
 int cd_func(t_proc	*proc, t_env	*env, int *tmp)
@@ -94,6 +116,8 @@ int cd_func(t_proc	*proc, t_env	*env, int *tmp)
 		return (free(old_pwd), error_func(proc, "too many arguments", tmp));
 	else if (proc->args[1][0] == '-')
 		return (go_to_prev(env, old_pwd, proc, tmp));
+	if (old_pwd == NULL || env->pwd == NULL)
+		return (error_func(proc, strerror(errno), tmp), cd_set_pwd(proc->args[1], env), 1);
 	if (proc->args[1][0] != 0 && chdir(proc->args[1]) < 0)
 		return (free(old_pwd), error_func(proc, strerror(errno), tmp));
 	set_env_variale(env, old_pwd);
