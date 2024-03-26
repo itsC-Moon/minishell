@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 03:23:52 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/23 23:54:55 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/25 22:25:12 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,17 @@ static t_lst		*find_var(t_env	*env, const char *name)
 			return (tmp);
 		tmp = tmp->next;
 	}
-	return (NULL);
+	printf("%s\n",in_env + i);
+	printf("%s\n",to_find + i);
+	if (in_env[i] == '=' && to_find[i] == '=')
+		return (UPDATE);
+	else if (in_env[i] == '\0' && to_find[i] == '=')
+		return (UPDATE);
+	else if (in_env[i] == '=' && to_find[i] == '\0')
+		return (DONOTHING);
+	else if (in_env[i] == '\0' && to_find[i] == '\0')
+		return (DONOTHING);
+	return (ERROR);
 }
 static int is_valide(const char *buffer)
 {
@@ -36,10 +46,8 @@ static int is_valide(const char *buffer)
 		return (0);
 	while (*buffer && is_id(*buffer))
 		buffer++;
-	if (*buffer == '=')
+	if (*buffer == '=' || *buffer == '\0')
 		return (1);
-	else if (*buffer == '\0')
-		return (2);
 	return (0);
 }
 
@@ -47,17 +55,29 @@ static void new_var(const char *buffer, t_env *env)
 {
 	t_lst	*ptr;
 
-	ptr = find_var(env, buffer);
-	if (!ptr)
+	tmp = env->front;
+	while (tmp != NULL)
 	{
-		lst_addback(env->back, buffer);
+		state = compar_func(tmp->varible, name);
+		if (state == DONOTHING)
+			return ;
+		else if (state == UPDATE)
+			break ;
+		tmp = tmp->next;
+	}
+	if (!tmp)
+	{
+		printf("INSERT");
+		lst_addback(env->back, name);
 		env->size++;
 	}
-	else
+	else if (state == UPDATE)
 	{
-		free(ptr->varible);
-		ptr->varible = ft_strdup(buffer);
+		printf("UPDATE");
+		free(tmp->varible);
+		tmp->varible = ft_strdup(name);
 	}
+
 }
 
 static int export_var(t_proc *proc, t_env *env)
@@ -97,7 +117,8 @@ static void print_env2(t_env *env, int fd)
 		while (*it2 && *it2 != '=')
 			write(fd, it2++, 1);
 		if (*it2)
-			ft_printf(fd, "=\"%s\"\n",it2 + 1);
+			ft_printf(fd, "=\"%s\"", it2 + 1);
+		ft_printf(fd, "\n");
 		it = it->next;
 	}
 }
