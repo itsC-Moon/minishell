@@ -61,6 +61,7 @@ typedef struct s_env
 {
 	t_lst	*front;
 	t_lst	*back;
+	char	*pwd;
 	size_t	size;
 }	t_env;
 
@@ -155,7 +156,8 @@ int			exit_func(t_proc	*proc, int *tmp);
 int			export_func(t_proc	*proc, int *fd, t_env *env);
 
 /*pwd_func*/
-int			pwd_func(t_proc	*proc, int *tmp);
+int			pwd_func(t_proc	*proc, t_env *env, int *tmp);
+char		*set_pwd(void);
 
 /*unset_func*/
 int 		unset_func(t_proc	*proc, t_env	*env, int *fd);

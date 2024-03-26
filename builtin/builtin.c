@@ -64,7 +64,7 @@ int init_builtin(t_proc	*proc, t_env	*env, int *fd, int status)
 	else if (ft_strcmp(proc->args[0], "exit") == 0)
 		return (exit_func(proc, fd));
 	else if (ft_strcmp(proc->args[0], "pwd") == 0)
-		return (pwd_func(proc, fd));
+		return (pwd_func(proc, env, fd));
 	return (-1);
 }
 

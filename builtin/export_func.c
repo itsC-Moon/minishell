@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 03:23:52 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/25 15:46:12 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/25 22:25:12 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,16 @@ int compar_func(const char *in_env, const char *to_find)
 			break;
 		i++;
 	}
-	if (in_env[i] == '\0' && to_find[i] == '=')
+	printf("%s\n",in_env + i);
+	printf("%s\n",to_find + i);
+	if (in_env[i] == '=' && to_find[i] == '=')
 		return (UPDATE);
-	else if (in_env[i] == '=' && !to_find[i])
-		return (DONOTHING);
-	else if (in_env[i] != to_find[i])
-		return (NOMATCH);
-	else if (!in_env[i] && !to_find[i])
-		return (DONOTHING);
-	else if (in_env[i] == to_find[i])
+	else if (in_env[i] == '\0' && to_find[i] == '=')
 		return (UPDATE);
-	else if (to_find[i] != in_env[i] && !to_find[i])
-		return (INSERT);
+	else if (in_env[i] == '=' && to_find[i] == '\0')
+		return (DONOTHING);
+	else if (in_env[i] == '\0' && to_find[i] == '\0')
+		return (DONOTHING);
 	return (ERROR);
 }
 
@@ -46,10 +44,8 @@ static int is_valide(const char *buffer)
 		return (0);
 	while (*buffer && is_id(*buffer))
 		buffer++;
-	if (*buffer == '=')
+	if (*buffer == '=' || *buffer == '\0')
 		return (1);
-	else if (*buffer == '\0')
-		return (2);
 	return (0);
 }
 
@@ -67,21 +63,21 @@ static void insert_var(t_env *env, const char *name)
 			return ;
 		else if (state == UPDATE)
 			break ;
-		else if (state == INSERT)
-			break;
 		tmp = tmp->next;
 	}
-	if (state == UPDATE)
+	if (!tmp)
 	{
-		free(tmp->varible);
-		tmp->varible = ft_strdup(name);
-	}
-	else
-	{
+		printf("INSERT");
 		lst_addback(env->back, name);
 		env->size++;
 	}
-	return ;
+	else if (state == UPDATE)
+	{
+		printf("UPDATE");
+		free(tmp->varible);
+		tmp->varible = ft_strdup(name);
+	}
+
 }
 static int export_var(t_proc *proc, t_env *env)
 {
@@ -119,7 +115,8 @@ static void print_env2(t_env *env, int fd)
 		while (*it2 && *it2 != '=')
 			write(fd, it2++, 1);
 		if (*it2)
-			ft_printf(fd, "=\"%s\"\n", it2 + 1);
+			ft_printf(fd, "=\"%s\"", it2 + 1);
+		ft_printf(fd, "\n");
 		it = it->next;
 	}
 }
