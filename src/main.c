@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:23:13 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/26 01:21:15 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/26 15:42:08 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,13 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+int event(void) {return 0;}
 void    ft_signal_ctrl_c(int sig)
 {
     (void)sig;
     write(2, "\n", 1);
+	rl_done = 1337;
+	rl_event_hook = event;
 	rl_replace_line("", 0);
     rl_on_new_line();
     rl_redisplay();

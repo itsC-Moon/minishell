@@ -6,10 +6,11 @@
 /*   By: zkotbi <hibenouk@1337.ma>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:23:16 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/24 21:25:11 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:33:39 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "minishell.h"
 
 static int print_to_file(int fd, const char *buffer, t_env *envp)
@@ -46,7 +47,7 @@ static int read_until_lim(t_file	*here_doc, t_env *envp)
 	if (fd < 0)
 		return (1);
 	buff = NULL;
-	while (1)
+	while (in_here_doc(GET))
 	{
 		buff = readline(">");
 		if (buff == NULL)
@@ -65,6 +66,7 @@ void here_doc_exec(t_mini	*mini)
 {
 	size_t i;
 
+	in_here_doc(IN);
 	i = 0;
 	while (i < mini->nb_doc)
 	{
@@ -72,4 +74,5 @@ void here_doc_exec(t_mini	*mini)
 			return ;
 		i++;
 	}
+	in_here_doc(OUT);
 }

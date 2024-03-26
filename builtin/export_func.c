@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 03:23:52 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/25 22:25:12 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/26 14:59:39 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "minishell.h"
 #include <stdio.h>
 
-int compar_func(const char *in_env, const char *to_find)
+static int compar_func(const char *in_env, const char *to_find)
 {
 	int i;
 
@@ -25,8 +25,6 @@ int compar_func(const char *in_env, const char *to_find)
 			break;
 		i++;
 	}
-	printf("%s\n",in_env + i);
-	printf("%s\n",to_find + i);
 	if (in_env[i] == '=' && to_find[i] == '=')
 		return (UPDATE);
 	else if (in_env[i] == '\0' && to_find[i] == '=')
@@ -49,6 +47,26 @@ static int is_valide(const char *buffer)
 	return (0);
 }
 
+static void __insert(t_state state, t_env *env, t_lst *tmp, const char *name)
+{
+	if (!tmp)
+	{
+		tmp = lst_addback(env->back, name);
+		if (ft_strchr(tmp->varible, '=') == NULL)
+			tmp->state = HIDE;
+		else
+			env->size++;
+	}
+	else if (state == UPDATE)
+	{
+		free(tmp->varible);
+		tmp->varible = ft_strdup(name);
+		if (ft_strchr(tmp->varible, '=') == NULL)
+			return ;
+		env->size++;
+		tmp->state = DISP;
+	}
+}
 
 static void insert_var(t_env *env, const char *name)
 {
@@ -65,20 +83,9 @@ static void insert_var(t_env *env, const char *name)
 			break ;
 		tmp = tmp->next;
 	}
-	if (!tmp)
-	{
-		printf("INSERT");
-		lst_addback(env->back, name);
-		env->size++;
-	}
-	else if (state == UPDATE)
-	{
-		printf("UPDATE");
-		free(tmp->varible);
-		tmp->varible = ft_strdup(name);
-	}
-
+	__insert(state, env, tmp, name);
 }
+
 static int export_var(t_proc *proc, t_env *env)
 {
 	size_t i;

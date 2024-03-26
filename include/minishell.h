@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 00:35:23 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/25 14:54:29 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:19:32 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# define FILE 1
-# define ARGS 0
-# define GET 2
-# define SET 3
+
 
 
 typedef enum e_open_type
@@ -44,15 +41,26 @@ typedef enum e_open_type
 
 typedef enum e_state 
 {
-	DONOTHING = 2,
+	
+	ARGS,
+	_FILE,
+	GET,
+	SET,
+	IN,
+	OUT,
+	DONOTHING,
 	NOMATCH,
 	INSERT ,
 	UPDATE ,
+	HIDE,
+	DISP,
 	ERROR 
 }	t_state;
+
 typedef struct s_lst
 {
 	char			*varible;
+	t_state			state;
 	struct s_lst	*next;
 	struct s_lst	*prev;
 }	t_lst;
@@ -195,6 +203,7 @@ void		free_env(t_env *envp);
 
 /*static */
 int			get_status(int status, int opt);
+int			in_here_doc(int opt);
 
 /*debug*/
 void print2d(char **argv, size_t size);

@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 12:20:25 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/20 15:50:04 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/26 14:08:30 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ static t_file get_file(t_list *list, t_env *envp)
 
 	_file = (t_file){0};
 	if (list->type == INPUT_REDIR)
-		_file = file(expand(list->token, envp, FILE), INPUT);
+		_file = file(expand(list->token, envp, _FILE), INPUT);
 	else if (list->type == OUTPUT_REDIR)
-		_file = file(expand(list->token, envp, FILE), OUTPUT);
+		_file = file(expand(list->token, envp, _FILE), OUTPUT);
 	else if (list->type == APPEND_REDIR)
-		_file = file(expand(list->token, envp, FILE), APPEND);
+		_file = file(expand(list->token, envp, _FILE), APPEND);
 	else if (list->type == HEREDOC)
 		_file = file_here(list->token, _HEREDOC);
 	return (_file);

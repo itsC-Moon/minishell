@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:33:19 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/24 01:33:19 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/26 14:44:29 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static void print_env(t_env	*env, int	outfile)
 	tmp = env->front;
 	while (tmp != NULL)
 	{
-		ft_printf(outfile, "%s\n", tmp->varible);
+		if (tmp->state == DISP)
+			ft_printf(outfile, "%s\n", tmp->varible);
 		tmp = tmp->next;
 	}
 }
