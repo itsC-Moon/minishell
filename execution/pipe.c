@@ -6,12 +6,13 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 21:59:43 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/27 03:09:32 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/27 22:27:56 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
+#include <stdio.h>
 #include <sys/_types/_size_t.h>
 
 static void	ft_close(int *fd)
@@ -47,6 +48,7 @@ static void	child(t_proc	*proc, t_env	*env, int *fd, int mini_status)
 	}
 	close_fds(proc);
 	execve(proc->command, proc->args, env_lst_to_arr(env));
+	printf("allo");
 	error_exit(proc->args[0], 126);
 }
 

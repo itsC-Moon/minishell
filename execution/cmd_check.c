@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 00:29:41 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/27 16:27:56 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/27 21:25:06 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static int	is_dir(char *path)
 {
 	struct stat	path_stat;
 
-	stat(path, &path_stat);
+	if (stat(path, &path_stat) < 0)
+		return (0);
 	if (S_ISDIR(path_stat.st_mode))
 		return (1);
 	return (0);
