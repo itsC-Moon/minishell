@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 00:35:23 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/26 15:19:32 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:31:00 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef enum e_open_type
 
 typedef enum e_state 
 {
-	
 	ARGS,
 	_FILE,
 	GET,
@@ -71,6 +70,7 @@ typedef struct s_env
 	t_lst	*back;
 	char	*pwd;
 	size_t	size;
+	size_t	dis_size;
 }	t_env;
 
 typedef struct s_file
@@ -123,19 +123,24 @@ void		check_cmd(t_proc	*proc, char *cmd, int *fd);
 /*env_2d2lst*/
 t_env		*env_arr_to_lst(char **envp);
 char		**env_lst_to_arr(t_env *env);
-t_lst		*lst_addback(t_lst	*lst, const char *to_add);
 
 /*env_search*/
 char		*env_search(t_env	*env, const char *name);
+t_lst		*env_search2(t_env	*env, const char *name);
 t_lst		*env_search_2(t_env	*env, const char *name);
-char		*env_search_3(t_env	*env, const char *name);
+
+/*env_func*/
+void		env_addback(t_env *env, t_lst *lst);
+void		env_addfront(t_env *env, t_lst *lst);
+t_lst		*make_lst(char *var, t_state state);
+t_env		*make_env();
 
 /*execute*/
 void		close_fds(t_proc	*proc);
 void		init_procs(t_mini	*mini);
 
 /*files_handle*/
-void open_files(t_proc	*proc);
+void		open_files(t_proc	*proc);
 void		get_io_files(t_proc	*proc);
 void		get_pipe_io_files(t_proc	*proc, int *fd);
 
@@ -210,7 +215,7 @@ void		init_here_doc(t_mini *mini);
 void print_tokens(t_Token *tokens);
 /*clean*/
 void		clean_mini(t_mini *mini);
-void		free_env(t_env *envp);
+void		clean_env(t_env *envp);
 
 /*static */
 int			get_status(int status, int opt);

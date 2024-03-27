@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:28:20 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/25 02:27:41 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/27 15:21:28 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 #include "libft.h"
 #include "minishell.h"
+#include <stdio.h>
 
 int is_id(char c)
 {
@@ -50,22 +51,18 @@ char *env_search(t_env	*env, const char *name)
 }
 
 
-char *env_search_3(t_env	*env, const char *name)
+t_lst		*env_search2(t_env	*env, const char *name)
 {
-	t_lst	*tmp;
-	int i;
+	t_lst	*it;
 
-	tmp = env->front;
-	if (validate_name(name) == 1)
-		return ("$");
-	while(tmp != NULL)
+	if (is_valide(name) == 0)
+		return (NULL);
+	it = env->front;
+	while(it != NULL)
 	{
-		i = 0;
-		while (tmp->varible[i] == name[i] && is_id(name[i]))
-			i++;
-		if (tmp->varible[i] == '=' && !is_id(name[i]))
-			return (tmp->varible + i + 1);
-		tmp = tmp->next;
+		if (compar_func(it->varible, name) != NOMATCH)
+			return (it);
+		it = it->next;
 	}
 	return (NULL);
 }

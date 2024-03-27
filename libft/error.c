@@ -6,12 +6,13 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:15:16 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/22 21:08:23 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/27 17:05:44 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
+#include <stdio.h>
 
 void error(const char *name)
 {
@@ -31,6 +32,7 @@ void report(const char *name)
 
 void check_null(void *ptr, const char *str)
 {
+	ft_printf(3, "%p\n",ptr);
 	if (ptr)
 		return ;
 	ft_printf(2, "nudejs: %s: %s\n", str, strerror(errno));	

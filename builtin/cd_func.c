@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:57:48 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/26 21:35:52 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/27 16:27:14 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int error_func(t_proc *proc, char *str, int *tmp)
 {
 	close_builtin_file(tmp);
 	close_fds(proc);
-	ft_printf(2, "nudejs: %s: %s \n", proc->args[0], str);	
+	ft_printf(2, "nudejs: %s: %s\n", proc->args[0], str);	
 	return (1);
 }
 

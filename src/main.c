@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:23:13 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/26 15:42:08 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/27 17:06:57 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,9 @@
 
 
 # include "libft.h"
-#include "minishell.h"
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <signal.h>
-#include <stdio.h>
-# include <fcntl.h>
-#include <stdlib.h>
+# include "minishell.h"
 #include <sys/fcntl.h>
-#include <sys/wait.h>
-#include <unistd.h>
+
 
 int event(void) {return 0;}
 void    ft_signal_ctrl_c(int sig)
@@ -45,18 +38,20 @@ void ft_ignore(int sig)
 
 void leaks()
 {
-
     char buffer[256] = {0};
-    sprintf(buffer, "lsof -p %d",getpid());
+    sprintf(buffer, "/usr/sbin/lsof -p %d",getpid());
     system(buffer);
-    system("leaks minishell");
+    system("/usr/bin/leaks minishell");
 }
 
 
 int main(int ac, char **argv, char **env)
 {
-	// atexit(leaks);
+	atexit(leaks);
 
+	int fd = open("log", O_RDWR | O_TRUNC | O_CREAT, 0644);
+	if (fd != 3)
+		exit (2);
 	(void)ac;
 	(void)argv;
 	t_env	*envp;
@@ -67,7 +62,7 @@ int main(int ac, char **argv, char **env)
 	envp = env_arr_to_lst(env);
 	envp->pwd = set_pwd();
 	minishell(envp);
-	free_env(envp);
+	clean_env(envp);
 	rl_clear_history();
 	return (0);
 }

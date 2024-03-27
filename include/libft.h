@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:24:55 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/24 01:24:56 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/27 15:11:18 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,9 @@ int			ft_strcmp(const char *s1, const char *s2);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 int			count_numbers2(long nb);
 void		*ft_calloc(size_t size);
-long	ft_atoi(const char *str);
+long		ft_atoi(const char *str);
+int			is_valide(const char *buffer);
+int			compar_func(const char *in_env, const char *to_find);
 
 /*parsing*/
 char		*get_word(const char *str);

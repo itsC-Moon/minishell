@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 18:32:33 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/24 21:50:24 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:31:31 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void free_proc(t_proc *proc)
 	free(proc->file);
 }
 
-void free_env(t_env *envp)
+void clean_env(t_env *envp)
 {
 	t_lst *it;
 	t_lst *tmp;
@@ -98,6 +98,7 @@ void free_env(t_env *envp)
 		free(tmp->varible);
 		free(tmp);
 	}
+	free(envp->pwd);
 	free(envp);
 }
 void	clean_mini(t_mini *mini)

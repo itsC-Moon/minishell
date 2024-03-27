@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 03:23:52 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/26 14:59:39 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/27 15:23:12 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "minishell.h"
 #include <stdio.h>
 
-static int compar_func(const char *in_env, const char *to_find)
+int compar_func(const char *in_env, const char *to_find)
 {
 	int i;
 
@@ -33,10 +33,10 @@ static int compar_func(const char *in_env, const char *to_find)
 		return (DONOTHING);
 	else if (in_env[i] == '\0' && to_find[i] == '\0')
 		return (DONOTHING);
-	return (ERROR);
+	return (NOMATCH);
 }
 
-static int is_valide(const char *buffer)
+int	is_valide(const char *buffer)
 {
 	if (*buffer == '=' || *buffer == '\0' || ft_isdigit(*buffer))
 		return (0);
@@ -47,15 +47,15 @@ static int is_valide(const char *buffer)
 	return (0);
 }
 
-static void __insert(t_state state, t_env *env, t_lst *tmp, const char *name)
+static void _insert(t_state state, t_env *env, t_lst *tmp, const char *name)
 {
 	if (!tmp)
 	{
-		tmp = lst_addback(env->back, name);
-		if (ft_strchr(tmp->varible, '=') == NULL)
-			tmp->state = HIDE;
-		else
-			env->size++;
+		env_addback(env, make_lst(ft_strdup(name), HIDE));
+		if (ft_strchr(env->back->varible, '=') == NULL)
+			return ;
+		env->back->state = DISP;
+		env->dis_size++;
 	}
 	else if (state == UPDATE)
 	{
@@ -83,7 +83,7 @@ static void insert_var(t_env *env, const char *name)
 			break ;
 		tmp = tmp->next;
 	}
-	__insert(state, env, tmp, name);
+	_insert(state, env, tmp, name);
 }
 
 static int export_var(t_proc *proc, t_env *env)

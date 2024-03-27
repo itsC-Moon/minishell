@@ -6,59 +6,25 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 23:32:40 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/26 14:55:29 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/27 14:54:24 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
 
-t_lst *lst_addback(t_lst	*lst, const char *to_add)
-{
-	t_lst *tmp;
 
-	tmp = lst;
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	tmp->next = malloc(sizeof(t_lst));
-	check_null(tmp->next, "malloc");
-	tmp->next->next = NULL;
-	tmp->next->prev = tmp;
-	tmp->next->varible = ft_strdup(to_add);
-	tmp->next->state = DISP;
-	return (tmp->next);
-}
-
-t_env *new_env()
-{
-
-	t_env	*env;
-	env = malloc(sizeof(t_env));
-	check_null(env, "malloc");
-	env->back = NULL;
-	env->front = NULL;
-	env->size = 0;
-	return (env);
-}
 t_env	*env_arr_to_lst(char **envp)
 {
 	t_env	*env;
 	int		i;
 
 	i = 0;
-	env = new_env();
+	env = make_env();
 	if(!*envp)
 		return (env);
-	env->back = malloc(sizeof(t_lst));
-	check_null(env->back, "malloc");
-	env->back->state = DISP;
-	env->back->varible = ft_strdup(envp[i++]);
-	env->back->next	= NULL;
-	env->back->prev = NULL;
-	env->front = env->back;
 	while (envp[i] != NULL)
-		lst_addback(env->back, envp[i++]);
-	env->size = i;
+		env_addback(env, make_lst(ft_strdup(envp[i++]), DISP));
 	return (env);
 }
 
@@ -69,10 +35,10 @@ char **env_lst_to_arr(t_env *env)
 	int	i;
 
 	i = 0;
-	arr = malloc(sizeof(char *) * (env->size + 1));
+	arr = malloc(sizeof(char *) * (env->dis_size + 1));
 	check_null(arr, "malloc");
 	lst = env->front;
-	while (lst != NULL)
+	while (lst)
 	{
 		if (lst->state == DISP)
 			arr[i++] = ft_strdup(lst->varible);
