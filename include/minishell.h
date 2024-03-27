@@ -92,6 +92,15 @@ typedef struct s_proc
 	size_t		nb_args;
 }	t_proc;
 
+/* pipe struct */
+typedef struct s_pipe
+{
+	size_t	i;
+	int *pids;
+	int fd[2];
+	int tmp[2];
+}	t_pipe;
+
 typedef struct s_mini
 {
 	t_proc		*proc;
@@ -113,8 +122,8 @@ void		check_cmd(t_proc	*proc, char *cmd, int *fd);
 
 /*env_2d2lst*/
 t_env		*env_arr_to_lst(char **envp);
-char **env_lst_to_arr(t_env *env);
-t_lst *lst_addback(t_lst	*lst, const char *to_add);
+char		**env_lst_to_arr(t_env *env);
+t_lst		*lst_addback(t_lst	*lst, const char *to_add);
 
 /*env_search*/
 char		*env_search(t_env	*env, const char *name);
@@ -134,11 +143,13 @@ void		get_pipe_io_files(t_proc	*proc, int *fd);
 void		here_doc_exec(t_mini	*mini);
 
 /*path_handle*/
-char *get_cmd_path(t_proc	*proc, t_env *env);
+char		*get_cmd_path(t_proc	*proc, t_env *env);
 
 /*pipe*/
 int			init_pipe(t_proc *proc, unsigned int size, t_env *envp, int mini_status);
 
+/*pipe_utils*/
+t_pipe		*init_pipe_struct(int size);
 /*-----------------EXECUTE--------------*/
 
 /*-----------------BUILTIN--------------*/

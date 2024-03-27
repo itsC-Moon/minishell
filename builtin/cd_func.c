@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:57:48 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/26 03:48:43 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/26 21:35:52 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,12 @@ void cd_set_pwd(char *dir_to, t_env	*env)
 		env->pwd = tmp;
 	}
 	else
+	{
 		ft_printf(2, "cd: error retrieving current directory\n");
+		tmp = ft_strjoin(env->pwd, dir_to);
+		free(env->pwd);
+		env->pwd = tmp;
+	}
 }
 
 int cd_func(t_proc	*proc, t_env	*env, int *tmp)

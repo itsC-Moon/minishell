@@ -6,17 +6,15 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 21:59:43 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/25 03:05:54 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/27 03:09:32 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
-#include <stdio.h>
-#include <sys/wait.h>
-#include <unistd.h>
+#include <sys/_types/_size_t.h>
 
-static void ft_close(int *fd)
+static void	ft_close(int *fd)
 {
 	if (*fd <= 1)
 		return ;
@@ -26,7 +24,7 @@ static void ft_close(int *fd)
 
 static void	child(t_proc	*proc, t_env	*env, int *fd, int mini_status)
 {
-	int status;
+	int	status;
 
 	if (proc->args == NULL || proc->args[0] == NULL)
 		exit(open_builtin_files(proc));
@@ -52,9 +50,11 @@ static void	child(t_proc	*proc, t_env	*env, int *fd, int mini_status)
 	error_exit(proc->args[0], 126);
 }
 
-static void wait_process(int *pids, int *status, int size)
+static void	wait_process(int *pids, int *status, int size)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (i < size)
 	{
 		waitpid(pids[i], status, 0);
@@ -62,8 +62,7 @@ static void wait_process(int *pids, int *status, int size)
 	}
 }
 
-
-static int pipe_file(int *tmp, int *fd, int i, int size)
+static int	pipe_file(int *tmp, int *fd, int i, int size)
 {
 	tmp[0] = fd[0];
 	if (i != size -1)
@@ -72,7 +71,7 @@ static int pipe_file(int *tmp, int *fd, int i, int size)
 			return (ft_close(&tmp[0]), 1);
 		tmp[1] = fd[1];
 	}
-	if (i == 0 )
+	if (i == 0)
 		tmp[0] = 0;
 	else if (i == size -1)
 		tmp[1] = 1;
@@ -81,30 +80,25 @@ static int pipe_file(int *tmp, int *fd, int i, int size)
 
 int	init_pipe(t_proc *proc, unsigned int size, t_env *envp, int mini_status)
 {
-	size_t i;
-	int status;
-	int *pids;
-	int fd[2] =  {0, 0};
-	int tmp[2] = {-1};
+	t_pipe	*pipe;
+	int		status;
 
-	i = 0;
-	pids = malloc(sizeof(int) * size);
-	check_null(pids, "malloc");
-	while (i < size)
+	pipe = init_pipe_struct(size);
+	while (pipe->i < size)
 	{
-		if (pipe_file(tmp, fd, i, size) == 1)
-			return (free(pids), 1);	
-		pids[i] = fork();
-		if (pids[i] == 0)
+		if (pipe_file(pipe->tmp, pipe->fd, pipe->i, size) == 1)
+			return (free(pipe->pids), free(pipe), 1);
+		pipe->pids[pipe->i] = fork();
+		if (pipe->pids[pipe->i] == 0)
 		{
-			if (i < size - 1)
-				ft_close(&fd[0]);
-			child(&proc[i], envp, tmp, mini_status);
+			if (pipe->i < size - 1)
+				ft_close(&(pipe->fd[0]));
+			child(&proc[pipe->i], envp, pipe->tmp, mini_status);
 		}
-		ft_close(&tmp[0]);
-		ft_close(&tmp[1]);
-		i++;
+		ft_close(&(pipe->tmp[0]));
+		ft_close(&(pipe->tmp[1]));
+		pipe->i++;
 	}
-	wait_process(pids, &status, size);
-	return (free(pids), WEXITSTATUS(status));
+	wait_process(pipe->pids, &status, size);
+	return (free(pipe->pids), free(pipe), WEXITSTATUS(status));
 }

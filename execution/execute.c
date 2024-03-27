@@ -6,28 +6,21 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:29:56 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/25 03:06:08 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/26 22:14:01 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
+#include "libft.h"
 
-
-#include "../include/minishell.h"
-#include "../include/libft.h"
-#include <stdio.h>
-#include <limits.h>
-#include <stdlib.h>
-#include <sys/wait.h>
-#include <unistd.h>
-
-void close_fds(t_proc	*proc)
+void	close_fds(t_proc	*proc)
 {
-	unsigned int i;
+	size_t	i;
 
 	i = 0;
 	while (i < proc->nb_file)
 	{
-		if (proc->file[i].fd != 0 && proc->file[i].fd != 1) 
+		if (proc->file[i].fd != 0 && proc->file[i].fd != 1)
 			close (proc->file[i++].fd);
 	}
 }
@@ -45,11 +38,11 @@ static void	exec_cmd(t_proc	*proc, t_env	*env)
 	error_exit(proc->args[0], 126);
 }
 
-static int init_cmd(t_proc	*proc, t_env	*env, int mini_status)
+static int	init_cmd(t_proc	*proc, t_env	*env, int mini_status)
 {
-	int pid;
-	int status;
-	
+	int	pid;
+	int	status;
+
 	if (proc->nb_args == 0 || proc->args[0] == NULL)
 	{
 		status = open_builtin_files(proc);
@@ -74,6 +67,6 @@ void	init_procs(t_mini	*mini)
 	if (mini->size == 1)
 		mini->status = init_cmd(mini->proc, mini->envp, mini->status);
 	else if (mini->size > 1)
-		mini->status = init_pipe(mini->proc, mini->size, mini->envp, mini->status);
+		mini->status = init_pipe(mini->proc, mini->size,
+				mini->envp, mini->status);
 }
-
