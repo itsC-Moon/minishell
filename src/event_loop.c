@@ -21,7 +21,7 @@ void minishell(t_env *envp)
 			free(buffer);
 			continue;
 		}
-		// add_history(buffer);
+		add_history(buffer);
 		mini = parser(buffer, envp);
 		free(buffer);
 		if (mini.size == 0 && mini.nb_doc == 0)

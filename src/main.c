@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:23:13 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/27 23:35:36 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/28 21:04:49 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,8 @@
 #include <sys/fcntl.h>
 
 
-int event(void) {return 0;}
-void    ft_signal_ctrl_c(int sig)
-{
-    (void)sig;
-    write(2, "\n", 1);
-	// rl_done = 1337;
-	// rl_event_hook = event;
-	// rl_replace_line("", 0);
- //    rl_on_new_line();
- //    rl_redisplay();
-}
 
-void ft_ignore(int sig)
-{
-	(void)sig;
-    // rl_on_new_line();
-}
+
 
 void leaks()
 {
@@ -51,22 +36,22 @@ void leaks()
 
 int main(int ac, char **argv, char **env)
 {
-	atexit(leaks);
+	// atexit(leaks);
 
-	int fd = open("log", O_RDWR | O_TRUNC | O_CREAT, 0644);
-	if (fd != 3)
-		exit (2);
+	// int fd = open("log", O_RDWR | O_TRUNC | O_CREAT, 0644);
+	// if (fd != 3)
+	// 	exit (2);
 	(void)ac;
 	(void)argv;
 	t_env	*envp;
 	// if (!isatty(0))
 	// 	return (ft_printf(2, "nudejs: require a tty session\n"), 1);
-	signal(SIGINT, ft_signal_ctrl_c);
-	signal(SIGQUIT, ft_ignore);
+	signal(SIGINT, signal_ctrl_c);
+	signal(SIGQUIT, SIG_IGN);
 	envp = env_arr_to_lst(env);
 	envp->pwd = set_pwd();
 	minishell(envp);
 	clean_env(envp);
-	// rl_clear_history();
+	rl_clear_history();
 	return (0);
 }

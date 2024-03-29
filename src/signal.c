@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   static_func.c                                      :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/22 22:10:45 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/26 15:22:11 by hibenouk         ###   ########.fr       */
+/*   Created: 2024/03/28 20:52:33 by hibenouk          #+#    #+#             */
+/*   Updated: 2024/03/28 23:35:37 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int get_status(int status, int opt)
+void    signal_ctrl_c(int sig)
 {
-	static int _status;
-	if (opt == GET)
-		return (_status);
-	_status = status;
-	return (_status);
-}
-
-
-int in_here_doc(int opt)
-{
-	static int _in_here_doc;
-
-	if (opt == IN)
-		_in_here_doc = 1;
-	else if (opt  == OUT)
-		_in_here_doc = 0;
-	return (_in_here_doc);
+    (void)sig;
+    write(2, "\n", 1);
+	
+	get_status(130, SET);
+	if (in_here_doc(GET) == IN)
+		exit(1);
+	rl_replace_line("", 0);
+    rl_on_new_line();
+	if (in_exec(GET) == OUT)
+		rl_redisplay();
 }
