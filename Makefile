@@ -14,7 +14,7 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -ggdb3 -Wall -Wextra -Wunreachable-code  \
+CFLAGS = -ggdb3 -Wall -Wextra -Wunreachable-code -fsanitize=address \
 		 -I$(HOME)/.brew/opt/readline/include
 
 INC = include

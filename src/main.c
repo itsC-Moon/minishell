@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:23:13 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/28 21:04:49 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:58:11 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int main(int ac, char **argv, char **env)
 	// if (!isatty(0))
 	// 	return (ft_printf(2, "nudejs: require a tty session\n"), 1);
 	signal(SIGINT, signal_ctrl_c);
-	signal(SIGQUIT, SIG_IGN);
+	signal(SIGQUIT, signal_ignore);
 	envp = env_arr_to_lst(env);
 	envp->pwd = set_pwd();
 	minishell(envp);

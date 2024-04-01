@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 00:35:23 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/01 01:29:52 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:57:28 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,7 @@ void		clean_env(t_env *envp);
 
 /*signal*/
 void    signal_ctrl_c(int sig);
+void	signal_ignore(int sig);
 
 /*static */
 int			get_status(int status, int opt);
