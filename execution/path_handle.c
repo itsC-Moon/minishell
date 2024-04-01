@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 00:30:19 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/27 03:04:11 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/27 21:15:34 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static char	*get_path(char **paths, char *cmd)
 	int		i;
 
 	tmp_path = NULL;
-	path = NULL;
+	path = ft_strdup("");
 	tmp_cmd = ft_strjoin("/", cmd);
 	i = get_path_loupe(&paths, &tmp_cmd, &tmp_path, &path);
 	if (paths[i] == NULL && tmp_path != NULL)
@@ -77,7 +77,7 @@ static char	*null_path_handle(t_proc *proc)
 
 	pwd = getcwd(NULL, 0);
 	if (pwd == NULL)
-		return (NULL);
+		return ("");
 	cmd = ft_strjoin("/", proc->args[0]);
 	tmp = ft_strjoin(pwd, cmd);
 	return (free(cmd), free(pwd), tmp);

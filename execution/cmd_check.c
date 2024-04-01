@@ -6,12 +6,13 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 00:29:41 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/27 21:25:06 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/01 00:28:14 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
+#include <string.h>
 #include <sys/stat.h>
 
 static int	is_dir(char *path)

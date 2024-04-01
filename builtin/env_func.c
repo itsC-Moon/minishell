@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:33:19 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/26 14:44:29 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/01 01:31:00 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,21 @@ static void print_env(t_env	*env, int	outfile)
 
 int env_func(t_proc	*proc, t_env	*env , int *tmp)
 {
+	int code;
+
+	code = 0;
 	if (open_builtin_files(proc) == 1)
 		return (close_builtin_file(tmp), 1);
 	if (tmp != NULL)
 		get_pipe_io_files(proc, tmp);
 	else
 		get_io_files(proc);
-	print_env(env, proc->io_fd[1]);
-	return (close_builtin_file(tmp), close_fds(proc), 0);
+	if (proc->args[1] == NULL) 
+		print_env(env, proc->io_fd[1]);
+	else
+	{
+		ft_printf(2, "nudejs:: No option No arguments\n");
+		code = 1;
+	}
+	return (close_builtin_file(tmp), close_fds(proc), code);
 }
