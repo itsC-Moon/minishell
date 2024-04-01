@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:29:56 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/26 22:14:01 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/03/28 23:31:54 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,14 @@ static int	init_cmd(t_proc	*proc, t_env	*env, int mini_status)
 
 void	init_procs(t_mini	*mini)
 {
-	if (mini->nb_doc > 0)
-		here_doc_exec(mini);
+	if (fork_here_doc(mini) == 1)
+		return ;
+	if (mini->size > 0)
+		in_exec(IN);
 	if (mini->size == 1)
 		mini->status = init_cmd(mini->proc, mini->envp, mini->status);
 	else if (mini->size > 1)
 		mini->status = init_pipe(mini->proc, mini->size,
 				mini->envp, mini->status);
+	in_exec(OUT);
 }

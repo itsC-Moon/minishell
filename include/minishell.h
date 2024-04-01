@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 00:35:23 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/27 16:31:00 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/28 21:54:31 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,19 +211,23 @@ t_file		file_here(char *limiter, t_open_type mod);
 
 /*here_doc*/
 void		init_here_doc(t_mini *mini);
+int			fork_here_doc(t_mini	*mini);
 
 void print_tokens(t_Token *tokens);
 /*clean*/
 void		clean_mini(t_mini *mini);
 void		clean_env(t_env *envp);
 
+/*signal*/
+void    signal_ctrl_c(int sig);
+
 /*static */
 int			get_status(int status, int opt);
 int			in_here_doc(int opt);
+int			in_exec(int opt);
 
 /*debug*/
 void print2d(char **argv, size_t size);
 void print_mini(t_mini mini);
 void print_file(t_file *file, size_t size);
-void leaks();
 #endif /* !MINISHELL_H */
