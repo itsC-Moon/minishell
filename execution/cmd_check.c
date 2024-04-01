@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 00:29:41 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/27 21:25:06 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/01 00:28:14 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,6 @@ static void	exit_error(const char *str, int exit_val, const char *name, int *fd)
 	}
 	ft_printf(2, "nudejs: %s: %s\n", name, str);
 	exit(exit_val);
-}
-
-static int	is_dir(char *path)
-{
-	struct stat	path_stat;
-
-	if (stat(path, &path_stat) == -1)
-		return (1);
-	if (S_ISDIR(path_stat.st_mode))
-		return (1);
-	return (0);
 }
 
 void	check_cmd(t_proc	*proc, char *cmd, int *fd)
