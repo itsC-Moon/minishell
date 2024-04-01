@@ -6,23 +6,14 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 00:29:41 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/27 16:27:56 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/03/27 21:24:59 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
+#include <string.h>
 #include <sys/stat.h>
-
-static int	is_dir(char *path)
-{
-	struct stat	path_stat;
-
-	stat(path, &path_stat);
-	if (S_ISDIR(path_stat.st_mode))
-		return (1);
-	return (0);
-}
 
 static void	exit_error(const char *str, int exit_val, const char *name, int *fd)
 {
@@ -33,6 +24,17 @@ static void	exit_error(const char *str, int exit_val, const char *name, int *fd)
 	}
 	ft_printf(2, "nudejs: %s: %s\n", name, str);
 	exit(exit_val);
+}
+
+static int	is_dir(char *path)
+{
+	struct stat	path_stat;
+
+	if (stat(path, &path_stat) == -1)
+		return (1);
+	if (S_ISDIR(path_stat.st_mode))
+		return (1);
+	return (0);
 }
 
 void	check_cmd(t_proc	*proc, char *cmd, int *fd)
