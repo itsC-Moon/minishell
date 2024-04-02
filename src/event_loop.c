@@ -13,6 +13,7 @@ void minishell(t_env *envp)
 
 	while (1)
 	{
+		check_exit(NORM);
 		buffer = readline("nudejs>$ ");
 		if (!buffer)
 			return ;

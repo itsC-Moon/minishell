@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:29:56 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/28 23:31:54 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/01 01:46:23 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static int	init_cmd(t_proc	*proc, t_env	*env, int mini_status)
 	if (pid == 0)
 		exec_cmd(proc, env);
 	waitpid(pid, &status, 0);
+
 	return (WEXITSTATUS(status));
 }
 
@@ -71,5 +72,7 @@ void	init_procs(t_mini	*mini)
 	else if (mini->size > 1)
 		mini->status = init_pipe(mini->proc, mini->size,
 				mini->envp, mini->status);
+	mini->status = (check_exit(GET) == NORM) * WEXITSTATUS(mini->status) +\
+		(check_exit(GET) == SIGN) * 130;
 	in_exec(OUT);
 }

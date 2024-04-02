@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 21:59:43 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/01 01:24:00 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/01 01:41:16 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "libft.h"
 #include <stdio.h>
 #include <sys/_types/_size_t.h>
+#include <sys/wait.h>
 
 static void	ft_close(int *fd)
 {

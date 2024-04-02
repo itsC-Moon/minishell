@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 00:35:23 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/28 21:54:31 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/01 01:29:52 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef enum e_state
 	SET,
 	IN,
 	OUT,
+	NORM,
+	SIGN,
 	DONOTHING,
 	NOMATCH,
 	INSERT ,
@@ -213,7 +215,6 @@ t_file		file_here(char *limiter, t_open_type mod);
 void		init_here_doc(t_mini *mini);
 int			fork_here_doc(t_mini	*mini);
 
-void print_tokens(t_Token *tokens);
 /*clean*/
 void		clean_mini(t_mini *mini);
 void		clean_env(t_env *envp);
@@ -225,9 +226,11 @@ void    signal_ctrl_c(int sig);
 int			get_status(int status, int opt);
 int			in_here_doc(int opt);
 int			in_exec(int opt);
+int			check_exit(int opt);
 
 /*debug*/
 void print2d(char **argv, size_t size);
+void print_tokens(t_Token *tokens);
 void print_mini(t_mini mini);
 void print_file(t_file *file, size_t size);
 #endif /* !MINISHELL_H */
