@@ -16,7 +16,7 @@ static int error_builtin_file(t_proc	*proc, int size, t_file file)
 }
 int open_builtin_files(t_proc	*proc)
 {
-	unsigned int i;
+	size_t	i;
 
 	i = 0;
 	while (i < proc->nb_file)

@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:24:55 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/27 15:11:18 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/01 22:13:48 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <errno.h>
+#include <sys/_types/_size_t.h>
 # include <unistd.h>
 # define SKIP 2
 # define LEN 0
@@ -99,7 +100,7 @@ char		**ft_split(char *s, char c);
 char		*ft_strdup(const char *s1);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_itoa(int n);
-char		*random_name(int n);
+char		*random_name(size_t n);
 int			is_empty(const char *buffer);
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);

@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 00:35:23 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/01 15:57:28 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/02 01:10:07 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "libft.h"
 # include <unistd.h>
 # include <fcntl.h>
+# include <signal.h>
 # include <stdlib.h>
 # include <sys/stat.h>
 # include <string.h>
@@ -37,6 +38,7 @@ typedef enum e_open_type
 	APPEND,
 	_HEREDOC,
 	AMBIGUOUS,
+	NO_EXPAND,
 }	t_open_type;
 
 typedef enum e_state 
@@ -55,7 +57,7 @@ typedef enum e_state
 	UPDATE ,
 	HIDE,
 	DISP,
-	ERROR 
+	ERROR,
 }	t_state;
 
 typedef struct s_lst
@@ -80,6 +82,7 @@ typedef struct s_file
 	char		*file_name;
 	int			fd;
 	char		*limiter;
+	t_open_type	state;
 	t_open_type	mod;
 }	t_file;
 
@@ -116,9 +119,7 @@ typedef struct s_mini
 /*minishell*/
 void		minishell(t_env *envp);
 
-
 /*----------------EXECUTE---------------*/
-
 /*cmd_check*/
 void		check_cmd(t_proc	*proc, char *cmd, int *fd);
 

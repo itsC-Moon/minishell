@@ -6,12 +6,13 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 15:42:29 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/22 16:49:22 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/02 00:16:22 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
+
 static size_t count_doc(t_mini *mini)
 {
 	size_t size;

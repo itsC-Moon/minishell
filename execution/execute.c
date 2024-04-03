@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:29:56 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/01 01:46:23 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/02 00:03:59 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static int	init_cmd(t_proc	*proc, t_env	*env, int mini_status)
 	if (pid == 0)
 		exec_cmd(proc, env);
 	waitpid(pid, &status, 0);
-
 	return (WEXITSTATUS(status));
 }
 

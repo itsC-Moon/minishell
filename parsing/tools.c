@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 23:03:18 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/22 22:32:53 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/02 00:19:43 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,14 @@ t_file file_here(char *limiter, t_open_type mod)
 
 	tmp = random_name((size_t)limiter);
 	check_null(tmp, "malloc");
-	str = ft_strjoin("/tmp/.", tmp);	
+	str = ft_strjoin("/tmp/.doc", tmp);	
 	check_null(str, "malloc");
+	file.state = _HEREDOC;
+	if (ft_strchr(limiter, '\'') || ft_strchr(limiter, '"'))
+		file.state = NO_EXPAND;
+	file.mod = mod;
 	file.file_name = str;
 	file.limiter = remove_quote(limiter);
-	file.mod = mod;
 	free(tmp);
 	return (file);
 }

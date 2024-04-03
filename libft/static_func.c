@@ -6,11 +6,12 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 22:10:45 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/01 01:29:09 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/01 22:31:10 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 
 int	get_status(int status, int opt)
 {
