@@ -6,12 +6,13 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:29:56 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/01 01:46:23 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/05 00:38:38 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
+
 
 void	close_fds(t_proc	*proc)
 {
@@ -34,6 +35,7 @@ static void	exec_cmd(t_proc	*proc, t_env	*env)
 	dup2(proc->io_fd[0], 0);
 	dup2(proc->io_fd[1], 1);
 	close_fds(proc);
+	env_set_last_cmd(env, proc->command);
 	execve(proc->command, proc->args, env_lst_to_arr(env));
 	error_exit(proc->args[0], 126);
 }
@@ -57,7 +59,7 @@ static int	init_cmd(t_proc	*proc, t_env	*env, int mini_status)
 	if (pid == 0)
 		exec_cmd(proc, env);
 	waitpid(pid, &status, 0);
-
+	remove_node(env, env_search_2(env, "_"));
 	return (WEXITSTATUS(status));
 }
 

@@ -4,8 +4,10 @@
 #include "libft.h"
 #include <stdio.h>
 
-static void remove_node(t_env	*env, t_lst	*lst)
+void remove_node(t_env	*env, t_lst	*lst)
 {
+	if (lst == NULL)
+		return ;
 	if (lst->next != NULL)
 		lst->next->prev = lst->prev;
 	if (lst->prev != NULL)

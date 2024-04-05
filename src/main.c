@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:23:13 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/28 21:04:49 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/05 00:48:19 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int main(int ac, char **argv, char **env)
 	signal(SIGINT, signal_ctrl_c);
 	signal(SIGQUIT, SIG_IGN);
 	envp = env_arr_to_lst(env);
-	envp->pwd = set_pwd();
+	// envp->pwd = set_pwd();
 	minishell(envp);
 	clean_env(envp);
 	rl_clear_history();

@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 21:59:43 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/01 01:41:16 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/05 00:40:09 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ static void	child(t_proc	*proc, t_env	*env, int *fd, int mini_status)
 		ft_close(&proc->io_fd[1]);
 	}
 	close_fds(proc);
+	env_set_last_cmd(env, proc->command);
 	execve(proc->command, proc->args, env_lst_to_arr(env));
-	printf("allo");
 	error_exit(proc->args[0], 126);
 }
 
@@ -103,5 +103,6 @@ int	init_pipe(t_proc *proc, unsigned int size, t_env *envp, int mini_status)
 		pipe->i++;
 	}
 	wait_process(pipe->pids, &status, size);
+	remove_node(envp, env_search_2(envp, "_"));
 	return (free(pipe->pids), free(pipe), WEXITSTATUS(status));
 }

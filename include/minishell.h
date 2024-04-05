@@ -6,13 +6,9 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 00:35:23 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/01 01:29:52 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/05 00:39:43 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
-
-
 
 
 #ifndef MINISHELL_H
@@ -27,8 +23,6 @@
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
-
 
 typedef enum e_open_type
 {
@@ -55,7 +49,8 @@ typedef enum e_state
 	UPDATE ,
 	HIDE,
 	DISP,
-	ERROR 
+	ERROR,
+	DEF_PATH
 }	t_state;
 
 typedef struct s_lst
@@ -133,6 +128,7 @@ t_lst		*env_search_2(t_env	*env, const char *name);
 
 /*env_func*/
 void		env_addback(t_env *env, t_lst *lst);
+void		env_set_last_cmd(t_env	*env, char *cmd);
 void		env_addfront(t_env *env, t_lst *lst);
 t_lst		*make_lst(char *var, t_state state);
 t_env		*make_env();
@@ -187,6 +183,7 @@ char		*set_pwd(void);
 
 /*unset_func*/
 int 		unset_func(t_proc	*proc, t_env	*env, int *fd);
+void		remove_node(t_env	*env, t_lst	*lst);
 
 /*-----------------BUILTIN--------------*/
 

@@ -6,13 +6,22 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 23:32:40 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/27 14:54:24 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/05 22:28:42 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
+#include <string.h>
 
+t_env  *env_null_def(t_env *env)
+{
+	env_addback(env, make_lst(ft_strdup("OLDPWD"), HIDE));
+	if (env->pwd != NULL)	
+		env_addback(env, make_lst(ft_strjoin("PWD=", env->pwd), DISP));
+	env_addback(env, make_lst(ft_strdup("PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:."), DEF_PATH));
+	return (env);
+}
 
 t_env	*env_arr_to_lst(char **envp)
 {
@@ -21,8 +30,9 @@ t_env	*env_arr_to_lst(char **envp)
 
 	i = 0;
 	env = make_env();
+	env->pwd = set_pwd();
 	if(!*envp)
-		return (env);
+		return (env_null_def(env));
 	while (envp[i] != NULL)
 		env_addback(env, make_lst(ft_strdup(envp[i++]), DISP));
 	return (env);
@@ -47,4 +57,3 @@ char **env_lst_to_arr(t_env *env)
 	arr[i] = NULL;
 	return (arr);
 }
-
