@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 00:35:23 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/05 00:39:43 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/04 22:26:06 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "libft.h"
 # include <unistd.h>
 # include <fcntl.h>
+# include <signal.h>
 # include <stdlib.h>
 # include <sys/stat.h>
 # include <string.h>
@@ -31,6 +32,7 @@ typedef enum e_open_type
 	APPEND,
 	_HEREDOC,
 	AMBIGUOUS,
+	NO_EXPAND,
 }	t_open_type;
 
 typedef enum e_state 
@@ -47,6 +49,8 @@ typedef enum e_state
 	NOMATCH,
 	INSERT ,
 	UPDATE ,
+	SIGI,
+	SIGQ,
 	HIDE,
 	DISP,
 	ERROR,
@@ -75,6 +79,7 @@ typedef struct s_file
 	char		*file_name;
 	int			fd;
 	char		*limiter;
+	t_open_type	state;
 	t_open_type	mod;
 }	t_file;
 
@@ -111,9 +116,7 @@ typedef struct s_mini
 /*minishell*/
 void		minishell(t_env *envp);
 
-
 /*----------------EXECUTE---------------*/
-
 /*cmd_check*/
 void		check_cmd(t_proc	*proc, char *cmd, int *fd);
 
@@ -142,8 +145,6 @@ void		open_files(t_proc	*proc);
 void		get_io_files(t_proc	*proc);
 void		get_pipe_io_files(t_proc	*proc, int *fd);
 
-/*here_doc_exec*/
-void		here_doc_exec(t_mini	*mini);
 
 /*path_handle*/
 char		*get_cmd_path(t_proc	*proc, t_env *env);
@@ -218,12 +219,13 @@ void		clean_env(t_env *envp);
 
 /*signal*/
 void    signal_ctrl_c(int sig);
+void	signal_ignore(int sig);
 
 /*static */
 int			get_status(int status, int opt);
 int			in_here_doc(int opt);
 int			in_exec(int opt);
-int			check_exit(int opt);
+int			check_exit(t_state state, int opt);
 
 /*debug*/
 void print2d(char **argv, size_t size);

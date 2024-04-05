@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 21:10:23 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/23 23:36:22 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/01 22:14:53 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static int	count_numbers(size_t nb)
 	int	len;
 
 	len = 0;
+	if (nb == 0)
+		return (1);
 	while (nb)
 	{
 		nb = nb / 10;
@@ -24,7 +26,7 @@ static int	count_numbers(size_t nb)
 	return (len);
 }
 
-char	*random_name(int n)
+char	*random_name(size_t n)
 {
 	char	*result;
 	int		len;
@@ -33,8 +35,7 @@ char	*random_name(int n)
 	nb = n;
 	len = count_numbers(nb);
 	result = malloc(sizeof(char) * len + 1);
-	if (!result)
-		return (NULL);
+	check_null(result, "malloc");
 	if (nb == 0)
 		result[0] = '0';
 	result[len] = '\0';
