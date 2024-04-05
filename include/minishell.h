@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 00:35:23 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/02 01:10:07 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/04 22:26:06 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ typedef enum e_state
 	NOMATCH,
 	INSERT ,
 	UPDATE ,
+	SIGI,
+	SIGQ,
 	HIDE,
 	DISP,
 	ERROR,
@@ -147,8 +149,6 @@ void		open_files(t_proc	*proc);
 void		get_io_files(t_proc	*proc);
 void		get_pipe_io_files(t_proc	*proc, int *fd);
 
-/*here_doc_exec*/
-void		here_doc_exec(t_mini	*mini);
 
 /*path_handle*/
 char		*get_cmd_path(t_proc	*proc, t_env *env);
@@ -228,7 +228,7 @@ void	signal_ignore(int sig);
 int			get_status(int status, int opt);
 int			in_here_doc(int opt);
 int			in_exec(int opt);
-int			check_exit(int opt);
+int			check_exit(t_state state, int opt);
 
 /*debug*/
 void print2d(char **argv, size_t size);

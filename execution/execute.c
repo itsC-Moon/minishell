@@ -6,12 +6,13 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:29:56 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/02 00:03:59 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/05 00:44:38 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
+#include <stdio.h>
 
 void	close_fds(t_proc	*proc)
 {
@@ -62,6 +63,8 @@ static int	init_cmd(t_proc	*proc, t_env	*env, int mini_status)
 
 void	init_procs(t_mini	*mini)
 {
+	t_state	state;
+
 	if (fork_here_doc(mini) == 1)
 		return ;
 	if (mini->size > 0)
@@ -71,7 +74,10 @@ void	init_procs(t_mini	*mini)
 	else if (mini->size > 1)
 		mini->status = init_pipe(mini->proc, mini->size,
 				mini->envp, mini->status);
-	mini->status = (check_exit(GET) == NORM) * WEXITSTATUS(mini->status) +\
-		(check_exit(GET) == SIGN) * 130;
 	in_exec(OUT);
+	state = check_exit(NORM, GET);
+	mini->status = (state == SIGI) * 130 + (state == SIGQ) * 131 + \
+				(state == NORM) * mini->status;
+	printf("io = %d\n",mini->status);
+	get_status(mini->status, SET);
 }

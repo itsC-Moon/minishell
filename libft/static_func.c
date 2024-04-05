@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 22:10:45 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/01 22:31:10 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/04 22:03:11 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,11 @@ int	in_exec(int opt)
 	return (_in_exec);
 }
 
-int check_exit(int opt)
+int check_exit(t_state state, int opt)
 {
 	static int	_check_exit = NORM;
 
-	if (opt == NORM)
-		_check_exit = NORM;
-	else if (opt == SIGN)
-		_check_exit = SIGN;
+	if (opt == SET)
+		_check_exit = state;
 	return (_check_exit);
 }

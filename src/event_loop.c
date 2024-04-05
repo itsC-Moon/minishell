@@ -4,20 +4,29 @@
 
 
 #include "minishell.h"
+#include <stdio.h>
 #include <termios.h>
 #include <unistd.h>
 
+static void execute(t_mini *mini)
+{
+	signal(SIGQUIT, signal_ignore);
+	init_procs(mini);
+	signal(SIGQUIT, SIG_IGN);
+	get_status(mini->status, SET);
+	clean_mini(mini);
+}
+
 void minishell(t_env *envp)
 {
-	t_mini	mini;
-	char	*buffer;
-	int		status = 0;
-	struct termios term;
+	char			*buffer;
+	t_mini			mini;
+	struct termios	term;
 
 	tcgetattr(STDIN_FILENO, &term);
 	while (1)
 	{
-		check_exit(NORM);
+		check_exit(NORM, SET);
 		buffer = readline("nudejs>$ ");
 		if (!buffer)
 			return ;
@@ -28,16 +37,10 @@ void minishell(t_env *envp)
 		}
 		add_history(buffer);
 		mini = parser(buffer, envp);
-		free(buffer);
 		if (mini.size == 0 && mini.nb_doc == 0)
 			continue;
-		mini.status = status;
-		signal(SIGQUIT, signal_ignore);
-		init_procs(&mini);
-		signal(SIGQUIT, SIG_IGN);
+		execute(&mini);
+		get_status(mini.status, SET);
 		tcsetattr(STDIN_FILENO, TCSANOW, &term);
-		status = mini.status;
-		get_status(status, SET);
-		clean_mini(&mini);
 	}
 }

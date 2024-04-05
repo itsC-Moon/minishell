@@ -6,7 +6,7 @@
 /*   By: zkotbi <hibenouk@1337.ma>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:23:16 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/02 00:20:39 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/04 22:26:44 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int read_until_lim(t_file	*here_doc, t_env *envp)
 	return (0);
 }
 
-void here_doc_exec(t_mini	*mini)
+static void here_doc_exec(t_mini	*mini)
 {
 	size_t	i;
 
@@ -94,8 +94,10 @@ int fork_here_doc(t_mini	*mini)
 		here_doc_exec(mini);
 	waitpid(pid,  &status, 0);
 	mini->status = WEXITSTATUS(status);
+	get_status(mini->status, SET);
 	if (mini->status == 0)
 		return (0);
 	mini->status = 130;
+	get_status(mini->status, SET);
 	return (1);
 }
