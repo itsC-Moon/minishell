@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 23:32:40 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/05 22:28:42 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/15 21:16:30 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ t_env	*env_arr_to_lst(char **envp)
 {
 	t_env	*env;
 	int		i;
+	t_lst *lst;
+	char *tmp;
 
 	i = 0;
 	env = make_env();
@@ -35,6 +37,15 @@ t_env	*env_arr_to_lst(char **envp)
 		return (env_null_def(env));
 	while (envp[i] != NULL)
 		env_addback(env, make_lst(ft_strdup(envp[i++]), DISP));
+	env_addback(env, make_lst(ft_strdup("PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:."), DEF_PATH));
+	lst = env_search2(env, "PWD");
+	if (lst != NULL && env->pwd != NULL)
+	{
+		free(lst->varible);
+		tmp = ft_strdup(env->pwd);
+		lst->varible = ft_strjoin("PWD=", tmp);
+		free(tmp);
+	}
 	return (env);
 }
 
