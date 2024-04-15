@@ -3,6 +3,7 @@
 
 
 
+#include "libft.h"
 #include "minishell.h"
 #include <stdio.h>
 #include <termios.h>
@@ -13,7 +14,6 @@ static void execute(t_mini *mini)
 	signal(SIGQUIT, signal_ignore);
 	init_procs(mini);
 	signal(SIGQUIT, SIG_IGN);
-	get_status(mini->status, SET);
 	clean_mini(mini);
 }
 
@@ -26,7 +26,6 @@ void minishell(t_env *envp)
 	tcgetattr(STDIN_FILENO, &term);
 	while (1)
 	{
-		check_exit(NORM, SET);
 		buffer = readline("nudejs>$ ");
 		if (!buffer)
 			return ;
@@ -37,6 +36,7 @@ void minishell(t_env *envp)
 		}
 		add_history(buffer);
 		mini = parser(buffer, envp);
+		free(buffer);
 		if (mini.size == 0 && mini.nb_doc == 0)
 			continue;
 		execute(&mini);

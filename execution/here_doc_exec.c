@@ -6,7 +6,7 @@
 /*   By: zkotbi <hibenouk@1337.ma>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:23:16 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/04 22:26:44 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/15 21:18:48 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,21 @@ static int print_to_file(int fd, const char *buffer, t_env *envp, t_open_type st
 	i = 0;
 	while (buffer[i])
 	{
-		if (buffer[i] == '$' && state != NO_EXPAND)
-		{	
+		if (buffer[i] == '$' && buffer[i + 1] == '?')
+		{
+			ft_printf(fd, "%d",get_status(0, GET));
+			i += 2;
+		}
+		else if (buffer[i] == '$' && state != NO_EXPAND)
+		{
 			var = env_search(envp, buffer + i + 1);
 			buffer += inc(buffer + i + 1) + 1;
 			if (!var)
 				continue;
-			if (ft_printf(fd, "%s", var) < 0)
-				return (-1);
-			continue;
+			ft_printf(fd, "%s", var);
 		}
-		ft_printf(fd, "%c", buffer[i]);
-		i++;
+		else
+			ft_printf(fd, "%c", buffer[i++]);
 	}
 	ft_printf(fd, "\n");
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:29:56 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/05 22:38:42 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/15 20:53:29 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	init_procs(t_mini	*mini)
 {
 	t_state	state;
 
+	check_exit(NORM, SET);
 	if (fork_here_doc(mini) == 1)
 		return ;
 	if (mini->size > 0)
@@ -78,9 +79,8 @@ void	init_procs(t_mini	*mini)
 		mini->status = init_pipe(mini->proc, mini->size,
 				mini->envp, mini->status);
 	in_exec(OUT);
-	state = check_exit(NORM, GET);
+	state = check_exit(0, GET);
 	mini->status = (state == SIGI) * 130 + (state == SIGQ) * 131 + \
 				(state == NORM) * mini->status;
-	// printf("io = %d\n",mini->status);
 	get_status(mini->status, SET);
 }

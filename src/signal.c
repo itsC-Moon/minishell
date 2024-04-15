@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 20:52:33 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/05 00:42:17 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/15 20:29:42 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ void signal_ignore(int sig)
 {
 	(void)sig;
 	check_exit(SIGQ, SET);
+	get_status(131, SET);
 	ft_printf(1, "Quit: 3\n");
 }
