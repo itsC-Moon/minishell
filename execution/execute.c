@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:29:56 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/05 00:44:38 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/05 22:38:42 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,6 @@ void	init_procs(t_mini	*mini)
 	state = check_exit(NORM, GET);
 	mini->status = (state == SIGI) * 130 + (state == SIGQ) * 131 + \
 				(state == NORM) * mini->status;
-	printf("io = %d\n",mini->status);
+	// printf("io = %d\n",mini->status);
 	get_status(mini->status, SET);
 }
