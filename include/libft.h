@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:24:55 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/16 19:13:57 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/16 20:54:20 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,6 @@ int			jump2(const char *str, int *len);
 char		*remove_quote(const char *buffer);
 int			jump_to_s(const char *str, char *new_buffer);
 int			word_s2(const char *str, char *buffer);
+void		free_n_tab(char **tab, size_t size);
 
 #endif /*LIBFT_H*/

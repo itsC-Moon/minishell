@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:29:56 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/16 18:40:57 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/16 21:04:05 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,10 @@ void	init_procs(t_mini	*mini)
 	t_state	state;
 
 	check_exit(NORM, SET);
+	signal(SIGQUIT, SIG_IGN);
 	if (fork_here_doc(mini) == 1)
 		return ;
+	signal(SIGQUIT, signal_ignore);
 	if (mini->size > 0)
 		in_exec(IN);
 	if (mini->size == 1)
