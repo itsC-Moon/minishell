@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:57:48 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/16 15:40:52 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/16 16:38:45 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ char *get_pwd(t_env *env, t_proc *proc)
 	char *tmp;
 
 	pwd = getcwd(NULL, 0);
-	perror("getcwd");
+	if (pwd == NULL)
+		ft_printf(2, "cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n");
 	if (pwd != NULL)
 		return (pwd);
 	if (env->pwd == NULL)
@@ -93,15 +94,17 @@ static int go_to_prev(t_env *env, t_proc *proc, int *tmp)
 {
 	char *pwdold_var;
 
+	
 	if (env->pwd == NULL)
 		return (0);
 	pwdold_var = env_search(env, "OLDPWD");
 	if (pwdold_var == NULL)
 		return (error_func(proc, "OLDPWD not set", tmp));
+	// printf("ha howa: %s\n", pwdold_var);
 	if (pwdold_var[0] == 0)
 		return (0); 
-	if (chdir(pwdold_var) < 0)
-		return ( error_func(proc, strerror(errno), tmp));
+	if (chdir(pwdold_var) == -1)
+		return (error_func(proc, strerror(errno), tmp));
 	ft_printf(proc->io_fd[1], "%s\n", pwdold_var);
 	set_env_var(env, proc);
 	return (close_fds(proc), close_builtin_file(tmp), 0);
