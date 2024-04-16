@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 23:32:40 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/15 21:16:30 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/16 16:59:29 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ t_env	*env_arr_to_lst(char **envp)
 		lst->varible = ft_strjoin("PWD=", tmp);
 		free(tmp);
 	}
+	remove_node(env, env_search2(env, "OLDPWD"));
 	return (env);
 }
 
