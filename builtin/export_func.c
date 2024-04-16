@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 03:23:52 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/27 15:23:12 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/16 14:40:12 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,11 @@ static void print_env2(t_env *env, int fd)
 	it = env->front;
 	while (it)
 	{
+		if (it->state == DEF_PATH)
+		{
+			it = it->next;
+			continue;
+		}
 		ft_printf(fd, "declare -x ");
 		it2 = it->varible;
 		while (*it2 && *it2 != '=')

@@ -19,7 +19,14 @@ void remove_node(t_env	*env, t_lst	*lst)
 	free(lst->varible);
 	free(lst);
 }
-
+static t_lst *_unset(const char *buffer, t_env *env, int *status)
+{
+	if (is_valide(buffer) == 1)
+		return (env_search2(env, buffer));
+	ft_printf(2, "nudejs: unset: `%s': not a valid identifier\n", buffer);
+	*status = 1;
+	return (NULL);
+}
 int unset_func(t_proc	*proc, t_env	*env, int *fd)
 {
 	int		i;
@@ -31,9 +38,11 @@ int unset_func(t_proc	*proc, t_env	*env, int *fd)
 	if (open_builtin_files(proc) == 1)
 		return (close_builtin_file(fd), 1);
 	close_fds(proc);
+	if (proc->nb_args == 0)
+		return (0);
 	while (proc->args[i] != NULL)
 	{
-		it = env_search2(env, proc->args[i]);
+		it = _unset(proc->args[i], env, &status);
 		if (it)
 			remove_node(env, it);
 		i++;
