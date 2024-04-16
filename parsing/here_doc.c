@@ -6,19 +6,18 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 15:42:29 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/02 00:16:22 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:38:04 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
 
-static size_t count_doc(t_mini *mini)
+static size_t	count_doc(t_mini *mini)
 {
-	size_t size;
-	size_t i;
-	size_t j;
-	t_proc *proc;
+	size_t	size;
+	size_t	i;
+	size_t	j;
+	t_proc	*proc;
 
 	size = 0;
 	i = 0;
@@ -37,13 +36,13 @@ static size_t count_doc(t_mini *mini)
 	return (size);
 }
 
-void init_here_doc(t_mini *mini)
+void	init_here_doc(t_mini *mini)
 {
-	size_t i;
-	size_t j;
-	size_t size;
-	t_proc *proc;
-	 
+	size_t	i;
+	size_t	j;
+	size_t	size;
+	t_proc	*proc;
+
 	mini->nb_doc = count_doc(mini);
 	mini->here_doc = NULL;
 	if (mini->nb_doc == 0)

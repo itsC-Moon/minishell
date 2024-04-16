@@ -6,32 +6,32 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:06:04 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/20 15:50:12 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:52:49 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
 
-static int get_pipe(const char *buffer, t_Token *tokens, t_Token_Type type)
+static int	get_pipe(const char *buffer, t_Token *tokens, t_Token_Type type)
 {
 	t_list	*list;
 	int		offset;
 
 	offset = 0;
 	if (!tokens->front)
-		return (report("syntax error near unexpected token `|'"), -42);
+		return (report("syntax error near unexpected token `", '|'), -42);
 	while (ft_isspace(buffer[offset]))
 		offset++;
 	if (!buffer[offset] || buffer[offset] == '|')
-		return (report("syntax error near unexpected token `|'"), -42);
+		return (report("syntax error near unexpected token `", '|'), -42);
 	list = lst(NULL, type);
 	check_null(list, "malloc");
 	addback(tokens, list);
 	return (offset);
 }
 
-static int get_redir(const char *buffer, t_Token *tokens, t_Token_Type type)
+static int	get_redir(const char *buffer, t_Token *tokens, t_Token_Type type)
 {
 	int		offset;
 	int		check;
@@ -40,7 +40,8 @@ static int get_redir(const char *buffer, t_Token *tokens, t_Token_Type type)
 	while (ft_isspace(buffer[offset]))
 		offset++;
 	if (!buffer[offset] || ft_iskey(buffer[offset]))
-		return (report("syntax error near unexpected token"), -42);
+		return (report("syntax error near unexpected token `",
+				buffer[offset]), -42);
 	check = get_args(buffer + offset, tokens, is_sep);
 	if (check < 0)
 		return (-42);
@@ -48,9 +49,9 @@ static int get_redir(const char *buffer, t_Token *tokens, t_Token_Type type)
 	return (offset + check);
 }
 
-static int get_next_token(const char *buffer, t_Token *tokens)
+static int	get_next_token(const char *buffer, t_Token *tokens)
 {
-	int offset;
+	int	offset;
 
 	offset = 0;
 	if (cmp(">>", buffer, 2) == 0)
@@ -66,7 +67,7 @@ static int get_next_token(const char *buffer, t_Token *tokens)
 	return (offset);
 }
 
-static int get_token(const char *buffer, t_Token *tokens)
+static int	get_token(const char *buffer, t_Token *tokens)
 {
 	int		offset;
 	int		i;
@@ -79,8 +80,8 @@ static int get_token(const char *buffer, t_Token *tokens)
 			offset++;
 		if (!buffer[offset])
 			return (0);
-		if (buffer[offset] == '<' || buffer[offset] == '>' 
-				|| buffer[offset] == '|')
+		if (buffer[offset] == '<' || buffer[offset] == '>'
+			|| buffer[offset] == '|')
 			i = get_next_token(buffer + offset, tokens);
 		else
 			i = get_args(buffer + offset, tokens, is_sep);
@@ -90,9 +91,10 @@ static int get_token(const char *buffer, t_Token *tokens)
 	}
 	return (0);
 }
-t_Token *tokenizer(const char *buffer)
+
+t_Token	*tokenizer(const char *buffer)
 {
-	t_Token *tokens;
+	t_Token	*tokens;
 
 	tokens = create_list();
 	check_null(tokens, "malloc");

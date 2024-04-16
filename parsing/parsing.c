@@ -6,18 +6,13 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 12:20:25 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/26 14:08:30 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:44:06 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include "libft.h"
 #include "minishell.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
 
-static void __alloc(t_list *list, t_proc *proc)
+static void	__alloc(t_list *list, t_proc *proc)
 {
 	proc->nb_file = get_num_redic(list, INPUT_REDIR);
 	proc->nb_args = get_num_redic(list, STRING_LTR);
@@ -36,9 +31,10 @@ static void __alloc(t_list *list, t_proc *proc)
 	else
 		proc->file = NULL;
 }
-static t_file get_file(t_list *list, t_env *envp)
+
+static t_file	get_file(t_list *list, t_env *envp)
 {
-	t_file _file;
+	t_file	_file;
 
 	_file = (t_file){0};
 	if (list->type == INPUT_REDIR)
@@ -51,10 +47,11 @@ static t_file get_file(t_list *list, t_env *envp)
 		_file = file_here(list->token, _HEREDOC);
 	return (_file);
 }
-static void alloc_io(t_list *list, t_proc *proc, t_env *envp)
+
+static void	alloc_io(t_list *list, t_proc *proc, t_env *envp)
 {
-	size_t it;
-	size_t i;
+	size_t	it;
+	size_t	i;
 
 	it = 0;
 	i = 0;
@@ -76,12 +73,12 @@ static void alloc_io(t_list *list, t_proc *proc, t_env *envp)
 		proc->args[i] = NULL;
 }
 
-static t_mini parsing(t_Token *tokens, t_env *envp)
+static t_mini	parsing(t_Token *tokens, t_env *envp)
 {
 	t_mini	mini;
-	size_t 	i;
-	t_proc 	*it;
-	t_list 	*token;
+	size_t	i;
+	t_proc	*it;
+	t_list	*token;
 
 	i = 0;
 	mini.size = count_command(tokens);
@@ -101,10 +98,10 @@ static t_mini parsing(t_Token *tokens, t_env *envp)
 	return (mini);
 }
 
-t_mini parser(const char *buffer, t_env *envp)
+t_mini	parser(const char *buffer, t_env *envp)
 {
 	t_mini	mini;
-	t_Token *tokens;
+	t_Token	*tokens;
 
 	tokens = tokenizer(buffer);
 	if (!tokens)

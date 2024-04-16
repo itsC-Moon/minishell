@@ -6,16 +6,11 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 23:03:18 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/02 00:19:43 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:56:38 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
-#include "libft.h"
 #include "minishell.h"
-#include <stdlib.h>
-#include <unistd.h>
 
 size_t	count_command(t_Token *token)
 {
@@ -23,7 +18,7 @@ size_t	count_command(t_Token *token)
 	t_list	*it;
 
 	size = 0;
-	it = token->front;	
+	it = token->front;
 	while (it)
 	{
 		if (it->type == PIPE)
@@ -33,10 +28,10 @@ size_t	count_command(t_Token *token)
 	return (size + 1);
 }
 
-size_t get_num_redic(t_list *list, t_Token_Type type)
+size_t	get_num_redic(t_list *list, t_Token_Type type)
 {
-	size_t size;
-	size_t nb_str;
+	size_t	size;
+	size_t	nb_str;
 
 	size = 0;
 	nb_str = 0;
@@ -53,9 +48,9 @@ size_t get_num_redic(t_list *list, t_Token_Type type)
 	return (size);
 }
 
-t_file file(char *file_name, t_open_type mod)
+t_file	file(char *file_name, t_open_type mod)
 {
-	t_file file;
+	t_file	file;
 
 	file.file_name = file_name;
 	file.mod = mod;
@@ -65,11 +60,11 @@ t_file file(char *file_name, t_open_type mod)
 	return (file);
 }
 
-char *remove_quote(const char *buffer)
+char	*remove_quote(const char *buffer)
 {
-	int i;
-	char *str;
-	int len;
+	int		i;
+	char	*str;
+	int		len;
 
 	len = 0;
 	jump2(buffer, &len);
@@ -87,7 +82,7 @@ char *remove_quote(const char *buffer)
 	return (str);
 }
 
-t_file file_here(char *limiter, t_open_type mod)
+t_file	file_here(char *limiter, t_open_type mod)
 {
 	t_file	file;
 	char	*str;
@@ -95,7 +90,7 @@ t_file file_here(char *limiter, t_open_type mod)
 
 	tmp = random_name((size_t)limiter);
 	check_null(tmp, "malloc");
-	str = ft_strjoin("/tmp/.doc", tmp);	
+	str = ft_strjoin("/tmp/.doc", tmp);
 	check_null(str, "malloc");
 	file.state = _HEREDOC;
 	if (ft_strchr(limiter, '\'') || ft_strchr(limiter, '"'))
@@ -105,50 +100,4 @@ t_file file_here(char *limiter, t_open_type mod)
 	file.limiter = remove_quote(limiter);
 	free(tmp);
 	return (file);
-}
-
-int	jump_to_s(const char *str, char *new_buffer)
-{
-	int		i;
-	int		j;
-
-	if (new_buffer)
-		j = ft_strlen(new_buffer);
-	i = 1;
-	while (str[i] != '\'')
-	{
-		if (new_buffer)
-			new_buffer[j++] = str[i];
-		i++;
-	}
-	if (new_buffer)
-		new_buffer[j] = '\0';
-	return (i + 1);
-}
-
-void copy_to_buffer(const char *buffer, char *new_buffer, t_env *envp)
-{
-	int		j;
-	int		i;
-	char	*new;
-
-
-	if (buffer[0] == '?')
-	{
-		new = ft_itoa(get_status(0, GET));
-		check_null(new, "malloc");
-	}
-	else
-	{
-		new = env_search(envp, buffer);
-		if (!new)
-			return ;
-	}
-	j = ft_strlen(new_buffer);
-	i = 0;
-	while (new[i])
-		new_buffer[j++] = new[i++];
-	new_buffer[j] = '\0';
-	if (buffer[0] == '?')
-		free(new);
 }

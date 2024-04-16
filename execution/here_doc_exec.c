@@ -6,18 +6,14 @@
 /*   By: zkotbi <hibenouk@1337.ma>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 21:23:16 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/15 21:18:48 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:10:59 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
-#include <stdio.h>
-#include <sys/_types/_pid_t.h>
-#include <sys/wait.h>
-#include <unistd.h>
 
-static int print_to_file(int fd, const char *buffer, t_env *envp, t_open_type state)
+static int	print_to_file(int fd, const char *buffer,
+		t_env *envp, t_open_type state)
 {
 	int		i;
 	char	*var;
@@ -25,17 +21,12 @@ static int print_to_file(int fd, const char *buffer, t_env *envp, t_open_type st
 	i = 0;
 	while (buffer[i])
 	{
-		if (buffer[i] == '$' && buffer[i + 1] == '?')
-		{
-			ft_printf(fd, "%d",get_status(0, GET));
-			i += 2;
-		}
-		else if (buffer[i] == '$' && state != NO_EXPAND)
+		if (buffer[i] == '$' && state != NO_EXPAND)
 		{
 			var = env_search(envp, buffer + i + 1);
 			buffer += inc(buffer + i + 1) + 1;
 			if (!var)
-				continue;
+				continue ;
 			ft_printf(fd, "%s", var);
 		}
 		else
@@ -45,7 +36,7 @@ static int print_to_file(int fd, const char *buffer, t_env *envp, t_open_type st
 	return (0);
 }
 
-static int read_until_lim(t_file	*here_doc, t_env *envp)
+static int	read_until_lim(t_file	*here_doc, t_env *envp)
 {
 	char	*buffer;
 	int		fd;
@@ -69,7 +60,7 @@ static int read_until_lim(t_file	*here_doc, t_env *envp)
 	return (0);
 }
 
-static void here_doc_exec(t_mini	*mini)
+static void	here_doc_exec(t_mini	*mini)
 {
 	size_t	i;
 
@@ -85,17 +76,17 @@ static void here_doc_exec(t_mini	*mini)
 	exit(0);
 }
 
-int fork_here_doc(t_mini	*mini)
+int	fork_here_doc(t_mini	*mini)
 {
 	int		pid;
 	int		status;
 
 	if (mini->nb_doc == 0)
 		return (0);
-	pid= fork();
+	pid = fork();
 	if (pid == 0)
 		here_doc_exec(mini);
-	waitpid(pid,  &status, 0);
+	waitpid(pid, &status, 0);
 	mini->status = WEXITSTATUS(status);
 	get_status(mini->status, SET);
 	if (mini->status == 0)

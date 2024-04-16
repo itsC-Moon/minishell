@@ -6,14 +6,13 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 15:18:31 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/21 22:18:00 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:48:47 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
 
-static int get_len(const char *buffer, int (*func)(char))
+static int	get_len(const char *buffer, int (*func)(char))
 {
 	int		i;
 	int		l;
@@ -23,7 +22,7 @@ static int get_len(const char *buffer, int (*func)(char))
 	{
 		if (is_quote(buffer[i]))
 		{
-			l = quote_s(buffer+ i, SKIP, NULL);
+			l = quote_s(buffer + i, SKIP, NULL);
 			if (l < 0)
 				return (-42);
 			i += l;
@@ -34,14 +33,13 @@ static int get_len(const char *buffer, int (*func)(char))
 	return (i);
 }
 
-
 int	get_args(const char *buffer, t_Token *tokens, int (*func)(char))
 {
 	int		i;
 	int		len;
 	char	*args;
 	t_list	*list;
-	
+
 	len = get_len(buffer, func);
 	if (len < 0)
 		return (-42);
@@ -90,7 +88,7 @@ int	quote_s(const char *str, int mod, char *buffer)
 		i++;
 	}
 	if (!str[i])
-		return (report("syntax error unclosed quote"), -42);
+		return (report("syntax error unclosed quote`", quote), -42);
 	if (buffer)
 		buffer[i] = '\0';
 	return (i + mod);
