@@ -6,20 +6,17 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 23:02:29 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/20 15:40:12 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:57:28 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
-#include <readline/readline.h>
-#include <stdio.h>
-#include <stdlib.h>
 
-int null_expand(const char *buffer, t_env *envp)
+int	null_expand(const char *buffer, t_env *envp)
 {
-	int i;
-	char *var;
+	int		i;
+	char	*var;
+
 	i = 0;
 	if (buffer[i++] != '$')
 		return (0);
@@ -33,11 +30,11 @@ int null_expand(const char *buffer, t_env *envp)
 	return (1);
 }
 
-int get_expand_len(const char *buffer, t_env *envp)
+int	get_expand_len(const char *buffer, t_env *envp)
 {
-	int i;
-	int len;
-	int lock_d;
+	int	i;
+	int	len;
+	int	lock_d;
 
 	i = 0;
 	len = expand_tildes(buffer, envp, NULL);
@@ -59,32 +56,11 @@ int get_expand_len(const char *buffer, t_env *envp)
 	return (i + len);
 }
 
-int append(const char *buffer, char *new_buffer, int lock)
+static char	*_alloc(const char *buffer, t_env *envp)
 {
-	int j;
-	int i;
+	char	*new_buffer;
 
-	j = strlen(new_buffer);
-	i = 0;
-	if (buffer[i] == '"')
-		i++;
-	if (buffer[i] == '\'' && !lock)
-		new_buffer[j++] = buffer[i++];
-	while (buffer[i] && !end_var(buffer[i]))
-	{
-		new_buffer[j] = buffer[i];
-		i++;
-		j++;
-	}
-	new_buffer[j] = '\0';
-	return (i);
-}
-
-static char *_alloc(const char *buffer, t_env *envp)
-{
-	char *new_buffer;
-
-	if (null_expand(buffer, envp)) // TODO : return buffer
+	if (null_expand(buffer, envp))
 		return (NULL);
 	new_buffer = malloc((get_expand_len(buffer, envp) + 1) * sizeof(char));
 	check_null(new_buffer, "malloc");
@@ -92,9 +68,9 @@ static char *_alloc(const char *buffer, t_env *envp)
 	return (new_buffer);
 }
 
-static char *ternary_op(const char *buffer, int opt)
+static char	*ternary_op(const char *buffer, int opt)
 {
-	char *ptr;
+	char	*ptr;
 
 	if (!opt)
 		return (NULL);
@@ -103,11 +79,11 @@ static char *ternary_op(const char *buffer, int opt)
 	return (ptr);
 }
 
-char *expand(const char *buffer, t_env *envp, int opt)
+char	*expand(const char *buffer, t_env *envp, int opt)
 {
-	int i;
-	int lock_d;
-	char *new_buffer;
+	int		i;
+	int		lock_d;
+	char	*new_buffer;
 
 	i = 0;
 	lock_d = 1;

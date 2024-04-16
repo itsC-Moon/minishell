@@ -6,15 +6,16 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 13:18:40 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/23 23:41:50 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:35:19 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+
 #include "minishell.h"
 
-int var_len(const char *buffer, t_env *envp)
+int	var_len(const char *buffer, t_env *envp)
 {
-	char *new;
+	char	*new;
+
 	if (buffer[0] == '?')
 		return (count_numbers2(get_status(0, GET)));
 	new = env_search(envp, buffer);
@@ -23,13 +24,14 @@ int var_len(const char *buffer, t_env *envp)
 	return (ft_strlen(new));
 }
 
-int end_var(char c)
+int	end_var(char c)
 {
 	return (c == '\0' || c == '$' || is_quote(c));
 }
-int inc(const char *buffer)
+
+int	inc(const char *buffer)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	if (buffer[0] == '?')
@@ -38,17 +40,17 @@ int inc(const char *buffer)
 		len++;
 	return (len);
 }
-static int is_valid(char c)
-{
 
-	return (c == '\0' || c == ':' || c == '/' ||
-			c == '$');
-}
-int expand_tildes(const char *buffer, t_env *envp, char *new_buffer)
+static int	is_valid(char c)
 {
-	int i;
-	char *home;
-	
+	return (c == '\0' || c == ':' || c == '/' || c == '$');
+}
+
+int	expand_tildes(const char *buffer, t_env *envp, char *new_buffer)
+{
+	int		i;
+	char	*home;
+
 	i = 0;
 	if (buffer[0] != '~' || !is_valid(buffer[1]))
 		return (0);

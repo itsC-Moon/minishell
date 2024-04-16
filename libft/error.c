@@ -6,34 +6,32 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 14:15:16 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/28 23:48:28 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:50:12 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
-#include <stdio.h>
 
-void error(const char *name)
+void	error(const char *name)
 {
-	ft_printf(2, "nudejs: %s: %s\n", name, strerror(errno));	
+	ft_printf(2, "nudejs: %s: %s\n", name, strerror(errno));
 }
 
-void error_exit(const char *name, int code)
+void	error_exit(const char *name, int code)
 {
-	ft_printf(2, "nudejs: %s: %s\n", name, strerror(errno));	
+	ft_printf(2, "nudejs: %s: %s\n", name, strerror(errno));
 	exit(code);
 }
 
-void report(const char *name)
+void	report(const char *name, const char c)
 {
-	ft_printf(2, "nudejs: %s\n", name);	
+	ft_printf(2, "nudejs: %s%c'\n", name, c);
 }
 
-void check_null(void *ptr, const char *str)
+void	check_null(void *ptr, const char *str)
 {
 	if (ptr)
 		return ;
-	ft_printf(2, "nudejs: %s: %s\n", str, strerror(errno));	
+	ft_printf(2, "nudejs: %s: %s\n", str, strerror(errno));
 	exit(1);
 }

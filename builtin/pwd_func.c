@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 02:08:32 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/16 20:10:54 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/16 20:21:03 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*set_pwd(void)
 	char	*str2;
 
 	str1 = "nudejs-init: error retrieving current directory: ";
-	str2 = "getcwd: cannot access parent directories:"; 
+	str2 = "getcwd: cannot access parent directories:";
 	pwd = getcwd(NULL, 0);
 	if (pwd == NULL)
 		return (ft_printf(2, "%s%s %s \n",
@@ -34,7 +34,7 @@ int	pwd_func(t_proc	*proc, t_env *env, int *tmp)
 	char	*str2;
 
 	str1 = "nudejs-init: error retrieving current directory: ";
-	str2 = "getcwd: cannot access parent directories"; 
+	str2 = "getcwd: cannot access parent directories";
 	if (open_builtin_files(proc) == 1)
 		return (1);
 	if (tmp != NULL)
