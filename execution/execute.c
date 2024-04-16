@@ -6,14 +6,12 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:29:56 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/15 20:53:29 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:40:57 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
-#include <stdio.h>
-
 
 void	close_fds(t_proc	*proc)
 {

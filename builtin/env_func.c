@@ -6,18 +6,16 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:33:19 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/16 18:08:02 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:11:06 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #include "minishell.h"
 #include "libft.h"
 
-void env_set_last_cmd(t_env	*env, char *cmd)
+void	env_set_last_cmd(t_env	*env, char *cmd)
 {
-	t_lst *lst;
+	t_lst	*lst;
 
 	lst = env_search2(env, "_");
 	if (lst == NULL)
@@ -30,7 +28,7 @@ void env_set_last_cmd(t_env	*env, char *cmd)
 	}
 }
 
-static void print_env(t_env	*env, int	outfile)
+static void	print_env(t_env	*env, int outfile)
 {
 	t_lst	*tmp;
 
@@ -43,9 +41,9 @@ static void print_env(t_env	*env, int	outfile)
 	}
 }
 
-int env_func(t_proc	*proc, t_env	*env , int *tmp)
+int	env_func(t_proc	*proc, t_env	*env, int *tmp)
 {
-	int code;
+	int	code;
 
 	code = 0;
 	if (open_builtin_files(proc) == 1)
@@ -54,7 +52,7 @@ int env_func(t_proc	*proc, t_env	*env , int *tmp)
 		get_pipe_io_files(proc, tmp);
 	else
 		get_io_files(proc);
-	if (proc->args[1] == NULL) 
+	if (proc->args[1] == NULL)
 		print_env(env, proc->io_fd[1]);
 	else
 	{

@@ -6,39 +6,39 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:28:20 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/27 15:21:28 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:40:29 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #include "libft.h"
 #include "minishell.h"
-#include <stdio.h>
 
-int is_id(char c)
+int	is_id(char c)
 {
 	return (c == '_' || ft_isalpha(c) || ft_isdigit(c));
 }
 
-int validate_name(const char *name)
+int	validate_name(const char *name)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (name[i] != 0 && is_id(name[i]))
 		i++;
 	if (name[i] != 0)
 		return (1);
 	return (0);
 }
-char *env_search(t_env	*env, const char *name)
+
+char	*env_search(t_env	*env, const char	*name)
 {
 	t_lst	*tmp;
-	int i;
+	int		i;
 
 	tmp = env->front;
 	if (!is_id(name[0]))
 		return ("$");
-	while(tmp != NULL)
+	while (tmp != NULL)
 	{
 		i = 0;
 		while (tmp->varible[i] == name[i] && is_id(name[i]))
@@ -50,15 +50,14 @@ char *env_search(t_env	*env, const char *name)
 	return (NULL);
 }
 
-
-t_lst		*env_search2(t_env	*env, const char *name)
+t_lst	*env_search2(t_env	*env, const char *name)
 {
 	t_lst	*it;
 
 	if (is_valide(name) == 0)
 		return (NULL);
 	it = env->front;
-	while(it != NULL)
+	while (it != NULL)
 	{
 		if (compar_func(it->varible, name) != NOMATCH)
 			return (it);
@@ -67,13 +66,13 @@ t_lst		*env_search2(t_env	*env, const char *name)
 	return (NULL);
 }
 
-t_lst		*env_search_2(t_env	*env, const char *name)
+t_lst	*env_search_2(t_env	*env, const char *name)
 {
 	t_lst	*tmp;
-	int i;
+	int		i;
 
 	tmp = env->front;
-	while(tmp != NULL)
+	while (tmp != NULL)
 	{
 		i = 0;
 		while (tmp->varible[i] == name[i] && name[i] != 0)
@@ -84,4 +83,3 @@ t_lst		*env_search_2(t_env	*env, const char *name)
 	}
 	return (NULL);
 }
-

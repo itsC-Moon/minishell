@@ -1,26 +1,26 @@
-/* ************************************************************************* */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   env_2d2lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
+/*   By: zkotbi <hibenouk@1337.ma>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/10 23:32:40 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/16 18:11:15 by hibenouk         ###   ########.fr       */
+/*   Created: 2024/04/16 18:21:47 by zkotbi            #+#    #+#             */
+/*   Updated: 2024/04/16 18:35:53 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "minishell.h"
-#include <string.h>
 
-t_env  *env_null_def(t_env *env)
+t_env	*env_null_def(t_env	*env)
 {
 	env_addback(env, make_lst(ft_strdup("OLDPWD"), HIDE));
-	if (env->pwd != NULL)	
+	if (env->pwd != NULL)
 		env_addback(env, make_lst(ft_strjoin("PWD=", env->pwd), DISP));
 	env_addback(env, make_lst(
-				ft_strdup("PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:."), DEF_PATH));
+			ft_strdup("PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:."),
+			DEF_PATH));
 	return (env);
 }
 
@@ -28,13 +28,13 @@ t_env	*env_arr_to_lst(char **envp)
 {
 	t_env	*env;
 	int		i;
-	t_lst *lst;
-	char *tmp;
+	t_lst	*lst;
+	char	*tmp;
 
 	i = 0;
 	env = make_env();
 	env->pwd = set_pwd();
-	if(!*envp)
+	if (!*envp)
 		return (env_null_def(env));
 	while (envp[i] != NULL)
 		env_addback(env, make_lst(ft_strdup(envp[i++]), DISP));
@@ -46,18 +46,18 @@ t_env	*env_arr_to_lst(char **envp)
 		lst->varible = ft_strjoin("PWD=", tmp);
 		free(tmp);
 	}
-	remove_node(env, env_search2(env, "OLDPWD"));
 	if (env_search2(env, "PATH") == NULL)
 		env_addback(env, make_lst(
-				ft_strdup("PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:."), DEF_PATH));
-	return (env);
+				ft_strdup("PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:."),
+				DEF_PATH));
+	return (remove_node(env, env_search2(env, "OLDPWD")), env);
 }
 
-char **env_lst_to_arr(t_env *env)
+char	**env_lst_to_arr(t_env *env)
 {
 	t_lst	*lst;
 	char	**arr;
-	int	i;
+	int		i;
 
 	i = 0;
 	arr = malloc(sizeof(char *) * (env->dis_size + 1));

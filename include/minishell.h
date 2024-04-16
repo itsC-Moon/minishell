@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 00:35:23 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/04 22:26:06 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:58:38 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ int			init_builtin(t_proc	*proc, t_env *env, int *tmp, int status);
 
 /*cd_func*/
 int 		cd_func(t_proc	*proc, t_env	*env, int *tmp);
+void	set_env_var(t_env *env, t_proc *proc);
 
 /*echo*/
 int			echo_func(t_proc	*proc, int *tmp, int status);

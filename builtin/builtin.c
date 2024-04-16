@@ -1,11 +1,23 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zkotbi <hibenouk@1337.ma>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/16 18:44:56 by zkotbi            #+#    #+#             */
+/*   Updated: 2024/04/16 18:49:14 by zkotbi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-static int error_builtin_file(t_proc	*proc, int size, t_file file)
-{	
-	int i = 0;
+static int	error_builtin_file(t_proc	*proc, int size, t_file file)
+{
+	int	i;
+
+	i = 0;
 	while (i < size)
 	{
 		close(proc->file[i].fd);
@@ -14,7 +26,8 @@ static int error_builtin_file(t_proc	*proc, int size, t_file file)
 	ft_printf(2, "nudejs: %s: %s\n", file.file_name, strerror(errno));
 	return (1);
 }
-int open_builtin_files(t_proc	*proc)
+
+int	open_builtin_files(t_proc	*proc)
 {
 	size_t	i;
 
@@ -24,12 +37,15 @@ int open_builtin_files(t_proc	*proc)
 		if (proc->file[i].mod == INPUT || proc->file[i].mod == _HEREDOC)
 			proc->file[i].fd = open(proc->file[i].file_name, O_RDONLY);
 		else if (proc->file[i].mod == OUTPUT)
-			proc->file[i].fd = open(proc->file[i].file_name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+			proc->file[i].fd = open(proc->file[i].file_name, O_CREAT
+					| O_WRONLY | O_TRUNC, 0644);
 		else if (proc->file[i].mod == APPEND)
-			proc->file[i].fd = open(proc->file[i].file_name, O_CREAT | O_WRONLY | O_APPEND, 0644);
+			proc->file[i].fd = open(proc->file[i].file_name, O_CREAT
+					| O_WRONLY | O_APPEND, 0644);
 		else if (proc->file[i].mod == AMBIGUOUS)
 		{
-			ft_printf(2, "nudejs: %s: %s\n", proc->file[i].file_name, "ambiguous redirect");
+			ft_printf(2, "nudejs: %s: %s\n", proc->file[i].file_name,
+				"ambiguous redirect");
 			return (1);
 		}
 		if (proc->file[i].fd < 0)
@@ -39,7 +55,7 @@ int open_builtin_files(t_proc	*proc)
 	return (0);
 }
 
-void close_builtin_file(int *tmp)
+void	close_builtin_file(int *tmp)
 {
 	if (tmp == NULL)
 		return ;
@@ -49,7 +65,7 @@ void close_builtin_file(int *tmp)
 		close(tmp[1]);
 }
 
-int init_builtin(t_proc	*proc, t_env	*env, int *fd, int status)
+int	init_builtin(t_proc	*proc, t_env	*env, int *fd, int status)
 {
 	if (ft_strcmp(proc->args[0], "echo") == 0)
 		return (echo_func(proc, fd, status));
@@ -67,4 +83,3 @@ int init_builtin(t_proc	*proc, t_env	*env, int *fd, int status)
 		return (pwd_func(proc, env, fd));
 	return (-1);
 }
-

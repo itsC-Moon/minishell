@@ -6,18 +6,18 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 00:29:28 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/25 03:42:28 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/16 19:22:26 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #include "minishell.h"
 #include "libft.h"
 
-static int is_numeric(char *str)
+static int	is_numeric(char *str)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	if (str[i] == '-' || str[i] == '+')
 		i++;
 	while (str[i] != 0)
@@ -29,11 +29,15 @@ static int is_numeric(char *str)
 	return (1);
 }
 
-static int is_long(char *str)
+static int	is_long(char *str)
 {
-	int i  = 0;
-	unsigned long result = 0;
-	int sign = 1;
+	int				i;
+	unsigned long	result;
+	int				sign;
+
+	result = 0;
+	i = 0;
+	sign = 1;
 	if (str[i] == '-')
 		sign = -1;
 	if (str[i] == '-' || str[i] == '+')
@@ -50,18 +54,21 @@ static int is_long(char *str)
 	return (1);
 }
 
-static int check_arg(char *arg)
+static int	check_arg(char *arg)
 {
 	if (arg[0] == 0)
-		return (ft_printf(2, "nudejs: exit: %s: numeric argument required\n", arg), -1);
-	if (is_numeric(arg)  == 0)
-		return (ft_printf(2, "nudejs: exit: %s: numeric argument required\n", arg), -1);
+		return (ft_printf(2,
+				"nudejs: exit: %s: numeric argument required\n", arg), -1);
+	if (is_numeric(arg) == 0)
+		return (ft_printf(2,
+				"nudejs: exit: %s: numeric argument required\n", arg), -1);
 	if (is_long(arg) == 0)
-		return (ft_printf(2, "nudejs: exit: %s: numeric argument required\n", arg), -1);
+		return (ft_printf(2,
+				"nudejs: exit: %s: numeric argument required\n", arg), -1);
 	return (0);
 }
 
-int exit_func(t_proc	*proc, int *tmp)
+int	exit_func(t_proc	*proc, int *tmp)
 {
 	close_builtin_file(tmp);
 	if (open_builtin_files(proc) == 1)

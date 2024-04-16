@@ -6,19 +6,14 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:57:48 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/16 16:38:45 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/16 19:02:51 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
 
-
-int cd_files_handle(t_proc *proc, int *tmp)
+int	cd_files_handle(t_proc *proc, int *tmp)
 {
 	if (open_builtin_files(proc) == 1)
 		return (close_builtin_file(tmp), 1);
@@ -29,55 +24,17 @@ int cd_files_handle(t_proc *proc, int *tmp)
 	return (0);
 }
 
-char *get_pwd(t_env *env, t_proc *proc)
-{
-	char *pwd;
-	char *tmp;
-
-	pwd = getcwd(NULL, 0);
-	if (pwd == NULL)
-		ft_printf(2, "cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n");
-	if (pwd != NULL)
-		return (pwd);
-	if (env->pwd == NULL)
-		return (ft_strdup(proc->args[1]));
-	pwd = ft_strjoin(env->pwd, "/");
-	tmp = ft_strjoin(pwd, proc->args[1]);
-	return (free(pwd), tmp);
-}
-
-void set_env_var(t_env *env, t_proc *proc)
-{
-	t_lst *lst_pwd;
-	t_lst *lst_old;
-	char *tmp;
-
-	tmp = get_pwd(env, proc);
-	free(env->pwd);
-	env->pwd = tmp;
-	lst_pwd = env_search2(env, "PWD");
-	lst_old = env_search2(env, "OLDPWD");
-	if (lst_pwd == NULL)
-	{
-		remove_node(env, lst_old);
-		return ;
-	}
-	free(lst_old->varible);
-	lst_old->varible = ft_strjoin("OLD", lst_pwd->varible);
-	free(lst_pwd->varible);
-	lst_pwd->varible = ft_strjoin("PWD=", env->pwd);
-}
-static int error_func(t_proc *proc, char *str, int *tmp)
+static int	error_func(t_proc *proc, char *str, int *tmp)
 {
 	close_builtin_file(tmp);
 	close_fds(proc);
-	ft_printf(2, "nudejs: %s: %s :%s\n", proc->args[0], proc->args[1], str);	
+	ft_printf(2, "nudejs: %s: %s :%s\n", proc->args[0], proc->args[1], str);
 	return (1);
 }
 
-static int go_home(t_env *env, t_proc *proc, int *tmp)
+static int	go_home(t_env *env, t_proc *proc, int *tmp)
 {
-	char *home;
+	char	*home;
 
 	if (env->pwd == NULL)
 		return (0);
@@ -90,19 +47,17 @@ static int go_home(t_env *env, t_proc *proc, int *tmp)
 	return (close_fds(proc), close_builtin_file(tmp), 0);
 }
 
-static int go_to_prev(t_env *env, t_proc *proc, int *tmp)
+static int	go_to_prev(t_env *env, t_proc *proc, int *tmp)
 {
-	char *pwdold_var;
+	char	*pwdold_var;
 
-	
 	if (env->pwd == NULL)
 		return (0);
 	pwdold_var = env_search(env, "OLDPWD");
 	if (pwdold_var == NULL)
 		return (error_func(proc, "OLDPWD not set", tmp));
-	// printf("ha howa: %s\n", pwdold_var);
 	if (pwdold_var[0] == 0)
-		return (0); 
+		return (0);
 	if (chdir(pwdold_var) == -1)
 		return (error_func(proc, strerror(errno), tmp));
 	ft_printf(proc->io_fd[1], "%s\n", pwdold_var);
@@ -110,7 +65,7 @@ static int go_to_prev(t_env *env, t_proc *proc, int *tmp)
 	return (close_fds(proc), close_builtin_file(tmp), 0);
 }
 
-int cd_func(t_proc *proc, t_env *env, int *tmp)
+int	cd_func(t_proc *proc, t_env *env, int *tmp)
 {
 	if (cd_files_handle(proc, tmp) == 1)
 		return (1);
@@ -123,4 +78,3 @@ int cd_func(t_proc *proc, t_env *env, int *tmp)
 	set_env_var(env, proc);
 	return (close_fds(proc), close_builtin_file(tmp), 0);
 }
-

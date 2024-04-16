@@ -6,25 +6,22 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:32:55 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/25 03:34:08 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/16 19:04:16 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #include "minishell.h"
 #include "libft.h"
-#include <stdlib.h>
 
 static void	print_echo_args(char **args, int outfile, int status)
 {
-	int i;
+	int	i;
 
 	(void)status;
 	i = 1;
 	if (ft_strcmp(args[i], "-n") == 0)
 		i++;
-	while(args[i] != NULL)
+	while (args[i] != NULL)
 	{
 		ft_printf(outfile, "%s", args[i]);
 		i++;
