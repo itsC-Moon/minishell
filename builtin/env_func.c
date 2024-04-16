@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:33:19 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/05 00:36:27 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/16 18:08:02 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,6 @@
 
 #include "minishell.h"
 #include "libft.h"
-
-// static char *set_cmd_path(t_env *env, char *cmd)
-// {
-// 	if (cmd[0] == '/')
-// 		return (ft_strdup(cmd));
-// 	return (ft_strjoin(env->pwd, cmd));
-// }
 
 void env_set_last_cmd(t_env	*env, char *cmd)
 {
