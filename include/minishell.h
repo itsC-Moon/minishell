@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 00:35:23 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/16 20:38:35 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/18 18:42:05 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ typedef enum e_state
 	SIGI,
 	SIGQ,
 	HIDE,
-	DISP,
+	NO_VAL,
+	DISPLAY,
 	ERROR,
 	DEF_PATH
 }	t_state;

@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 03:23:52 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/16 14:40:12 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/18 18:48:22 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,16 @@ int compar_func(const char *in_env, const char *to_find)
 	return (NOMATCH);
 }
 
+
+void update_state(t_lst *lst)
+{
+	if (ft_strchr(lst->varible, '=') == NULL)
+		lst->state = NO_VAL;
+	else
+		lst->state = DISPLAY;
+
+}
+
 int	is_valide(const char *buffer)
 {
 	if (*buffer == '=' || *buffer == '\0' || ft_isdigit(*buffer))
@@ -47,43 +57,40 @@ int	is_valide(const char *buffer)
 	return (0);
 }
 
-static void _insert(t_state state, t_env *env, t_lst *tmp, const char *name)
+static void _insert(t_state state, t_env *env, t_lst *it, const char *name)
 {
-	if (!tmp)
+	if (!it)
 	{
-		env_addback(env, make_lst(ft_strdup(name), HIDE));
-		if (ft_strchr(env->back->varible, '=') == NULL)
-			return ;
-		env->back->state = DISP;
+		env_addback(env, make_lst(ft_strdup(name), NO_VAL));
+		env->back->state = DISPLAY;
 		env->dis_size++;
+		update_state(env->back);
 	}
 	else if (state == UPDATE)
 	{
-		free(tmp->varible);
-		tmp->varible = ft_strdup(name);
-		if (ft_strchr(tmp->varible, '=') == NULL)
-			return ;
+		free(it->varible);
+		it->varible = ft_strdup(name);
 		env->size++;
-		tmp->state = DISP;
+		update_state(it);
 	}
 }
 
 static void insert_var(t_env *env, const char *name)
 {
-	t_lst *tmp;
+	t_lst *it;
 	t_state state;
 
-	tmp = env->front;
-	while (tmp != NULL)
+	it = env->front;
+	while (it != NULL)
 	{
-		state = compar_func(tmp->varible, name);
+		state = compar_func(it->varible, name);
 		if (state == DONOTHING)
 			return ;
 		else if (state == UPDATE)
 			break ;
-		tmp = tmp->next;
+		it = it->next;
 	}
-	_insert(state, env, tmp, name);
+	_insert(state, env, it, name);
 }
 
 static int export_var(t_proc *proc, t_env *env)

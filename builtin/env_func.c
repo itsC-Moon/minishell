@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:33:19 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/16 19:11:06 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/18 18:57:00 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	env_set_last_cmd(t_env	*env, char *cmd)
 
 	lst = env_search2(env, "_");
 	if (lst == NULL)
-		env_addback(env, make_lst(ft_strjoin("_=", cmd), DISP));
+		env_addback(env, make_lst(ft_strjoin("_=", cmd), DISPLAY));
 	else
 	{
 		free(lst->varible);
 		lst->varible = ft_strjoin("_=", cmd);
-		lst->state = DISP;
+		lst->state = DISPLAY;
 	}
 }
 
@@ -35,7 +35,7 @@ static void	print_env(t_env	*env, int outfile)
 	tmp = env->front;
 	while (tmp != NULL)
 	{
-		if (tmp->state == DISP)
+		if (tmp->state == DISPLAY)
 			ft_printf(outfile, "%s\n", tmp->varible);
 		tmp = tmp->next;
 	}
@@ -56,7 +56,7 @@ int	env_func(t_proc	*proc, t_env	*env, int *tmp)
 		print_env(env, proc->io_fd[1]);
 	else
 	{
-		ft_printf(2, "nudejs:: No option No arguments\n");
+		ft_printf(2, "nudejs: env: No option No arguments\n");
 		code = 1;
 	}
 	return (close_builtin_file(tmp), close_fds(proc), code);

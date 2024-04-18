@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 14:37:25 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/16 20:45:13 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/18 18:54:54 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	env_addfront(t_env *env, t_lst *lst)
 		env->back = lst;
 		env->size = 1;
 		env->dis_size = 0;
-		if (lst->state == DISP)
+		if (lst->state == DISPLAY)
 			env->dis_size = 1;
 		return ;
 	}
@@ -53,7 +53,7 @@ void	env_addfront(t_env *env, t_lst *lst)
 	env->front->prev = lst;
 	env->front = lst;
 	env->size += 1;
-	if (lst->state == DISP)
+	if (lst->state == DISPLAY)
 		env->dis_size += 1;
 }
 
@@ -65,7 +65,7 @@ void	env_addback(t_env *env, t_lst *lst)
 		env->back = lst;
 		env->size = 1;
 		env->dis_size = 0;
-		if (lst->state == DISP)
+		if (lst->state == DISPLAY)
 			env->dis_size = 1;
 		return ;
 	}
@@ -73,6 +73,6 @@ void	env_addback(t_env *env, t_lst *lst)
 	env->back->next = lst;
 	env->back = lst;
 	env->size += 1;
-	if (lst->state == DISP)
+	if (lst->state == DISPLAY)
 		env->dis_size += 1;
 }
