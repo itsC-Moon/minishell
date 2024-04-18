@@ -6,7 +6,7 @@
 /*   By: zkotbi <hibenouk@1337.ma>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:54:14 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/16 18:56:13 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/18 19:11:42 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char	*get_pwd(t_env *env, t_proc *proc)
 	return (free(pwd), tmp);
 }
 
-void	set_env_var(t_env *env, t_proc *proc)
+void	set_env_vars(t_env *env, t_proc *proc)
 {
 	t_lst	*lst_pwd;
 	t_lst	*lst_old;
@@ -43,11 +43,25 @@ void	set_env_var(t_env *env, t_proc *proc)
 	lst_old = env_search2(env, "OLDPWD");
 	if (lst_pwd == NULL)
 	{
-		remove_node(env, lst_old);
-		return ;
+		env_addback(env, make_lst(ft_strjoin("PWD=", env->pwd), HIDE));
+		if (lst_old == NULL)
+			env_addback(env, make_lst(ft_strdup("OLDPWD="), HIDE));
+		else
+		{
+			free(lst_old->varible);
+			lst_old->varible = ft_strdup("OLDPWD=");
+		}
 	}
-	free(lst_old->varible);
-	lst_old->varible = ft_strjoin("OLD", lst_pwd->varible);
-	free(lst_pwd->varible);
-	lst_pwd->varible = ft_strjoin("PWD=", env->pwd);
+	else
+	{
+		if (lst_old == NULL)
+			env_addback(env, make_lst(ft_strjoin("OLD", lst_pwd->varible), HIDE));
+		else
+		{
+			free(lst_old->varible);
+			lst_old->varible = ft_strjoin("OLD", lst_pwd->varible);
+		}
+		free(lst_pwd->varible);
+		lst_pwd->varible = ft_strjoin("PWD=", env->pwd);
+	}
 }

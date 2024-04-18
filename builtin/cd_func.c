@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:57:48 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/16 19:02:51 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/18 18:46:59 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	go_home(t_env *env, t_proc *proc, int *tmp)
 		return (error_func(proc, "HOME not set", tmp));
 	if (chdir(home) < 0)
 		return (error_func(proc, strerror(errno), tmp));
-	set_env_var(env, proc);
+	set_env_vars(env, proc);
 	return (close_fds(proc), close_builtin_file(tmp), 0);
 }
 
@@ -61,7 +61,7 @@ static int	go_to_prev(t_env *env, t_proc *proc, int *tmp)
 	if (chdir(pwdold_var) == -1)
 		return (error_func(proc, strerror(errno), tmp));
 	ft_printf(proc->io_fd[1], "%s\n", pwdold_var);
-	set_env_var(env, proc);
+	set_env_vars(env, proc);
 	return (close_fds(proc), close_builtin_file(tmp), 0);
 }
 
@@ -75,6 +75,6 @@ int	cd_func(t_proc *proc, t_env *env, int *tmp)
 		return (go_to_prev(env, proc, tmp));
 	else if (proc->args[1][0] != 0 && chdir(proc->args[1]) < 0)
 		return (error_func(proc, strerror(errno), tmp));
-	set_env_var(env, proc);
+	set_env_vars(env, proc);
 	return (close_fds(proc), close_builtin_file(tmp), 0);
 }

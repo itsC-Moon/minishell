@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:29:56 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/16 18:40:57 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/18 15:44:22 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	exec_cmd(t_proc	*proc, t_env	*env)
 	error_exit(proc->args[0], 126);
 }
 
-static int	init_cmd(t_proc	*proc, t_env	*env, int mini_status)
+static int	init_cmd(t_proc	*proc, t_env	*env)
 {
 	int	pid;
 	int	status;
@@ -51,7 +51,7 @@ static int	init_cmd(t_proc	*proc, t_env	*env, int mini_status)
 			close_fds(proc);
 		return (status);
 	}
-	status = init_builtin(proc, env, NULL, mini_status);
+	status = init_builtin(proc, env, NULL);
 	if (status != -1)
 		return (status);
 	pid = fork();
@@ -72,10 +72,10 @@ void	init_procs(t_mini	*mini)
 	if (mini->size > 0)
 		in_exec(IN);
 	if (mini->size == 1)
-		mini->status = init_cmd(mini->proc, mini->envp, mini->status);
+		mini->status = init_cmd(mini->proc, mini->envp);
 	else if (mini->size > 1)
 		mini->status = init_pipe(mini->proc, mini->size,
-				mini->envp, mini->status);
+				mini->envp);
 	in_exec(OUT);
 	state = check_exit(0, GET);
 	mini->status = (state == SIGI) * 130 + (state == SIGQ) * 131 + \
