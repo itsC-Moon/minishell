@@ -6,22 +6,11 @@
 /*   By: zkotbi <zkotbi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:25:46 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/12 13:09:09 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/16 20:56:21 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-// static char	**ft_free(char	**rt, int k)
-// {
-// 	while (k >= 0)
-// 	{
-// 		free (rt[k]);
-// 		k--;
-// 	}
-// 	free(rt);
-// 	return (NULL);
-// }
 
 static char	*ftstrcpy(const char	*str, int i, int j, char	*s2)
 {

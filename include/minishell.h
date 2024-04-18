@@ -51,7 +51,8 @@ typedef enum e_state
 	SIGI,
 	SIGQ,
 	HIDE,
-	DISP,
+	NO_VAL,
+	DISPLAY,
 	ERROR,
 	DEF_PATH
 }	t_state;

@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:42:11 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/08 19:39:33 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/16 20:43:39 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ int	ft_isspace(char c)
 		|| c == '\v' || c == '\f' || c == '\r');
 }
 
-int ft_iskey(char c)
+int	ft_iskey(char c)
 {
 	return (c == '|' || c == '<' || c == '>');
 }
 
-int is_quote(char c)
+int	is_quote(char c)
 {
 	return (c == '\'' || c == '"');
 }
 
-int is_sep(char c)
+int	is_sep(char c)
 {
 	return (ft_iskey(c) || ft_isspace(c));
 }

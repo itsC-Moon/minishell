@@ -67,8 +67,10 @@ void	init_procs(t_mini	*mini)
 	t_state	state;
 
 	check_exit(NORM, SET);
+	signal(SIGQUIT, SIG_IGN);
 	if (fork_here_doc(mini) == 1)
 		return ;
+	signal(SIGQUIT, signal_ignore);
 	if (mini->size > 0)
 		in_exec(IN);
 	if (mini->size == 1)
