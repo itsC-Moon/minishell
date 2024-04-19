@@ -150,7 +150,7 @@ char		*get_cmd_path(t_proc	*proc, t_env *env);
 
 /*pipe*/
 int			init_pipe(t_proc *proc, unsigned int size,
-				t_env *envp, int mini_status);
+				t_env *envp);
 
 /*pipe_utils*/
 t_pipe		*init_pipe_struct(int size);
@@ -161,14 +161,14 @@ t_pipe		*init_pipe_struct(int size);
 /*builtin*/
 int			open_builtin_files(t_proc	*proc);
 void		close_builtin_file(int *tmp);
-int			init_builtin(t_proc	*proc, t_env *env, int *tmp, int status);
+int			init_builtin(t_proc	*proc, t_env *env, int *tmp);
 
 /*cd_func*/
 int			cd_func(t_proc	*proc, t_env	*env, int *tmp);
-void		set_env_var(t_env *env, t_proc *proc);
+void		set_env_vars(t_env *env, t_proc *proc);
 
 /*echo*/
-int			echo_func(t_proc	*proc, int *tmp, int status);
+int			echo_func(t_proc	*proc, int *fd);
 
 /*env_func*/
 int			env_func(t_proc	*proc, t_env	*env, int *tmp);

@@ -6,7 +6,7 @@
 /*   By: zkotbi <hibenouk@1337.ma>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:44:56 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/16 18:49:14 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/18 15:40:41 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ void	close_builtin_file(int *tmp)
 		close(tmp[1]);
 }
 
-int	init_builtin(t_proc	*proc, t_env	*env, int *fd, int status)
+int	init_builtin(t_proc	*proc, t_env	*env, int *fd)
 {
 	if (ft_strcmp(proc->args[0], "echo") == 0)
-		return (echo_func(proc, fd, status));
+		return (echo_func(proc, fd));
 	else if (ft_strcmp(proc->args[0], "env") == 0)
 		return (env_func(proc, env, fd));
 	else if (ft_strcmp(proc->args[0], "cd") == 0)

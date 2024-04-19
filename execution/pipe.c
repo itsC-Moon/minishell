@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 21:59:43 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/01 01:24:00 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/18 15:42:38 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ static void	ft_close(int *fd)
 	*fd = -1;
 }
 
-static void	child(t_proc	*proc, t_env	*env, int *fd, int mini_status)
+static void	child(t_proc	*proc, t_env	*env, int *fd)
 {
 	int	status;
 
 	if (proc->args == NULL || proc->args[0] == NULL)
 		exit(open_builtin_files(proc));
-	status = init_builtin(proc, env, fd, mini_status);
+	status = init_builtin(proc, env, fd);
 	if (status != -1)
 		exit(status);
 	open_files(proc);
@@ -81,7 +81,7 @@ static int	pipe_file(int *tmp, int *fd, int i, int size)
 	return (0);
 }
 
-int	init_pipe(t_proc *proc, unsigned int size, t_env *envp, int mini_status)
+int	init_pipe(t_proc *proc, unsigned int size, t_env *envp)
 {
 	t_pipe	*pipe;
 	int		status;
@@ -96,7 +96,7 @@ int	init_pipe(t_proc *proc, unsigned int size, t_env *envp, int mini_status)
 		{
 			if (pipe->i < size - 1)
 				ft_close(&(pipe->fd[0]));
-			child(&proc[pipe->i], envp, pipe->tmp, mini_status);
+			child(&proc[pipe->i], envp, pipe->tmp);
 		}
 		ft_close(&(pipe->tmp[0]));
 		ft_close(&(pipe->tmp[1]));
