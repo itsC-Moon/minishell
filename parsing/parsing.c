@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 12:20:25 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/16 18:44:06 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/19 10:35:50 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ t_mini	parser(const char *buffer, t_env *envp)
 
 	tokens = tokenizer(buffer);
 	if (!tokens)
-		return ((t_mini){0});
+		return (get_status(258, SET), (t_mini){0});
 	mini = parsing(tokens, envp);
 	free_tokens(tokens);
 	free(tokens);

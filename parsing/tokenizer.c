@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 17:06:04 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/16 18:52:49 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/19 10:39:28 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	get_pipe(const char *buffer, t_Token *tokens, t_Token_Type type)
 	while (ft_isspace(buffer[offset]))
 		offset++;
 	if (!buffer[offset] || buffer[offset] == '|')
-		return (report("syntax error near unexpected token `", '|'), -42);
+		return (report("syntax error near token `", '|'), -42);
 	list = lst(NULL, type);
 	check_null(list, "malloc");
 	addback(tokens, list);
