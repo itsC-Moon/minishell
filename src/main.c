@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:23:13 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/18 21:37:09 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/19 18:18:28 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ static t_env *init_env(char **env)
 	env_addback(envp, make_lst(ft_strdup("OLDPWD"), NO_VAL));
 	return (envp);
 }
-void leaks()
-{
-	char cmd[256] = {0};
-	sprintf(cmd, "lsof -p %d", getppid());
-	system(cmd);
-}
+// void leaks()
+// {
+// 	char cmd[256] = {0};
+// 	sprintf(cmd, "lsof -p %d", getppid());
+// 	system(cmd);
+// }
 int	main(int ac, char **argv, char **env)
-{atexit(leaks);
+{//atexit(leaks);
 	t_env	*envp;
 
 	(void)ac;
