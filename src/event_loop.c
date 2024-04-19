@@ -6,11 +6,10 @@
 /*   By: zkotbi <hibenouk@1337.ma>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 20:33:26 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/16 21:06:01 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/19 20:04:11 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
 #include <termios.h>
 

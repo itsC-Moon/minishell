@@ -6,30 +6,23 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:23:13 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/19 12:04:05 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/19 14:42:37 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-static t_env *init_env(char **env)
+
+static t_env	*init_env(char **env)
 {
-	t_env *envp;
+	t_env	*envp;
 
 	envp = env_arr_to_lst(env);
 	env_addback(envp, make_lst(ft_strdup("OLDPWD"), NO_VAL));
 	return (envp);
 }
-void leaks()
-{
-	char cmd[256] = {0};
-	sprintf(cmd, "lsof -p %d", getppid());
-	system(cmd);
-}
+
 int	main(int ac, char **argv, char **env)
-{atexit(leaks);
+{
 	t_env	*envp;
 
 	(void)ac;
