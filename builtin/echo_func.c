@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:32:55 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/18 21:04:50 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/19 11:44:20 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,30 @@
 
 static void	print_echo_args(char **args, int outfile)
 {
-	int	i;
-	int j;
-	int check;
+	int	it[3];
 
-	i = 1;
-	check = 0;
+	it[0] = 1;
+	it[1] = 0;
 	while (1)
 	{
-		j = 0;
-		if (args[i] == NULL || args[i][j++] != '-')
+		it[2] = 0;
+		if (args[it[0]] == NULL || args[it[0]][it[2]++] != '-')
 			break ;
-		while (args[i][j] == 'n')
-			j++;
-		if (args[i][j] != 0)
+		while (args[it[0]][it[2]] == 'n')
+			it[2]++;
+		if (args[it[0]][it[2]] != 0 || it[2] == 1)
 			break ;
-		i++;
-		check = 1;
+		it[0]++;
+		it[1] = 1;
 	}
-	while (args[i] != NULL)
+	while (args[it[0]] != NULL)
 	{
-		ft_printf(outfile, "%s", args[i]);
-		i++;
-		if (args[i] != NULL)
+		ft_printf(outfile, "%s", args[it[0]]);
+		it[0]++;
+		if (args[it[0]] != NULL)
 			ft_printf(outfile, " ");
 	}
-	if (check == 0)
+	if (it[1] == 0)
 		ft_printf(outfile, "\n");
 }
 
