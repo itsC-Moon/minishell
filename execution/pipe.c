@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 21:59:43 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/18 15:42:38 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/19 12:01:06 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,5 @@ int	init_pipe(t_proc *proc, unsigned int size, t_env *envp)
 	}
 	wait_process(pipe->pids, &status, size);
 	remove_node(envp, env_search_2(envp, "_"));
-	return (free(pipe->pids), free(pipe), WEXITSTATUS(status));
+	return (free(pipe->pids), free(pipe), process_status(status));
 }

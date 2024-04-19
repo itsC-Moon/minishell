@@ -6,58 +6,13 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 03:23:52 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/18 19:21:59 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/19 11:27:58 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
-#include <stdio.h>
 
-int compar_func(const char *in_env, const char *to_find)
-{
-	int i;
-
-	i = 0;
-	while (in_env[i] && to_find[i] && in_env[i] != '=')
-	{
-		if (in_env[i] != to_find[i])
-			break;
-		i++;
-	}
-	if (in_env[i] == '=' && to_find[i] == '=')
-		return (UPDATE);
-	else if (in_env[i] == '\0' && to_find[i] == '=')
-		return (UPDATE);
-	else if (in_env[i] == '=' && to_find[i] == '\0')
-		return (DONOTHING);
-	else if (in_env[i] == '\0' && to_find[i] == '\0')
-		return (DONOTHING);
-	return (NOMATCH);
-}
-
-
-void update_state(t_lst *lst)
-{
-	if (ft_strchr(lst->varible, '=') == NULL)
-		lst->state = NO_VAL;
-	else
-		lst->state = DISPLAY;
-
-}
-
-int	is_valide(const char *buffer)
-{
-	if (*buffer == '=' || *buffer == '\0' || ft_isdigit(*buffer))
-		return (0);
-	while (*buffer && is_id(*buffer))
-		buffer++;
-	if (*buffer == '=' || *buffer == '\0')
-		return (1);
-	return (0);
-}
-
-static void _insert(t_state state, t_env *env, t_lst *it, const char *name)
+static void	_insert(t_state state, t_env *env, t_lst *it, const char *name)
 {
 	if (!it)
 	{
@@ -75,10 +30,10 @@ static void _insert(t_state state, t_env *env, t_lst *it, const char *name)
 	}
 }
 
-static void insert_var(t_env *env, const char *name)
+static void	insert_var(t_env *env, const char *name)
 {
-	t_lst *it;
-	t_state state;
+	t_lst	*it;
+	t_state	state;
 
 	it = env->front;
 	while (it != NULL)
@@ -93,11 +48,11 @@ static void insert_var(t_env *env, const char *name)
 	_insert(state, env, it, name);
 }
 
-static int export_var(t_proc *proc, t_env *env)
+static int	export_var(t_proc *proc, t_env *env)
 {
-	size_t i;
-	int status;
-	int state;
+	size_t	i;
+	int		status;
+	int		state;
 
 	status = 0;
 	i = 0;
@@ -109,17 +64,18 @@ static int export_var(t_proc *proc, t_env *env)
 		else if (state == 0)
 		{
 			status = 1;
-			ft_printf(2, "nudejs: export: `%s': not a valid identifier\n", proc->args[i + 1]);
+			ft_printf(2, "nudejs: export: `%s': not a valid identifier\n",
+				proc->args[i + 1]);
 		}
 		i++;
 	}
 	return (status);
 }
 
-static void print_env2(t_env *env, int fd)
+static void	print_env2(t_env *env, int fd)
 {
-	const t_lst *it;
-	const char *it2;
+	t_lst	*it;
+	char	*it2;
 
 	it = env->front;
 	while (it)
@@ -127,7 +83,7 @@ static void print_env2(t_env *env, int fd)
 		if (it->state == DEF_PATH)
 		{
 			it = it->next;
-			continue;
+			continue ;
 		}
 		ft_printf(fd, "declare -x ");
 		it2 = it->varible;
@@ -139,9 +95,9 @@ static void print_env2(t_env *env, int fd)
 		it = it->next;
 	}
 }
-int export_func(t_proc *proc, int *fd, t_env *env)
-{
 
+int	export_func(t_proc *proc, int *fd, t_env *env)
+{
 	if (open_builtin_files(proc) == 1)
 		return (1);
 	if (fd != NULL)

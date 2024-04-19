@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 00:35:23 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/18 18:42:05 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/19 11:58:27 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/wait.h>
 
 typedef enum e_open_type
 {
@@ -48,13 +49,13 @@ typedef enum e_state
 	NOMATCH,
 	INSERT ,
 	UPDATE ,
-	SIGI,
-	SIGQ,
 	HIDE,
 	NO_VAL,
 	DISPLAY,
 	ERROR,
-	DEF_PATH
+	DEF_PATH,
+	SIGI,
+	SIGQ,
 }	t_state;
 
 typedef struct s_lst
@@ -172,6 +173,7 @@ int			echo_func(t_proc	*proc, int *fd);
 
 /*env_func*/
 int			env_func(t_proc	*proc, t_env	*env, int *tmp);
+void		update_state(t_lst *lst);
 
 /*exit_func*/
 int			exit_func(t_proc	*proc, int *tmp);
@@ -222,6 +224,7 @@ void		signal_ignore(int sig);
 
 /*static */
 int			get_status(int status, int opt);
+int			process_status(int status);
 int			in_here_doc(int opt);
 int			in_exec(int opt);
 int			check_exit(t_state state, int opt);

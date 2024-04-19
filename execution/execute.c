@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:29:56 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/16 21:04:05 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/19 12:12:23 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,11 @@ static int	init_cmd(t_proc	*proc, t_env	*env)
 		exec_cmd(proc, env);
 	waitpid(pid, &status, 0);
 	remove_node(env, env_search_2(env, "_"));
-	return (WEXITSTATUS(status));
+	return (process_status(status));
 }
 
 void	init_procs(t_mini	*mini)
 {
-	t_state	state;
-
 	check_exit(NORM, SET);
 	signal(SIGQUIT, SIG_IGN);
 	if (fork_here_doc(mini) == 1)
@@ -78,9 +76,5 @@ void	init_procs(t_mini	*mini)
 	else if (mini->size > 1)
 		mini->status = init_pipe(mini->proc, mini->size,
 				mini->envp);
-	in_exec(OUT);
-	state = check_exit(0, GET);
-	mini->status = (state == SIGI) * 130 + (state == SIGQ) * 131 + \
-				(state == NORM) * mini->status;
 	get_status(mini->status, SET);
 }
