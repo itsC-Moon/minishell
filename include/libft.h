@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:24:55 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/19 11:23:24 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/19 11:45:14 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ char		*ft_itoa(int n);
 char		*random_name(size_t n);
 int			is_empty(const char *buffer);
 int			ft_strcmp(const char *s1, const char *s2);
-int			ft_strncmp(const char *s1, const char *s2, size_t n);
 int			count_numbers2(long nb);
 void		*ft_calloc(size_t size);
 long		ft_atoi(const char *str);

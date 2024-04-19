@@ -6,7 +6,7 @@
 /*   By: zkotbi <hibenouk@1337.ma>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:21:47 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/18 18:56:08 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/18 21:30:16 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 t_env	*env_null_def(t_env	*env)
 {
-	env_addback(env, make_lst(ft_strdup("OLDPWD"), NO_VAL));
 	if (env->pwd != NULL)
 		env_addback(env, make_lst(ft_strjoin("PWD=", env->pwd), DISPLAY));
 	env_addback(env, make_lst(
