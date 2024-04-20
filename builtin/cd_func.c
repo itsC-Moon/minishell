@@ -6,7 +6,7 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:57:48 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/18 18:46:59 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/20 19:49:48 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int	cd_func(t_proc *proc, t_env *env, int *tmp)
 {
 	if (cd_files_handle(proc, tmp) == 1)
 		return (1);
+	if (proc->nb_args > 2)
+		return (error_func(proc, "too many arguments", tmp));
 	if (proc->args[1] == NULL)
 		return (go_home(env, proc, tmp));
 	else if (proc->args[1][0] == '-')

@@ -6,7 +6,7 @@
 /*   By: zkotbi <hibenouk@1337.ma>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:21:47 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/19 18:22:41 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/20 19:38:57 by zkotbi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_env	*env_arr_to_lst(char **envp)
 		env_addback(env, make_lst(
 				ft_strdup("PATH=/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:."),
 				DEF_PATH));
-	return (remove_node(env, env_search2(env, "OLDPWD")), env);
+	return (/*remove_node(env, env_search2(env, "OLDPWD"))*/ env);
 }
 
 char	**env_lst_to_arr(t_env *env)
