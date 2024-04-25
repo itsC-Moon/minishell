@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 14:17:05 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/16 18:56:27 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/21 12:33:44 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	append(const char *buffer, char *new_buffer, int lock)
 	int	j;
 	int	i;
 
-	j = strlen(new_buffer);
+	j = ft_strlen(new_buffer);
 	i = 0;
 	if (buffer[i] == '"')
 		i++;

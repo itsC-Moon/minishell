@@ -6,12 +6,11 @@
 /*   By: zkotbi <zkotbi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 15:51:10 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/06 22:40:42 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/21 12:27:19 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
 static int	strl2(char const	*s1, char const	*s2)
 {

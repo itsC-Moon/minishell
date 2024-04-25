@@ -6,12 +6,11 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 20:57:48 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/20 19:49:48 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/21 12:30:33 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "libft.h"
 
 int	cd_files_handle(t_proc *proc, int *tmp)
 {

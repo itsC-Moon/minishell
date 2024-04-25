@@ -6,12 +6,11 @@
 /*   By: zkotbi <hibenouk@1337.ma>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 03:08:51 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/03/27 03:09:46 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/21 12:28:15 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "libft.h"
 
 t_pipe	*init_pipe_struct(int size)
 {

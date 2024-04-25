@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 00:35:23 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/19 19:15:40 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/25 12:11:55 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,4 +227,5 @@ int			get_status(int status, int opt);
 int			process_status(int status);
 int			in_here_doc(int opt);
 int			in_exec(int opt);
+int			check_exit(int sig, int opt);
 #endif /* MINISHELL_H */

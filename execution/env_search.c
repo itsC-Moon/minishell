@@ -6,11 +6,10 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:28:20 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/16 18:40:29 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/21 12:29:14 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
 
 int	is_id(char c)

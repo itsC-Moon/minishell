@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 20:52:33 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/19 19:13:41 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:45:53 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 void	signal_ctrl_c(int sig)
 {
 	(void)sig;
-	write(2, "\n", 1);
+	if (in_exec(GET) == IN)
+		check_exit(SIGI, SET);
+	if (in_exec(GET) == OUT)
+		write(2, "\n", 1);
 	get_status(130, SET);
 	if (in_here_doc(GET) == IN)
 		exit(1);
@@ -29,6 +32,5 @@ void	signal_ignore(int sig)
 {
 	(void)sig;
 	get_status(131, SET);
-	ft_printf(1, "Quit: 3\n\n");
+	check_exit(SIGQ, SET);
 }
-

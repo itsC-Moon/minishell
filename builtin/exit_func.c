@@ -6,12 +6,11 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 00:29:28 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/19 18:22:14 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/21 12:31:02 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "libft.h"
 
 static int	is_numeric(char *str)
 {

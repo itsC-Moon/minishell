@@ -6,12 +6,11 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:29:56 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/19 19:15:08 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:50:15 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "libft.h"
 
 void	close_fds(t_proc	*proc)
 {
@@ -58,6 +57,8 @@ static int	init_cmd(t_proc	*proc, t_env	*env)
 	if (pid == 0)
 		exec_cmd(proc, env);
 	waitpid(pid, &status, 0);
+	if (!(WIFEXITED(status)) && WTERMSIG(status) == SIGINT)
+		check_exit(SIGI, SET);
 	remove_node(env, env_search_2(env, "_"));
 	return (process_status(status));
 }

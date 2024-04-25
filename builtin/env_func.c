@@ -6,12 +6,11 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:33:19 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/18 18:57:00 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/21 12:27:46 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "libft.h"
 
 void	env_set_last_cmd(t_env	*env, char *cmd)
 {

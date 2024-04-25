@@ -6,12 +6,11 @@
 /*   By: zkotbi <hibenouk@1337.ma>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:54:14 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/19 11:38:09 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/21 12:30:13 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "libft.h"
 
 static char	*get_pwd(t_env *env, t_proc *proc)
 {

@@ -6,12 +6,11 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 23:29:41 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/02 00:17:31 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/21 12:29:50 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "libft.h"
 
 static void	error_file(t_proc *proc, int size)
 {

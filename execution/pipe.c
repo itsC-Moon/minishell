@@ -6,15 +6,12 @@
 /*   By: zkotbi <student.h42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 21:59:43 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/19 12:01:06 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:50:59 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "minishell.h"
-#include "libft.h"
-#include <stdio.h>
-#include <sys/_types/_size_t.h>
-#include <sys/wait.h>
 
 static void	ft_close(int *fd)
 {
@@ -61,6 +58,8 @@ static void	wait_process(int *pids, int *status, int size)
 	while (i < size)
 	{
 		waitpid(pids[i], status, 0);
+		if (!(WIFEXITED(*status)) && WTERMSIG(*status) == SIGINT)
+			check_exit(SIGI, SET);
 		i++;
 	}
 }

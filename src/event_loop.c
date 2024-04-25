@@ -6,7 +6,7 @@
 /*   By: zkotbi <hibenouk@1337.ma>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 20:33:26 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/19 20:04:11 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/25 17:40:59 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 static void	execute(t_mini *mini)
 {
 	init_procs(mini);
+	get_status(mini->status, SET);
 	clean_mini(mini);
 }
 
@@ -29,6 +30,7 @@ void	minishell(t_env *envp)
 	while (1)
 	{
 		signal(SIGQUIT, SIG_IGN);
+		check_exit(NORM, SET);
 		buffer = readline("nudejs>$ ");
 		if (!buffer)
 			return ;
@@ -43,7 +45,6 @@ void	minishell(t_env *envp)
 		if (mini.size == 0 && mini.nb_doc == 0)
 			continue ;
 		execute(&mini);
-		get_status(mini.status, SET);
 		tcsetattr(STDIN_FILENO, TCSANOW, &term);
 	}
 }

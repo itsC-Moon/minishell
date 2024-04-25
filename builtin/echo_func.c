@@ -6,12 +6,11 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:32:55 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/19 11:44:20 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/21 12:30:50 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "libft.h"
 
 static void	print_echo_args(char **args, int outfile)
 {

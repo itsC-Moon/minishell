@@ -6,12 +6,11 @@
 /*   By: zkotbi <hibenouk@1337.ma>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 18:44:56 by zkotbi            #+#    #+#             */
-/*   Updated: 2024/04/18 15:40:41 by zkotbi           ###   ########.fr       */
+/*   Updated: 2024/04/21 12:30:22 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "libft.h"
 
 static int	error_builtin_file(t_proc	*proc, int size, t_file file)
 {

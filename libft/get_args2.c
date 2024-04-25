@@ -6,11 +6,10 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 16:15:30 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/03/13 15:59:54 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/21 12:26:41 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
 
 static int	count_word(const char *str)
