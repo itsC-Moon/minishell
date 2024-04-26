@@ -6,7 +6,7 @@
 /*   By: hibenouk <hibenouk@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 01:29:56 by hibenouk          #+#    #+#             */
-/*   Updated: 2024/04/25 17:50:15 by hibenouk         ###   ########.fr       */
+/*   Updated: 2024/04/26 10:02:44 by hibenouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,11 @@ static int	init_cmd(t_proc	*proc, t_env	*env)
 void	init_procs(t_mini	*mini)
 {
 	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, signal_ctrl_doc);
 	if (fork_here_doc(mini) == 1)
 		return ;
 	signal(SIGQUIT, signal_ignore);
+	signal(SIGINT, signal_ctrl_c);
 	if (mini->size > 0)
 		in_exec(IN);
 	if (mini->size == 1)
